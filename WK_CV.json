@@ -346,6 +346,23 @@
     "incortx": {
         "organization_name": "INCORTX Research Lab",
         "url": "https://classes.incortx.com",
-        "role": "Academic Portal"
+        "role": "Founder & Academic Director",
+        "philosophy": "A cognitive processing core that intelligently fuses innovation and technology, architecting advanced systems capable of deep analytical reasoning and seamless universal integration.",
+        "acronym_breakdown": {
+            "IN": {
+                "prefix": "IN-",
+                "meanings": ["Intelligence", "Inference", "Insight", "Integration", "Incorporate", "Innovation"]
+            },
+            "COR": {
+                "prefix": "COR",
+                "meanings": ["Cortex", "Core", "Corpus", "Correlation", "Coordination", "Correction"]
+            },
+            "TX": {
+                "prefix": "-TX",
+                "meanings": ["Technology", "Transformation", "Transmission", "Transfer", "Tensor", "Transaction"]
+            }
+        },
+        "mission": "Exclusive academic resources, engineering fundamentals, and advanced research materials designed for elite scientists, researchers, and innovators.",
+        "portal_url": "https://classes.incortx.com"
     }
 }
