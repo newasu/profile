@@ -277,7 +277,7 @@ body > .container .fade-up {
                     <p>University Lecturer · KMITL School of Science</p>
                     <div class="meta-chips">
                         <span class="meta-chip">Ph.D. IT · KMITL</span>
-                        <a href="mailto:wasu.ku@kmitl.ac.th" class="meta-chip" style="text-decoration:none;">wasu.ku@kmitl.ac.th</a>
+                        <span class="meta-chip" id="instructor-email" data-u="wasu.ku" data-d="kmitl.ac.th">wasu.ku&#64;kmitl.ac.th</span>
 
                         <span class="meta-chip">🔗 linkedin.com/in/wkneil</span>
                         <span class="meta-chip">Computer Vision</span>
@@ -388,3 +388,16 @@ body > .container .fade-up {
                 </li>
             </ul>
         </div>
+<script>
+(function(){
+    var el = document.getElementById('instructor-email');
+    if (!el) return;
+    var addr = el.dataset.u + '@' + el.dataset.d;
+    var a = document.createElement('a');
+    a.href = 'mai' + 'lto:' + addr;
+    a.textContent = addr;
+    a.className = el.className;
+    a.style.textDecoration = 'none';
+    el.parentNode.replaceChild(a, el);
+})();
+</script>
