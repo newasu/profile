@@ -7,7 +7,7 @@ This document consolidates all core design rules, layout architectures, export s
 ## 📂 1. Portfolio Architecture & Data Profiles
 
 ### Dual-Mode Separation Rule
-- **WK_CV.html** operates in two separate modes controlled by the interactive header tabs:
+- **index.html** operates in two separate modes controlled by the interactive header tabs:
   1. **Resume (1-Page)**: A high-level professional summary.
   2. **CV (2-Pages)**: A detailed and comprehensive academic curriculum vitae.
 - Data is mapped statically in HTML elements using values from `WK_CV.json` to enable zero-CORS, lightweight, and offline-compatible rendering.
