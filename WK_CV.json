@@ -1,0 +1,346 @@
+{
+    "personal_information": {
+        "first_name": "Wasu",
+        "last_name": "Kudisthalert",
+        "nickname": "Neil",
+        "birthdate": {
+            "day": 26,
+            "month": 12,
+            "year": 1989
+        },
+        "sex": "Male",
+        "nationality": "Thai",
+        "address": "429/17 Chaloem Phrakiat Rama IX Rd. Prawet Bangkok Thailand 10250",
+        "phone": "(+66) 92-693-6354",
+        "email": {
+            "work": {
+                "address": "wasu.ku@kmitl.ac.th",
+                "display": "wasu.ku@kmitl.ac.th"
+            },
+            "personal": {
+                "address": "wasu.kudisthalert@gmail.com",
+                "display": "wasu.kudisthalert@gmail.com"
+            }
+        },
+        "linkedin": {
+            "url": "https://www.linkedin.com/in/wkneil",
+            "display": "WKNEIL"
+        }
+    },
+    "education": [
+        {
+            "order": 1,
+            "institution": {
+                "short_name": "ACSP",
+                "full_name": "Assumption College Samutprakarn School"
+            },
+            "degree": "HIGH SCHOOL",
+            "graduation_date": "Apr 2008"
+        },
+        {
+            "order": 2,
+            "institution": {
+                "short_name": "KMITL",
+                "full_name": "King Mongkut's Institute of Technology Ladkrabang"
+            },
+            "degree": "BSC IN COMPUTER SCIENCE",
+            "graduation_date": "Jun 2012"
+        },
+        {
+            "order": 3,
+            "institution": {
+                "short_name": "KMITL",
+                "full_name": "King Mongkut's Institute of Technology Ladkrabang"
+            },
+            "degree": "MSC IN INFORMATION SCIENCE",
+            "graduation_date": "Jun 2017"
+        },
+        {
+            "order": 4,
+            "institution": {
+                "short_name": "KMITL",
+                "full_name": "King Mongkut's Institute of Technology Ladkrabang"
+            },
+            "degree": "PH.D. IN INFORMATION TECHNOLOGY",
+            "graduation_date": "Dec 2022"
+        }
+    ],
+    "skills": {
+        "technology_stack": [
+            "Python",
+            "OpenCV",
+            "SQL",
+            "PyTorch",
+            "TensorFlow",
+            "Keras",
+            "Hugging Face",
+            "Ultralytics",
+            "XGBoost",
+            "C++",
+            "Java/JSP",
+            "VB.Net"
+        ],
+        "productionization": [
+            "Docker",
+            "Kubernetes",
+            "CI/CD",
+            "GitLab",
+            "FastAPI",
+            "Kafka",
+            "Argo CD",
+            "Harbor"
+        ],
+        "cloud_platforms": [
+            "AWS (SageMaker, EC2, S3)",
+            "Runpod"
+        ],
+        "languages": [
+            "Thai",
+            "English"
+        ]
+    },
+    "interested_research_topics": [
+        "Computer Vision",
+        "Machine Learning",
+        "Vision-Language Models (VLMs)",
+        "Edge AI",
+        "3D Spatial Intelligence",
+        "Biometrics",
+        "Chemoinformatics",
+        "Bioinformatics"
+    ],
+    "work_experience": {
+        "summary": [
+            {
+                "order": 1,
+                "role": "Project Manager & Full-Stack Developer (Consolidated)",
+                "company_type": "Various Digital Consultancies & Public Sector Projects",
+                "client_organization": "National Center for Genetic Engineering and Biotechnology (BIOTEC) & Various Thai Government Agencies",
+                "duration": "Jul. 2012 - Mar. 2023",
+                "location": "Bangkok & Pathum Thani, Thailand",
+                "summary": "Engineered a wide array of enterprise-grade solutions: architected nationwide GIS/demographic visualization systems and secure data warehouses for multiple government ministries; designed an interactive scientific visualization platform and centralized identity access systems for BIOTEC; and built robust Java-based Content Management Systems (CMS) for national educational institutes."
+            },
+            {
+                "order": 2,
+                "role": "Data Scientist (Independent Consultant)",
+                "company_type": "Independent AI & Computer Vision Consultant",
+                "client_organization": "Commercial Enterprises (Private Sector)",
+                "duration": "2020 and 2021",
+                "location": "Bangkok, Thailand",
+                "summary": "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing and liveness detection algorithms for high-security commercial deployments."
+            },
+            {
+                "order": 3,
+                "role": "Lead Machine Learning Engineer",
+                "company_type": "Deep-Tech Venture Builder & AI/Robotics Subsidiary of a Global Fortune 500 Energy Conglomerate",
+                "client_organization": null,
+                "duration": "Apr. 2023 - Mar. 2026",
+                "location": "Bangkok, Thailand",
+                "summary": "Spearheaded technical machine learning strategy and directed engineering teams to deploy drone and CCTV-based anomaly detection pipelines across offices, factories, and remote areas for active surveillance, threat detection, alerting, and proactive recommendations, while integrating Vision-Language Model (VLM) agents and edge-computing solutions."
+            },
+            {
+                "order": 4,
+                "role": "University Lecturer",
+                "company_type": "King Mongkut's Institute of Technology Ladkrabang (KMITL)",
+                "client_organization": null,
+                "duration": "Apr. 2026 - Present",
+                "location": "Bangkok, Thailand",
+                "summary": "Direct academic curriculum development and lead advanced AI research focusing on Computer Vision, Vision-Language Models (VLMs), and Data Science, while bridging the gap between academic research and industry-ready ML production pipelines."
+            }
+        ],
+        "detail": [
+            {
+                "order": 1,
+                "company": "AVALANT",
+                "role": "Java Developer",
+                "client_organization": "The Institute for the Promotion of Teaching Science and Technology",
+                "duration": "Jul. 2012-Dec. 2012",
+                "location": "Bangkok, Thailand",
+                "responsibilities": [
+                    "Engineered a Java-based Content Management System (CMS) for the centralized orchestration of multimedia assets and educational publications."
+                ]
+            },
+            {
+                "order": 2,
+                "company": "THE EXPERTISE",
+                "role": "Project Manager & Data Visualisation & Application Developer",
+                "client_organization": "Various Government Agencies (Marine Dept., Dept. of Health Service Support, National Statistical Office, etc.)",
+                "duration": "Mar. 2013-Mar. 2023",
+                "location": "Bangkok, Thailand",
+                "responsibilities": [
+                    "Developed nationwide GIS and demographic data visualizations utilizing ArcGIS and the Oracle Business Intelligence portal.",
+                    "Architected enterprise data warehouses, led full-stack web development, integrated GIS systems, and directed a 15-application Single Sign-On (SSO) integration via Oracle Web Center."
+                ]
+            },
+            {
+                "order": 3,
+                "company": "PROJECT-BASED PROFESSIONAL",
+                "role": "Web Developer",
+                "client_organization": "National Center for Genetic Engineering and Biotechnology (BIOTEC)",
+                "duration": "Apr. 2018-Sep. 2018",
+                "location": "Pathum Thani, Thailand",
+                "responsibilities": [
+                    "Architected an interactive scientific data visualization platform and a centralized identity management system for secure administrative control."
+                ]
+            },
+            {
+                "order": 4,
+                "company": "PROJECT-BASED PROFESSIONAL",
+                "role": "Data Scientist",
+                "client_organization": "Private Sector",
+                "duration": "2020 and 2021",
+                "location": "Bangkok, Thailand",
+                "responsibilities": [
+                    "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing (liveness detection) mechanisms for commercial enterprise deployments."
+                ]
+            },
+            {
+                "order": 5,
+                "company": "AI & ROBOTICS VENTURES (ARV)",
+                "role": "Lead Machine Learning Engineer",
+                "client_organization": null,
+                "duration": "Apr. 2023 - Mar 2026",
+                "location": "Bangkok Thailand",
+                "responsibilities": [
+                    "Leadership & Strategy: Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise-grade AI initiatives from conceptual research to production.",
+                    "Applied Computer Vision Pipelines: Architected and deployed diverse real-time vision systems, including drone-based thermal anomaly detection, super-resolution license plate tracking, and universal visual feature extraction for complex offshore corrosion segmentation.",
+                    "CCTV Surveillance & Proactive Analytics: Engineered advanced anomaly detection pipelines using CCTV networks in corporate offices, manufacturing plants, and remote facilities for continuous surveillance, real-time threat detection, automated alerting, and proactive risk recommendations.",
+                    "VLM & Agentic AI: Developed state-of-the-art Vision-Language Model (VLM) agents to perform semantic visual analysis and automated report generation for complex industrial and operational workflows.",
+                    "Edge AI R&D: Pioneered IoT edge-computing research for non-intrusive activity estimation."
+                ]
+            },
+            {
+                "order": 6,
+                "company": "KING MONGKUT'S INSTITUTE OF TECHNOLOGY LADKRABANG (KMITL)",
+                "role": "University Lecturer",
+                "client_organization": null,
+                "duration": "Apr. 2026 - Present",
+                "location": "Bangkok, Thailand",
+                "responsibilities": [
+                    "Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, Vision-Language Models (VLMs), and Data Science.",
+                    "Advise and mentor graduate researchers and machine learning engineers. bridging the gap between theoretical Al frameworks and industry-ready production pipelines.",
+                    "Engaged in public and institutional academic services, delivering technical consultations, community knowledge-sharing initiatives, and contributing to academic committees."
+                ]
+            }
+        ],
+        "research_experience": [
+            {
+                "order": 1,
+                "laboratory": "DATA SCIENCE & MACHINE LEARNING RESEARCH (DSMLR) LABORATORY",
+                "role": "RESEARCHER",
+                "duration": "2016-2022",
+                "location": "Bangkok, Thailand",
+                "description": "Spearheaded interdisciplinary Al research encompassing biometric face verification, automated computer vision for malaria parasite classification, and ML-based virtual screening for drug discovery."
+            },
+            {
+                "order": 2,
+                "laboratory": "NATIONAL INSTITUTE, KURUME COLLEGE",
+                "role": "EXCHANGE RESEARCHER",
+                "duration": "2017",
+                "location": "Fukuoka, Japan",
+                "description": "Developed a novel pixel-level voting algorithm to extend the depth of field in microscopic imaging, synthesizing high-fidelity, in-focus captures of blood slides."
+            },
+            {
+                "order": 3,
+                "laboratory": "PROTEIN-LIGAND ENGINEERING AND MOLECULAR BIOLOGY LABORATORY, The National Center for Genetic Engineering and Biotechnology (BIOTEC)",
+                "role": "PHD RESEARCHER",
+                "duration": "2018-2019",
+                "location": "Pathum Thani, Thailand",
+                "description": "Applied sophisticated computer vision models to automate erythrocyte detection and precisely classify malaria infection stages."
+            },
+            {
+                "order": 4,
+                "laboratory": "BIOMETRICS AND DATA PATTERN ANALYTICS (BIDA) LABORATORY, UNIVERSIDAD AUTÓNOMA DE MADRID",
+                "role": "VISITING RESEARCHER (INTERNSHIP)",
+                "duration": "2019",
+                "location": "Madrid, Spain",
+                "description": "Curated a novel biometric dataset and engineered advanced machine learning architectures specifically optimized for high-accuracy face verification tasks."
+            }
+        ]
+    },
+    "publications": [
+        {
+            "order": 1,
+            "ENTRYTYPE": "inproceedings",
+            "ID": "kudisthalert2016coefficient",
+            "author": "Kudisthalert, Wasu and Pasupa, Kitsuchart",
+            "title": "A coefficient comparison of weighted similarity extreme learning machine for drug screening",
+            "booktitle": "2016 8th International Conference on Knowledge and Smart Technology (KST)",
+            "pages": "43--48",
+            "year": 2016,
+            "rank_quartile": "CORE Rank: C"
+        },
+        {
+            "order": 2,
+            "ENTRYTYPE": "inproceedings",
+            "ID": "kudisthalert2016clustering",
+            "author": "Kudisthalert, Wasu and Pasupa, Kitsuchart",
+            "title": "Clustering-based weighted extreme learning machine for classification in drug discovery process",
+            "booktitle": "Neural Information Processing",
+            "pages": "441--450",
+            "year": 2016,
+            "publisher": "Springer International Publishing",
+            "address": "Cham",
+            "rank_quartile": "CORE Rank: A"
+        },
+        {
+            "order": 3,
+            "ENTRYTYPE": "article",
+            "ID": "pasupa2018virtual",
+            "author": "Pasupa, Kitsuchart and Kudisthalert, Wasu",
+            "title": "Virtual screening by a new clustering-based weighted similarity extreme learning machine approach",
+            "journal": "PLOS ONE",
+            "volume": "13",
+            "pages": "1--25",
+            "month": "April",
+            "year": 2018,
+            "rank_quartile": "Q1"
+        },
+        {
+            "order": 4,
+            "ENTRYTYPE": "article",
+            "ID": "kudisthalert2020counting",
+            "author": "Kudisthalert, Wasu and Pasupa, Kitsuchart and Tongsima, Sissades",
+            "title": "Counting and classification of malarial parasite from giemsa-stained thin film images",
+            "journal": "IEEE Access",
+            "volume": "8",
+            "pages": "78663--78682",
+            "year": 2020,
+            "rank_quartile": "Q1"
+        },
+        {
+            "order": 5,
+            "ENTRYTYPE": "article",
+            "ID": "kudisthalert2022selm",
+            "author": "Kudisthalert, Wasu and Pasupa, Kitsuchart and Morales, Aythami and Fierrez, Julian",
+            "title": "SELM: Siamese extreme learning machine with application to face biometrics",
+            "journal": "Neural Computing and Applications",
+            "year": 2022,
+            "rank_quartile": "Q1"
+        },
+        {
+            "order": 6,
+            "ENTRYTYPE": "inproceedings",
+            "ID": "cherdchusakulchai2024online",
+            "author": "Cherdchusakulchai, Riu and Phimsiri, Sasin and Trairattanapa, Visarut and Tungjitnob, Suchat and Kudisthalert, Wasu and Kiawjak, Pornprom and Thamwiwatthana, Ek and Borisuitsawat, Phawat and Tosawadi, Teepakorn and Choppradit, Pakcheera and Mahakijdechachai, Kasisdis and Vatathanavaro, Supawit and Saetan, Worawit and Suttichaya, Vasin",
+            "title": "Online multi-camera people tracking with spatial-temporal mechanism and anchor-feature hierarchical clustering",
+            "booktitle": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops",
+            "pages": "7198--7207",
+            "month": "June",
+            "year": 2024,
+            "rank_quartile": "CORE Rank: A*"
+        },
+        {
+            "order": 7,
+            "ENTRYTYPE": "inproceedings",
+            "ID": "phimsiri2025trafficinternvl",
+            "author": "Phimsiri, Sasin and Sunpawatr, Sarut and Cherdchusakulchai, Riu and Kiawjak, Pornprom and Tosawadi, Teepakorn and Tungjitnob, Suchat and Trairattanapa, Visarut and Vatathanavaro, Supawit and Kudisthalert, Wasu and Utintu, Chaitat and Saetan, Worawit and Kongsawat, Nathamon and Borisuitsawat, Phawat and Mahakijdechachai, Kasisdis and Su-Inn, Nitipan and Thamwiwatthana, Ek and Suttichaya, Vasin",
+            "title": "Trafficinternvl: Spatially-guided fine-tuning with caption refinement for fine-grained traffic safety captioning and visual question answering",
+            "booktitle": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops",
+            "pages": "5299--5306",
+            "month": "October",
+            "year": 2025,
+            "rank_quartile": "CORE Rank: A*"
+        }
+    ]
+}
