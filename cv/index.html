@@ -254,7 +254,7 @@
 <body class="show-resume antialiased h-full text-slate-800">
 
     <!-- INTERACTIVE CONTROL BAR (no-print) -->
-    <header class="no-print sticky top-0 z-50 w-full py-2.5 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-4 md:px-6 flex flex-row flex-nowrap items-center justify-between gap-3 overflow-x-auto">
+    <header class="no-print sticky top-0 z-50 w-full py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-4 md:px-6 flex flex-wrap items-center justify-center sm:justify-between gap-3 sm:gap-4">
         <!-- Logo / Title -->
         <div class="flex items-center gap-2.5 flex-shrink-0">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-slate-500 flex items-center justify-center text-white font-bold text-base shadow-sm">WK</div>
@@ -963,6 +963,34 @@
 
     <!-- INLINE JAVASCRIPT FOR TOGGLE & DARK MODE CONTROLS -->
     <script>
+        // Dynamic A4 Page Scaling for Small Screens
+        function adjustScale() {
+            if (window.matchMedia('print').matches) return;
+            const main = document.querySelector('main');
+            const pages = document.querySelectorAll('.a4-page');
+            if (!main || pages.length === 0) return;
+            
+            const availableWidth = main.clientWidth - 32; 
+            const targetWidth = 794; 
+            
+            let scale = 1;
+            if (availableWidth < targetWidth) {
+                scale = availableWidth / targetWidth;
+            }
+            
+            pages.forEach(page => {
+                page.style.transform = `scale(${scale})`;
+                page.style.transformOrigin = 'top center';
+                
+                const originalHeight = page.offsetHeight;
+                const scaledHeight = originalHeight * scale;
+                page.style.marginBottom = `-${originalHeight - scaledHeight}px`;
+            });
+        }
+        window.addEventListener('resize', adjustScale);
+        window.addEventListener('load', adjustScale);
+        setTimeout(adjustScale, 50);
+
         // Update document title dynamically based on active view and masking status
         function updateDocumentTitle() {
             const isCv = document.body.classList.contains('show-cv');

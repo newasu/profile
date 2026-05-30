@@ -116,6 +116,65 @@ body {
     .cv-grid {
         grid-template-columns: 1fr;
     }
+    
+    .pub-list li {
+        flex-wrap: wrap;
+        white-space: normal;
+        gap: 6px 8px;
+        padding: 12px 14px;
+    }
+    
+    .pub-list li strong.pub-title {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        flex-basis: 100%;
+        margin-top: 2px;
+    }
+    
+    .pub-list li.tier-a-star:hover,
+    .pub-list li.tier-q1:hover,
+    .pub-list li.tier-a:hover,
+    .pub-list li.tier-c:hover {
+        transform: none !important; /* Prevent sticky hover translate shifts on mobile */
+    }
+}
+
+@media(max-width:640px) {
+    .instructor-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .avatar-badge {
+        width: 80px;
+        height: 80px;
+        font-size: 1.6rem;
+    }
+    
+    .meta-chips {
+        justify-content: center;
+    }
+}
+
+@media(max-width:480px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    body > .container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    
+    .instructor-meta h3 {
+        font-size: 1.3rem;
+    }
+    
+    .cv-card {
+        padding: 16px 18px;
+    }
 }
 
 .cv-card {
