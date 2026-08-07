@@ -44,7 +44,8 @@
                 "full_name": "King Mongkut's Institute of Technology Ladkrabang"
             },
             "degree": "BSC IN COMPUTER SCIENCE",
-            "graduation_date": "Jun 2012"
+            "graduation_date": "Apr 2012",
+            "graduation_date_full": "2012-04-30"
         },
         {
             "order": 3,
@@ -53,7 +54,8 @@
                 "full_name": "King Mongkut's Institute of Technology Ladkrabang"
             },
             "degree": "MSC IN INFORMATION SCIENCE",
-            "graduation_date": "Jun 2017"
+            "graduation_date": "Jun 2017",
+            "graduation_date_full": "2017-06-26"
         },
         {
             "order": 4,
@@ -62,7 +64,8 @@
                 "full_name": "King Mongkut's Institute of Technology Ladkrabang"
             },
             "degree": "PH.D. IN INFORMATION TECHNOLOGY",
-            "graduation_date": "Dec 2022"
+            "graduation_date": "Dec 2022",
+            "graduation_date_full": "2022-12-01"
         }
     ],
     "skills": {
@@ -200,7 +203,7 @@
                 "company": "AI & ROBOTICS VENTURES (ARV)",
                 "role": "Lead Machine Learning Engineer",
                 "client_organization": null,
-                "duration": "Apr. 2023 - Mar 2026",
+                "duration": "Apr. 2023 - Mar. 2026",
                 "location": "Bangkok Thailand",
                 "responsibilities": [
                     "Leadership & Strategy: Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise-grade AI initiatives from conceptual research to production.",

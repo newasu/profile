@@ -18,3 +18,9 @@ __pycache__/
 venv/
 env/
 .env
+
+# Personal documents (not for the repo)
+Coauthorship_Certification_Kudisthalert.pdf
+Coauthorship_Certification_Kudisthalert.html
+KMITL_Salary_Experience_Request.pdf
+KMITL_Salary_Experience_Request.html
