@@ -41,7 +41,7 @@ This document consolidates all core design rules, layout architectures, export s
 - **Refined Theme**: Utilize an ultra-premium **Imperial Navy** (`#1b365d` brand brand-600), **Cool Slate** (`#475569`), and **Platinum Silver** color system.
 
 ### Contact Info & Bio List Styling
-- **Header Address**: The address `Prawet, Bangkok, Thailand` must reside at the very end of the inline contact details row. Icons must precede their respective text labels.
+- **Header Address**: The address `Bangkok, Thailand` (TH: `กรุงเทพฯ ประเทศไทย`) must reside at the very end of the inline contact details row, and the whole row must fit on one line in both languages. Icons must precede their respective text labels.
 - **Personal Bio Boxes**: Rendered as ultra-minimal inline tables/lists without background boxes or heavy borders.
 - **Gender & Birthday Alignment**: Render `Sex: Male` inside the Personal Bio box on both views. The order must place **Sex** before **Birthdate**.
 - **No Personal Email**: Only the academic email `wasu.ku@kmitl.ac.th` may be displayed in the headers. Personal emails (e.g. gmail) are suppressed.
