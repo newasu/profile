@@ -1090,11 +1090,11 @@
             
             if (isPublic) {
                 icon.className = 'ph ph-eye-slash text-base text-blue-400';
-                label.innerText = UI_LABELS[currentLang].masked;
+                label.innerText = 'Masked';
                 label.className = 'text-[10px] font-semibold text-blue-400 hidden sm:inline';
             } else {
                 icon.className = 'ph ph-eye text-base text-slate-300';
-                label.innerText = UI_LABELS[currentLang].revealed;
+                label.innerText = 'Revealed';
                 label.className = 'text-[10px] font-semibold text-slate-300 hidden sm:inline';
             }
             updateDocumentTitle();
@@ -1123,10 +1123,6 @@
         // Publication citations are intentionally not translated.
         const TH_TEXT = {
             "Wasu Kudisthalert, Ph.D.": "ดร.วสุ คูดิษฐาเลิศ",
-            "Academic &amp; Professional Portfolio": "พอร์ตโฟลิโอด้านวิชาการและวิชาชีพ",
-            "Resume (1-Page)": "เรซูเม่ (1 หน้า)",
-            "CV (2-Pages)": "ซีวี (2 หน้า)",
-            "Profile": "โปรไฟล์",
             "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> Prawet, Bangkok, Thailand": "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> ประเวศ <span class=\"th-word\">กรุงเทพมหานคร</span>",
             "<i class=\"ph ph-identification-card\"></i> Personal Bio": "<i class=\"ph ph-identification-card\"></i> ข้อมูลส่วนตัว",
             "Nickname": "ชื่อเล่น",
@@ -1243,11 +1239,6 @@
             "Page 2 of 2": "หน้า 2 จาก 2"
 };
 
-        const UI_LABELS = {
-            en: { masked: 'Masked', revealed: 'Revealed' },
-            th: { masked: 'ซ่อนชื่อ', revealed: 'แสดงชื่อ' }
-        };
-
         let currentLang = 'en';
         let i18nTargets = null;
 
@@ -1255,12 +1246,12 @@
             return currentLang === 'th' ? ' - TH' : '';
         }
 
-        // Record every translatable element once, while the page is still in English
+        // Record every translatable element once, while the page is still in English.
+        // Only the A4 pages are translated; the control bar stays English.
         function collectI18nTargets() {
             const targets = [];
             const claimed = new Set();
-            document.querySelectorAll('header.no-print *, .a4-page *').forEach(el => {
-                if (el.id === 'anonymize-text' || el.id === 'lang-text') return;
+            document.querySelectorAll('.a4-page *').forEach(el => {
                 for (let a = el.parentElement; a; a = a.parentElement) {
                     if (claimed.has(a)) return;
                 }
@@ -1282,10 +1273,6 @@
             document.documentElement.lang = currentLang;
             document.body.classList.toggle('lang-th', isTh);
             document.getElementById('lang-text').innerText = isTh ? 'TH' : 'EN';
-
-            const maskLabel = document.getElementById('anonymize-text');
-            const isPublic = document.body.classList.contains('public-mode');
-            maskLabel.innerText = UI_LABELS[currentLang][isPublic ? 'masked' : 'revealed'];
 
             try {
                 localStorage.setItem('cv-lang', currentLang);

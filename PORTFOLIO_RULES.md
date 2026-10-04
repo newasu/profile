@@ -138,6 +138,7 @@ This document consolidates all core design rules, layout architectures, export s
 
 - A `TH`/`EN` pill in the control bar calls `toggleLanguage()`; the choice persists in `localStorage` (`cv-lang`) and `?lang=th` in the URL overrides it.
 - Thai text lives in the `TH_TEXT` object, **keyed by the element's English innerHTML (whitespace-collapsed)**. Editing an English string means updating its key too, or that element silently stays English in Thai mode.
+- Only the A4 pages are translated; the control bar (header buttons, mask label) always stays English.
 - Publication citations and the Research Focus tags stay in English. Thai dates use พ.ศ. (CE + 543) with abbreviated Thai months.
 - Thai wording: technical terms and industry job titles stay in English (Computer Vision, Data Science, ML production pipeline, Lead Machine Learning Engineer); native Thai words, official Thai titles (อาจารย์มหาวิทยาลัย) and organisation names stay Thai.
 - Thai typography: `body.lang-th` turns off justify, letter-spacing (tracking) and italics; transliterated loanwords are wrapped in `.th-word` (nowrap) so the browser does not split them mid-word.
