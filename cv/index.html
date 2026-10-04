@@ -238,16 +238,16 @@
             color: #475569;
         }
 
-        /* Thai mode: no synthetic italics on Thai text */
-        body.lang-th .italic,
-        body.lang-th .section-heading {
+        /* Thai mode: no synthetic italics on Thai text (A4 pages only; the control bar never changes) */
+        body.lang-th .a4-page .italic,
+        body.lang-th .a4-page .section-heading {
             font-style: normal;
         }
         /* Thai has no spaces between words: justify opens big gaps, tracking pulls vowels off their consonants */
-        body.lang-th .text-justify {
+        body.lang-th .a4-page .text-justify {
             text-align: left;
         }
-        body.lang-th [class*="tracking-"] {
+        body.lang-th .a4-page [class*="tracking-"] {
             letter-spacing: normal;
         }
         .th-word {
@@ -317,7 +317,7 @@
 
             <button onclick="toggleLanguage()" class="h-8 px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none flex-shrink-0" title="Switch Language (EN / TH)">
                 <i class="ph ph-translate text-base text-slate-400 hidden sm:inline"></i>
-                <span id="lang-text" class="text-[10px] font-semibold tracking-wider">EN</span>
+                <span id="lang-text" class="text-[10px] font-semibold tracking-wider inline-block w-[15px] text-center">EN</span>
             </button>
 
             <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Toggle Theme">

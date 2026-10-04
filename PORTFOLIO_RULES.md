@@ -141,6 +141,6 @@ This document consolidates all core design rules, layout architectures, export s
 - Only the A4 pages are translated; the control bar (header buttons, mask label) always stays English.
 - Publication citations and the Research Focus tags stay in English. Thai dates use พ.ศ. (CE + 543) with abbreviated Thai months.
 - Thai wording: technical terms and industry job titles stay in English (Computer Vision, Data Science, ML production pipeline, Lead Machine Learning Engineer); native Thai words, official Thai titles (อาจารย์มหาวิทยาลัย) and organisation names stay Thai.
-- Thai typography: `body.lang-th` turns off justify, letter-spacing (tracking) and italics; transliterated loanwords are wrapped in `.th-word` (nowrap) so the browser does not split them mid-word.
+- Thai typography: `body.lang-th .a4-page` (scoped to the pages, never the control bar, or the bar reflows on every switch) turns off justify, letter-spacing (tracking) and italics; transliterated loanwords are wrapped in `.th-word` (nowrap) so the browser does not split them mid-word.
 - Fonts: `IBM Plex Sans Thai` / `Noto Serif Thai` sit after the Latin fonts in each stack, so English glyphs are unchanged.
 - Exports and the print title get a ` - TH` suffix in Thai mode. Resume must still print as 1 page and CV as 2 pages in both languages.
