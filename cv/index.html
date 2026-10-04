@@ -24,8 +24,8 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'IBM Plex Sans Thai', 'system-ui', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'Noto Serif Thai', 'Georgia', 'serif'],
                     }
                 }
             }
@@ -34,7 +34,7 @@
     <!-- Google Fonts: Cormorant Garamond (Prestige Serif) & Plus Jakarta Sans (Clean geometric sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- html2canvas library for high-fidelity client-side PNG rendering -->
@@ -202,7 +202,7 @@
 
         /* Editorial Section Headings */
         .section-heading {
-            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-family: 'Cormorant Garamond', 'Noto Serif Thai', Georgia, serif;
             font-style: italic;
             font-weight: 600;
             font-size: 14px;
@@ -236,6 +236,22 @@
         }
         .dark .bullet-point::before {
             color: #475569;
+        }
+
+        /* Thai mode: no synthetic italics on Thai text */
+        body.lang-th .italic,
+        body.lang-th .section-heading {
+            font-style: normal;
+        }
+        /* Thai has no spaces between words: justify opens big gaps, tracking pulls vowels off their consonants */
+        body.lang-th .text-justify {
+            text-align: left;
+        }
+        body.lang-th [class*="tracking-"] {
+            letter-spacing: normal;
+        }
+        .th-word {
+            white-space: nowrap;
         }
 
         /* Interactive toggle slide animation */
@@ -297,6 +313,11 @@
             <button onclick="togglePublicMode()" class="w-8 h-8 sm:w-auto sm:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center sm:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none" title="Toggle Company Anonymization">
                 <i id="anonymize-icon" class="ph ph-eye-slash text-base text-blue-400"></i>
                 <span id="anonymize-text" class="text-[10px] font-semibold text-blue-400 hidden sm:inline">Masked</span>
+            </button>
+
+            <button onclick="toggleLanguage()" class="h-8 px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none flex-shrink-0" title="Switch Language (EN / TH)">
+                <i class="ph ph-translate text-base text-slate-400 hidden sm:inline"></i>
+                <span id="lang-text" class="text-[10px] font-semibold tracking-wider">EN</span>
             </button>
 
             <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Toggle Theme">
@@ -1009,7 +1030,7 @@
             const isCv = document.body.classList.contains('show-cv');
             const isMasked = document.body.classList.contains('public-mode');
             const modeName = isCv ? 'CV' : 'Resume';
-            const maskSuffix = isMasked ? ' - Masked' : '';
+            const maskSuffix = (isMasked ? ' - Masked' : '') + langSuffix();
             
             // Format today's date in yymmdd (e.g. 260526)
             const today = new Date();
@@ -1069,11 +1090,11 @@
             
             if (isPublic) {
                 icon.className = 'ph ph-eye-slash text-base text-blue-400';
-                label.innerText = 'Masked';
+                label.innerText = UI_LABELS[currentLang].masked;
                 label.className = 'text-[10px] font-semibold text-blue-400 hidden sm:inline';
             } else {
                 icon.className = 'ph ph-eye text-base text-slate-300';
-                label.innerText = 'Revealed';
+                label.innerText = UI_LABELS[currentLang].revealed;
                 label.className = 'text-[10px] font-semibold text-slate-300 hidden sm:inline';
             }
             updateDocumentTitle();
@@ -1095,6 +1116,210 @@
                 console.warn('Storage access blocked:', e);
             }
         }
+
+        // ===== EN / TH LANGUAGE SWITCH =====
+        // Thai text is keyed by the element's English innerHTML (whitespace-collapsed).
+        // Editing an English string means updating its key here too, or that element stays English in Thai mode.
+        // Publication citations are intentionally not translated.
+        const TH_TEXT = {
+            "Wasu Kudisthalert, Ph.D.": "ดร.วสุ คูดิษฐาเลิศ",
+            "Academic &amp; Professional Portfolio": "พอร์ตโฟลิโอด้านวิชาการและวิชาชีพ",
+            "Resume (1-Page)": "เรซูเม่ (1 หน้า)",
+            "CV (2-Pages)": "ซีวี (2 หน้า)",
+            "Profile": "โปรไฟล์",
+            "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> Prawet, Bangkok, Thailand": "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> ประเวศ <span class=\"th-word\">กรุงเทพมหานคร</span>",
+            "<i class=\"ph ph-identification-card\"></i> Personal Bio": "<i class=\"ph ph-identification-card\"></i> ข้อมูลส่วนตัว",
+            "Nickname": "ชื่อเล่น",
+            "Neil": "นีล",
+            "Nationality": "สัญชาติ",
+            "Thai": "ไทย",
+            "Sex": "เพศ",
+            "Male": "ชาย",
+            "Birthdate": "วันเกิด",
+            "26 Dec 1989": "26 ธ.ค. 2532",
+            "<i class=\"ph ph-graduation-cap\"></i> Education": "<i class=\"ph ph-graduation-cap\"></i> การศึกษา",
+            "Ph.D. in Information Technology": "ปร.ด. (เทคโนโลยีสารสนเทศ)",
+            "KMITL | Dec 2022": "สจล. | ธ.ค. 2565",
+            "M.Sc. in Information Science": "วท.ม. (วิทยาการสารสนเทศ)",
+            "KMITL | Jun 2017": "สจล. | มิ.ย. 2560",
+            "B.Sc. in Computer Science": "วท.บ. (วิทยาการคอมพิวเตอร์)",
+            "KMITL | Apr 2012": "สจล. | เม.ย. 2555",
+            "High School Diploma": "มัธยมศึกษาตอนปลาย",
+            "Assumption College Samutprakarn | Apr 2008": "โรงเรียนอัสสัมชัญสมุทรปราการ | เม.ย. 2551",
+            "<i class=\"ph ph-flask\"></i> Research Experience": "<i class=\"ph ph-flask\"></i> ประสบการณ์วิจัย",
+            "Visiting Researcher": "นักวิจัยรับเชิญ",
+            "<span class=\"date-private\">2019 | </span>BIDA Lab | UAM, Madrid": "<span class=\"date-private\">2562 | </span>BIDA Lab | UAM, มาดริด",
+            "Curated biometric datasets &amp; engineered ML models for face verification.": "สร้างชุดข้อมูล<span class=\"th-word\">ไบโอเมตริกซ์</span>และพัฒนาโมเดล ML สำหรับการยืนยันตัวตนด้วยใบหน้า",
+            "PhD Researcher": "นักวิจัยระดับปริญญาเอก",
+            "<span class=\"date-private\">2018 - 2019 | </span>BIOTEC | Thailand": "<span class=\"date-private\">2561 - 2562 | </span>ไบโอเทค | ประเทศไทย",
+            "Applied computer vision models to automate thin film malaria parasite detection.": "ประยุกต์ใช้โมเดล<span class=\"th-word\">คอมพิวเตอร์วิชัน</span>ตรวจหาเชื้อมาลาเรียจากฟิล์มเลือดบางแบบอัตโนมัติ",
+            "Exchange Researcher": "นักวิจัยแลกเปลี่ยน",
+            "<span class=\"date-private\">2017 | </span>Kurume College | Japan": "<span class=\"date-private\">2560 | </span>Kurume College | ญี่ปุ่น",
+            "Developed pixel-level voting algorithm to extend microscopic depth of field.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span>โหวตระดับพิกเซลเพื่อขยายระยะชัดลึกของภาพกล้องจุลทรรศน์",
+            "Researcher": "นักวิจัย",
+            "<span class=\"date-private\">2016 - 2022 | </span>DSMLR Lab | KMITL": "<span class=\"date-private\">2559 - 2565 | </span>DSMLR Lab | สจล.",
+            "Spearheaded interdisciplinary AI research in biometrics &amp; virtual drug screening.": "นำงานวิจัย AI แบบ<span class=\"th-word\">สหวิทยาการ</span>ด้าน<span class=\"th-word\">ไบโอเมตริกซ์</span>และการคัดกรองยาเสมือน (Virtual Screening)",
+            "<i class=\"ph ph-microscope\"></i> Research Focus": "<i class=\"ph ph-microscope\"></i> หัวข้อวิจัยที่สนใจ",
+            "Computer Vision": "<span class=\"th-word\">คอมพิวเตอร์วิชัน</span>",
+            "Machine Learning": "<span class=\"th-word\">แมชชีนเลิร์นนิง</span>",
+            "Vision-Language Models (VLMs)": "<span class=\"th-word\">วิชัน-แลงเกวจโมเดล</span> (VLMs)",
+            "Edge AI": "เอดจ์ AI",
+            "3D Spatial Intelligence": "ปัญญาเชิงพื้นที่สามมิติ",
+            "Biometrics": "<span class=\"th-word\">ไบโอเมตริกซ์</span>",
+            "Chemoinformatics": "<span class=\"th-word\">เคโมอินฟอร์แมติกส์</span>",
+            "Bioinformatics": "<span class=\"th-word\">ไบโออินฟอร์แมติกส์</span>",
+            "<i class=\"ph ph-briefcase\"></i> Experience Summary": "<i class=\"ph ph-briefcase\"></i> สรุปประสบการณ์ทำงาน",
+            "University Lecturer": "อาจารย์มหาวิทยาลัย",
+            "Apr 2026 - Present": "เม.ย. 2569 - ปัจจุบัน",
+            "Present": "ปัจจุบัน",
+            "King Mongkut's Institute of Technology Ladkrabang (KMITL)": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (สจล.)",
+            "Direct academic curriculum development and lead advanced AI research focusing on Computer Vision, Vision-Language Models (VLMs), and Data Science, while bridging the gap between academic research and industry-ready ML production pipelines, and provide academic services and project management to various Thai government agencies.": "พัฒนาหลักสูตรและนำงานวิจัย AI ขั้นสูงด้าน<span class=\"th-word\">คอมพิวเตอร์วิชัน</span> <span class=\"th-word\">วิชัน-แลงเกวจโมเดล</span> (VLMs) และ<span class=\"th-word\">ดาต้าไซแอนซ์</span> เชื่อมงานวิจัยเชิงวิชาการเข้ากับ<span class=\"th-word\">ไปป์ไลน์</span> ML ระดับ<span class=\"th-word\">โปรดักชัน</span>ของภาค<span class=\"th-word\">อุตสาหกรรม</span> รวมถึงให้บริการวิชาการและบริหารโครงการแก่หน่วยงานภาครัฐต่าง ๆ",
+            "Lead Machine Learning Engineer": "หัวหน้าวิศวกร<span class=\"th-word\">แมชชีนเลิร์นนิง</span>",
+            "Apr 2023 - Mar 2026": "เม.ย. 2566 - มี.ค. 2569",
+            "AI &amp; Robotics Ventures (ARV) | Energy Conglomerate Division": "AI &amp; Robotics Ventures (ARV) | กลุ่มธุรกิจพลังงาน",
+            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Global Energy Conglomerate": "บริษัทในเครือด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ของกลุ่มธุรกิจพลังงานระดับ Fortune 500",
+            "Spearheaded technical machine learning strategy and directed engineering teams to deploy drone and CCTV-based anomaly detection pipelines across offices, factories, and remote areas for active surveillance, threat detection, alerting, and proactive recommendations, while integrating Vision-Language Model (VLM) agents and edge-computing solutions.": "กำหนดกลยุทธ์ด้าน<span class=\"th-word\">แมชชีนเลิร์นนิง</span>และบริหารทีมวิศวกรในการ<span class=\"th-word\">ดีพลอย</span><span class=\"th-word\">ไปป์ไลน์</span>ตรวจจับความผิดปกติจากโดรนและกล้อง CCTV ในสำนักงาน โรงงาน และพื้นที่ห่างไกล เพื่อเฝ้าระวัง ตรวจจับภัยคุกคาม แจ้งเตือน และให้คำแนะนำเชิงรุก พร้อมผสาน<span class=\"th-word\">เอเจนต์</span><span class=\"th-word\">วิชัน-แลงเกวจโมเดล</span> (VLM) และ<span class=\"th-word\">โซลูชัน</span><span class=\"th-word\">เอดจ์คอมพิวติง</span>",
+            "Data Scientist (Independent Consultant)": "<span class=\"th-word\">ดาต้าไซแอนทิสต์</span> (ที่ปรึกษาอิสระ)",
+            "2020 - 2021": "2563 - 2564",
+            "Commercial Enterprises (Private Sector)": "ภาคธุรกิจเอกชน",
+            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing and liveness detection algorithms for high-security commercial deployments.": "พัฒนา API ยืนยันตัวตนด้วยใบหน้าระดับ<span class=\"th-word\">โปรดักชัน</span> ผสาน<span class=\"th-word\">อัลกอริทึม</span>ป้องกันการปลอมแปลง (Anti-Spoofing) และตรวจสอบความมีชีวิต (Liveness Detection) สำหรับงานเชิงพาณิชย์ที่ต้องการความปลอดภัยสูง",
+            "Project Manager &amp; Full-Stack Developer": "ผู้จัดการโครงการและนักพัฒนา<span class=\"th-word\">ฟูลสแตก</span>",
+            "Jul 2012 - Mar 2023": "ก.ค. 2555 - มี.ค. 2566",
+            "Consolidated Public Sector &amp; Enterprise Consultancies (BIOTEC, Gov.)": "บริษัทที่ปรึกษาด้านภาครัฐและองค์กร (ไบโอเทค, หน่วยงานรัฐ)",
+            "Engineered a wide array of enterprise-grade solutions: architected nationwide GIS/demographic visualization systems and secure data warehouses for multiple government ministries; designed an interactive scientific visualization platform and centralized identity access systems for BIOTEC; and built robust Java-based Content Management Systems (CMS) for national educational institutes.": "พัฒนา<span class=\"th-word\">โซลูชัน</span>ระดับองค์กรหลากหลาย ได้แก่ ระบบแสดงผลข้อมูล GIS และข้อมูลประชากรระดับประเทศ และคลังข้อมูล (Data Warehouse) ที่ปลอดภัยให้กระทรวงต่าง ๆ <span class=\"th-word\">แพลตฟอร์ม</span>แสดงผลข้อมูลวิทยาศาสตร์แบบ<span class=\"th-word\">อินเทอร์แอกทีฟ</span> และระบบจัดการตัวตนแบบ<span class=\"th-word\">รวมศูนย์</span>ให้ไบโอเทค รวมถึงระบบจัดการเนื้อหา (CMS) บน Java ให้สถาบันการศึกษาระดับชาติ",
+            "<i class=\"ph ph-books\"></i> Complete Research Publications": "<i class=\"ph ph-books\"></i> ผลงานตีพิมพ์ทั้งหมด",
+            "Wasu Kudisthalert, Ph.D. | Resume": "ดร.วสุ คูดิษฐาเลิศ | เรซูเม่",
+            "Page 1 of 1": "หน้า 1 จาก 1",
+            "Dec 2022": "ธ.ค. 2565",
+            "King Mongkut's Institute of Technology Ladkrabang": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง",
+            "Jun 2017": "มิ.ย. 2560",
+            "Apr 2012": "เม.ย. 2555",
+            "Apr 2008": "เม.ย. 2551",
+            "Assumption College Samutprakarn School": "โรงเรียนอัสสัมชัญสมุทรปราการ",
+            "<i class=\"ph ph-cpu\"></i> Specializations": "<i class=\"ph ph-cpu\"></i> ความเชี่ยวชาญ",
+            "Programming &amp; AI": "<span class=\"th-word\">โปรแกรมมิง</span>และ AI",
+            "Production Deployment": "การ<span class=\"th-word\">ดีพลอย</span>ระบบ<span class=\"th-word\">โปรดักชัน</span>",
+            "Cloud &amp; Infrastructures": "คลาวด์และโครงสร้างพื้นฐาน",
+            "Languages": "ภาษา",
+            "Thai · English": "ไทย · อังกฤษ",
+            "<i class=\"ph ph-briefcase\"></i> Professional Experience": "<i class=\"ph ph-briefcase\"></i> ประสบการณ์ทำงาน",
+            "Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, VLMs, and Data Science.": "นำการพัฒนาหลักสูตรและงานวิจัยขั้นสูงด้าน<span class=\"th-word\">ปัญญาประดิษฐ์</span> โดยเน้น<span class=\"th-word\">คอมพิวเตอร์วิชัน</span> VLMs และ<span class=\"th-word\">ดาต้าไซแอนซ์</span>",
+            "Advise and mentor graduate researchers and ML engineers, bridging the gap between theoretical AI frameworks and industry production pipelines.": "ให้คำปรึกษาและเป็นพี่เลี้ยงแก่นักวิจัยระดับบัณฑิตศึกษาและวิศวกร ML เชื่อมทฤษฎี AI เข้ากับ<span class=\"th-word\">ไปป์ไลน์</span><span class=\"th-word\">โปรดักชัน</span>ของภาค<span class=\"th-word\">อุตสาหกรรม</span>",
+            "Provide academic services to various Thai government agencies and departments, including managing public-sector projects, technical consultations, and community knowledge-sharing initiatives.": "ให้บริการวิชาการแก่หน่วยงานภาครัฐและกรมต่าง ๆ รวมถึงบริหารโครงการภาครัฐ ให้คำปรึกษาทางเทคนิค และจัดกิจกรรมถ่ายทอดความรู้สู่ชุมชน",
+            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Energy Conglomerate": "บริษัทในเครือด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ของกลุ่มธุรกิจพลังงานระดับ Fortune 500",
+            "<span class=\"font-semibold text-slate-900\">Leadership &amp; Strategy:</span> Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise AI initiatives.": "<span class=\"font-semibold text-slate-900\">ผู้นำและกลยุทธ์:</span> กำหนดกลยุทธ์ทางเทคนิคและบริหารทีมวิศวกร ML ขับเคลื่อนโครงการ AI ระดับองค์กรตลอดวงจรตั้งแต่ต้นจนจบ",
+            "<span class=\"font-semibold text-slate-900\">Applied Computer Vision:</span> Architected and deployed real-time vision systems, including drone-based thermal anomaly detection, super-resolution license plate tracking, and offshore corrosion segmentation.": "<span class=\"font-semibold text-slate-900\"><span class=\"th-word\">คอมพิวเตอร์วิชัน</span>ประยุกต์:</span> ออกแบบและ<span class=\"th-word\">ดีพลอย</span>ระบบวิชันแบบ<span class=\"th-word\">เรียลไทม์</span> เช่น ตรวจจับความผิดปกติจากภาพความร้อนด้วยโดรน ติดตามป้ายทะเบียนด้วย<span class=\"th-word\">ซูเปอร์เรโซลูชัน</span> และ<span class=\"th-word\">เซกเมนต์</span>การกัดกร่อนบนแท่นนอกชายฝั่ง",
+            "<span class=\"font-semibold text-slate-900\">CCTV Surveillance:</span> Engineered advanced anomaly detection pipelines using CCTV networks in corporate offices and manufacturing plants for active threat detection and proactive alerting.": "<span class=\"font-semibold text-slate-900\">ระบบเฝ้าระวัง CCTV:</span> พัฒนา<span class=\"th-word\">ไปป์ไลน์</span>ตรวจจับความผิดปกติจากเครือข่ายกล้อง CCTV ในสำนักงานและโรงงาน เพื่อตรวจจับภัยคุกคามและแจ้งเตือนเชิงรุก",
+            "<span class=\"font-semibold text-slate-900\">VLM &amp; Agentic AI:</span> Developed state-of-the-art Vision-Language Model (VLM) agents to perform semantic visual analysis and automated report generation.": "<span class=\"font-semibold text-slate-900\">VLM และ Agentic AI:</span> พัฒนา<span class=\"th-word\">เอเจนต์</span><span class=\"th-word\">วิชัน-แลงเกวจโมเดล</span> (VLM) ล้ำสมัย สำหรับวิเคราะห์ภาพเชิงความหมายและสร้างรายงานอัตโนมัติ",
+            "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> Pioneered IoT edge-computing research for non-intrusive activity estimation.": "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> บุกเบิกงานวิจัย<span class=\"th-word\">เอดจ์คอมพิวติง</span>บน IoT สำหรับประมาณกิจกรรมแบบไม่รบกวนผู้ใช้ (Non-Intrusive)",
+            "Data Scientist": "<span class=\"th-word\">ดาต้าไซแอนทิสต์</span>",
+            "2020 and 2021": "2563 และ 2564",
+            "Project-Based Professional | Private Commercial Sector": "งานรับจ้างรายโครงการ | ภาคธุรกิจเอกชน",
+            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing (liveness detection) mechanisms for commercial deployments.": "พัฒนา API ยืนยันตัวตนด้วยใบหน้าระดับ<span class=\"th-word\">โปรดักชัน</span> ผสานกลไกป้องกันการปลอมแปลง (Liveness Detection) สำหรับงานเชิงพาณิชย์",
+            "Web Developer": "นักพัฒนาเว็บ",
+            "Apr 2018 - Sep 2018": "เม.ย. 2561 - ก.ย. 2561",
+            "National Center for Genetic Engineering &amp; Biotechnology (BIOTEC)": "ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (ไบโอเทค)",
+            "Architected an interactive scientific data visualization platform and a centralized identity management system for secure administrative control.": "ออกแบบ<span class=\"th-word\">แพลตฟอร์ม</span>แสดงผลข้อมูลวิทยาศาสตร์แบบ<span class=\"th-word\">อินเทอร์แอกทีฟ</span> และระบบจัดการตัวตนแบบ<span class=\"th-word\">รวมศูนย์</span>เพื่อควบคุมสิทธิ์ผู้ดูแลระบบอย่างปลอดภัย",
+            "Project Manager &amp; Developer": "ผู้จัดการโครงการและนักพัฒนา",
+            "Mar 2013 - Mar 2023": "มี.ค. 2556 - มี.ค. 2566",
+            "The Expertise | Various Public Sectors (Marine Dept, NSO, Dept of Health)": "The Expertise | หน่วยงานภาครัฐ (กรมเจ้าท่า, สำนักงานสถิติแห่งชาติ, กรมสนับสนุนบริการสุขภาพ)",
+            "Public Sector IT Consultancy &amp; Enterprise Systems Vendor | Various Government Agencies": "บริษัทที่ปรึกษาไอทีภาครัฐและผู้พัฒนาระบบองค์กร | หน่วยงานภาครัฐต่าง ๆ",
+            "Developed nationwide GIS and demographic data visualizations utilizing ArcGIS and Oracle Business Intelligence portal.": "พัฒนาระบบแสดงผลข้อมูล GIS และข้อมูลประชากรระดับประเทศด้วย ArcGIS และ Oracle Business Intelligence",
+            "Architected enterprise data warehouses, led full-stack portal development, and directed a 15-app SSO integration.": "ออกแบบคลังข้อมูลระดับองค์กร นำการพัฒนา<span class=\"th-word\">พอร์ทัล</span>แบบ<span class=\"th-word\">ฟูลสแตก</span> และบริหารการเชื่อมระบบ SSO ของ 15 <span class=\"th-word\">แอปพลิเคชัน</span>",
+            "Java Developer": "นักพัฒนา Java",
+            "Jul 2012 - Dec 2012": "ก.ค. 2555 - ธ.ค. 2555",
+            "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">Enterprise Software &amp; CMS Solutions Vendor</span> | IPST Project": "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">ผู้พัฒนา<span class=\"th-word\">ซอฟต์แวร์</span>องค์กรและ<span class=\"th-word\">โซลูชัน</span> CMS</span> | โครงการ สสวท.",
+            "Engineered a Java-based Content Management System (CMS) for the centralized orchestration of multimedia assets and educational publications.": "พัฒนาระบบจัดการเนื้อหา (CMS) บน Java สำหรับบริหารสื่อ<span class=\"th-word\">มัลติมีเดีย</span>และสิ่งพิมพ์ทางการศึกษาแบบ<span class=\"th-word\">รวมศูนย์</span>",
+            "Wasu Kudisthalert, Ph.D. | Curriculum Vitae": "ดร.วสุ คูดิษฐาเลิศ | ซีวี (Curriculum Vitae)",
+            "Page 1 of 2": "หน้า 1 จาก 2",
+            "Curriculum Vitae | Academic Publications &amp; Research Laboratories": "ซีวี | ผลงานตีพิมพ์และ<span class=\"th-word\">ห้องปฏิบัติการ</span>วิจัย",
+            "Visiting Researcher (Internship)": "นักวิจัยรับเชิญ (ฝึกงาน)",
+            "<span class=\"date-private\">2019 | </span>Madrid, Spain": "<span class=\"date-private\">2562 | </span>มาดริด สเปน",
+            "Biometrics &amp; Data Pattern Analytics Lab (BIDA), Universidad Autónoma de Madrid": "<span class=\"th-word\">ห้องปฏิบัติการ</span> Biometrics &amp; Data Pattern Analytics (BIDA), Universidad Autónoma de Madrid",
+            "Curated a novel biometric dataset and engineered advanced machine learning architectures specifically optimized for high-accuracy face verification tasks.": "สร้างชุดข้อมูล<span class=\"th-word\">ไบโอเมตริกซ์</span>ชุดใหม่ และพัฒนา<span class=\"th-word\">สถาปัตยกรรม</span><span class=\"th-word\">แมชชีนเลิร์นนิง</span>ขั้นสูงที่ออกแบบเพื่อการยืนยันตัวตนด้วยใบหน้าที่แม่นยำสูง",
+            "<span class=\"date-private\">2018 - 2019 | </span>Pathum Thani": "<span class=\"date-private\">2561 - 2562 | </span>ปทุมธานี",
+            "Protein-Ligand Engineering &amp; Molecular Biology Laboratory, The National Center for Genetic Engineering and Biotechnology (BIOTEC)": "<span class=\"th-word\">ห้องปฏิบัติการ</span>วิศวกรรมโปรตีน-ลิแกนด์และอณู<span class=\"th-word\">ชีววิทยา</span> ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (ไบโอเทค)",
+            "Applied sophisticated computer vision models to automate erythrocyte detection and precisely classify malaria infection stages.": "ประยุกต์ใช้โมเดล<span class=\"th-word\">คอมพิวเตอร์วิชัน</span>ตรวจหาเม็ดเลือดแดงอัตโนมัติ และจำแนกระยะการติดเชื้อมาลาเรียอย่างแม่นยำ",
+            "<span class=\"date-private\">2017 | </span>Fukuoka, Japan": "<span class=\"date-private\">2560 | </span>ฟุกุโอกะ ญี่ปุ่น",
+            "National Institute, Kurume College": "สถาบันเทคโนโลยีแห่งชาติ วิทยาลัยคุรุเมะ",
+            "Developed a novel pixel-level voting algorithm to extend the depth of field in microscopic imaging, synthesizing high-fidelity in-focus captures of blood slides.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span>โหวตระดับพิกเซลแบบใหม่เพื่อขยายระยะชัดลึกของภาพกล้องจุลทรรศน์ สังเคราะห์ภาพสไลด์เลือดที่คมชัดทั้งภาพ",
+            "Lab Researcher": "นักวิจัยประจำ<span class=\"th-word\">ห้องปฏิบัติการ</span>",
+            "<span class=\"date-private\">2016 - 2022 | </span>Bangkok": "<span class=\"date-private\">2559 - 2565 | </span>กรุงเทพฯ",
+            "Data Science &amp; ML Research Lab (DSMLR)": "<span class=\"th-word\">ห้องปฏิบัติการ</span>วิจัย<span class=\"th-word\">ดาต้าไซแอนซ์</span>และ<span class=\"th-word\">แมชชีนเลิร์นนิง</span> (DSMLR)",
+            "Spearheaded interdisciplinary AI research encompassing face biometrics, computer vision for malaria parasite classification, and virtual screening for drug discovery.": "นำงานวิจัย AI แบบ<span class=\"th-word\">สหวิทยาการ</span> ครอบคลุม<span class=\"th-word\">ไบโอเมตริกซ์</span>ใบหน้า <span class=\"th-word\">คอมพิวเตอร์วิชัน</span>สำหรับจำแนกเชื้อมาลาเรีย และการคัดกรองยาเสมือน (Virtual Screening)",
+            "<i class=\"ph ph-books\"></i> Complete Academic Publications": "<i class=\"ph ph-books\"></i> ผลงานตีพิมพ์ทางวิชาการทั้งหมด",
+            "Page 2 of 2": "หน้า 2 จาก 2"
+};
+
+        const UI_LABELS = {
+            en: { masked: 'Masked', revealed: 'Revealed' },
+            th: { masked: 'ซ่อนชื่อ', revealed: 'แสดงชื่อ' }
+        };
+
+        let currentLang = 'en';
+        let i18nTargets = null;
+
+        function langSuffix() {
+            return currentLang === 'th' ? ' - TH' : '';
+        }
+
+        // Record every translatable element once, while the page is still in English
+        function collectI18nTargets() {
+            const targets = [];
+            const claimed = new Set();
+            document.querySelectorAll('header.no-print *, .a4-page *').forEach(el => {
+                if (el.id === 'anonymize-text' || el.id === 'lang-text') return;
+                for (let a = el.parentElement; a; a = a.parentElement) {
+                    if (claimed.has(a)) return;
+                }
+                const key = el.innerHTML.replace(/\s+/g, ' ').trim();
+                if (Object.prototype.hasOwnProperty.call(TH_TEXT, key)) {
+                    claimed.add(el);
+                    targets.push({ el, en: el.innerHTML, th: TH_TEXT[key] });
+                }
+            });
+            return targets;
+        }
+
+        function applyLanguage(lang) {
+            if (!i18nTargets) i18nTargets = collectI18nTargets();
+            currentLang = lang === 'th' ? 'th' : 'en';
+            const isTh = currentLang === 'th';
+
+            i18nTargets.forEach(t => { t.el.innerHTML = isTh ? t.th : t.en; });
+            document.documentElement.lang = currentLang;
+            document.body.classList.toggle('lang-th', isTh);
+            document.getElementById('lang-text').innerText = isTh ? 'TH' : 'EN';
+
+            const maskLabel = document.getElementById('anonymize-text');
+            const isPublic = document.body.classList.contains('public-mode');
+            maskLabel.innerText = UI_LABELS[currentLang][isPublic ? 'masked' : 'revealed'];
+
+            try {
+                localStorage.setItem('cv-lang', currentLang);
+            } catch (e) {
+                console.warn('Storage access blocked:', e);
+            }
+            updateDocumentTitle();
+            adjustScale();
+        }
+
+        function toggleLanguage() {
+            applyLanguage(currentLang === 'th' ? 'en' : 'th');
+        }
+
+        // Startup: ?lang=th|en in the URL wins over the saved preference
+        document.addEventListener('DOMContentLoaded', () => {
+            let lang = new URLSearchParams(window.location.search).get('lang');
+            if (lang !== 'th' && lang !== 'en') {
+                try {
+                    lang = localStorage.getItem('cv-lang');
+                } catch (e) {
+                    lang = null;
+                }
+            }
+            if (lang === 'th') applyLanguage('th');
+        });
 
         // Apply saved theme preferences on startup securely
         document.addEventListener('DOMContentLoaded', () => {
@@ -1125,7 +1350,7 @@
             
             // Prepare complete stylesheet block
             let stylesText = `
-                @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap');
                 @import url('https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css');
             `;
             
@@ -1210,7 +1435,7 @@
         function exportActivePagesToSVG() {
             const isCv = document.body.classList.contains('show-cv');
             const isMasked = document.body.classList.contains('public-mode');
-            const maskSuffix = isMasked ? ' - Masked' : '';
+            const maskSuffix = (isMasked ? ' - Masked' : '') + langSuffix();
             
             // Format today's date in yymmdd (e.g. 260526)
             const today = new Date();
@@ -1262,7 +1487,7 @@
         function exportActivePagesToPNG() {
             const isCv = document.body.classList.contains('show-cv');
             const isMasked = document.body.classList.contains('public-mode');
-            const maskSuffix = isMasked ? ' - Masked' : '';
+            const maskSuffix = (isMasked ? ' - Masked' : '') + langSuffix();
             
             // Format today's date in yymmdd (e.g. 260526)
             const today = new Date();

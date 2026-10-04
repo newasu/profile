@@ -131,3 +131,14 @@ This document consolidates all core design rules, layout architectures, export s
 - **Active State Binding**: Exporter background color must adapt dynamically based on `body.classList.contains('dark')` (`#0f172a` for dark, `#ffffff` for light).
 
 
+
+---
+
+## 🌐 8. EN / TH Language Switch (cv/index.html)
+
+- A `TH`/`EN` pill in the control bar calls `toggleLanguage()`; the choice persists in `localStorage` (`cv-lang`) and `?lang=th` in the URL overrides it.
+- Thai text lives in the `TH_TEXT` object, **keyed by the element's English innerHTML (whitespace-collapsed)**. Editing an English string means updating its key too, or that element silently stays English in Thai mode.
+- Publication citations are never translated. Thai dates use พ.ศ. (CE + 543) with abbreviated Thai months.
+- Thai typography: `body.lang-th` turns off justify, letter-spacing (tracking) and italics; transliterated loanwords are wrapped in `.th-word` (nowrap) so the browser does not split them mid-word.
+- Fonts: `IBM Plex Sans Thai` / `Noto Serif Thai` sit after the Latin fonts in each stack, so English glyphs are unchanged.
+- Exports and the print title get a ` - TH` suffix in Thai mode. Resume must still print as 1 page and CV as 2 pages in both languages.
