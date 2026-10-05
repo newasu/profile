@@ -135,6 +135,8 @@
                 height: auto !important;
             }
             .a4-page {
+                /* adjustScale() shrinks pages to fit a phone screen with an inline transform; never print that */
+                transform: none !important;
                 box-shadow: none !important;
                 margin: 0 !important;
                 padding: 11mm 11mm !important;
@@ -1022,6 +1024,14 @@
             });
         }
         window.addEventListener('resize', adjustScale);
+        // Phones print the screen-scaled page unless the inline scale is cleared first
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('.a4-page').forEach(page => {
+                page.style.transform = '';
+                page.style.marginBottom = '';
+            });
+        });
+        window.addEventListener('afterprint', adjustScale);
         window.addEventListener('load', adjustScale);
         setTimeout(adjustScale, 50);
 

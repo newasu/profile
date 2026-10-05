@@ -92,6 +92,7 @@ This document consolidates all core design rules, layout architectures, export s
 - **Resume Mode** must print on **exactly 1 page**.
 - **CV Mode** must print on **exactly 2 pages**.
 - **Zero Overflow Page-Breaks**: Neutralize wrappers, gaps, paddings, and heights of container layouts under `@media print`.
+- **Mobile Print Scale**: `adjustScale()` shrinks `.a4-page` with an inline `transform: scale()` on narrow screens (≈0.45 on an iPhone). The print CSS must keep `transform: none !important` and the `beforeprint` handler must clear the inline scale, or phones print the page at 45% size.
 - **Avoid Orphan Sheets**: Enforce strict `page-break-after: avoid !important;` on the active last visible page being printed:
   * `.resume-container .a4-page:last-child` (Resume View)
   * `.cv-container .a4-page:last-child` (CV View)
