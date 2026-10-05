@@ -33,6 +33,7 @@ This document consolidates all core design rules, layout architectures, export s
 ## 🎨 2. Design System & Symmetrical Aesthetics
 
 ### Typography & Fonts
+- **Sizes**: body text 10–11px, roles 13.5px, section headings 15.5px (raised 1px across the board on 2026-10-05 for readability). Page padding is 12mm on screen, export and print alike. Keep ≥20px free per column in both languages; the contact row and the CV page-2 header must stay on one line.
 - **Serif Accents**: `Cormorant Garamond` (Prestige Serif) for headers and major name displays.
 - **Body & Sans**: `Plus Jakarta Sans` for geometric, clean, and highly readable body texts at small print dimensions.
 
@@ -114,6 +115,11 @@ This document consolidates all core design rules, layout architectures, export s
   * Style constraints: `style="width: 595.27px; height: 841.89px;"`
   * Coordinate viewBox: `viewBox="0 0 793.7 1122.52"` (scales high-fidelity Tailwind elements automatically).
 
+### Embedded Fonts & Icons
+- The SVG must open with zero network requests (as an `<img>`, offline, in a viewer). On export, `buildEmbeddedFontCss()` inlines as base64 only the font faces `document.fonts` reports as loaded (Google Latin subset + `Sarabun Doc`), merging variable-font weights that share one file; remote `@font-face`/`@import` rules are dropped.
+- `inlineIcons()` swaps each Phosphor `<i class="ph ph-*">` for that icon's own path from `@phosphor-icons/core@2.1.1/assets/regular/` (instead of the 144 KB icon font).
+- Result: ~185 KB per English page, ~240 KB per Thai page. Export itself needs internet to fetch the files once.
+
 ### Masking, Fonts & Phone Scale
 - Mask/Thai selectors key on the class (`.public-mode`, `.lang-th`), never on `body.`: the exporter copies body's classes onto a `<div>`.
 - The exporter deletes the hidden mask variant (`.company-private`/`.date-private` when masked) and all HTML comments from the clone, so real company names never sit in the SVG source.
@@ -150,5 +156,6 @@ This document consolidates all core design rules, layout architectures, export s
 - Publication citations and the Research Focus tags stay in English. Thai dates use พ.ศ. (CE + 543) with abbreviated Thai months.
 - Thai wording: technical terms and industry job titles stay in English (Computer Vision, Data Science, ML production pipeline, Lead Machine Learning Engineer); native Thai words, official Thai titles (อาจารย์มหาวิทยาลัย) and organisation names stay Thai.
 - Thai typography: `body.lang-th .a4-page` (scoped to the pages, never the control bar, or the bar reflows on every switch) turns off justify, letter-spacing (tracking) and italics; transliterated loanwords are wrapped in `.th-word` (nowrap) so the browser does not split them mid-word.
-- Fonts: Thai glyphs use `Sarabun` (Google Fonts build of TH Sarabun New, the Thai government document font) for both body and headings; it sits after the Latin fonts in each stack, so English glyphs are unchanged.
+- Fonts: Thai glyphs use `Sarabun Doc`, the page's own `@font-face` for the Thai subset of Sarabun (Google build of TH Sarabun New, the government document font) with `size-adjust: 110%` so Thai matches the Latin x-height. It sits after the Latin fonts in each stack, so English glyphs are unchanged.
+- Thai wording: formal, complete sentences with connectives (โดย, เพื่อ, ทั้ง…และ, อีกทั้ง), not stacked noun phrases. Dates keep month and year together with `&nbsp;`; loanwords and words like ภาครัฐ / ไบโอเทค sit in `.th-word` so they never split.
 - Exports and the print title get a ` - TH` suffix in Thai mode. Resume must still print as 1 page and CV as 2 pages in both languages.

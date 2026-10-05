@@ -24,8 +24,8 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Sarabun', 'system-ui', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'Sarabun', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Sarabun Doc', 'system-ui', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'Sarabun Doc', 'Georgia', 'serif'],
                     }
                 }
             }
@@ -34,7 +34,7 @@
     <!-- Google Fonts: Cormorant Garamond (Prestige Serif) & Plus Jakarta Sans (Clean geometric sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- html2canvas-pro (drop-in html2canvas fork) for client-side PNG rendering; html2canvas 1.4.1
@@ -42,12 +42,55 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
 
     <style>
+        /* Thai glyphs: Sarabun (Google build of TH Sarabun New, the government document font), Thai subset only.
+           size-adjust 110% because Sarabun's Thai sits visibly smaller than Plus Jakarta Sans at the same px. */
+        @font-face {
+            font-family: 'Sarabun Doc';
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/sarabun/v17/DtVmJx26TKEr37c9YL5rik8s6yLUrwB0lw.woff2) format('woff2');
+            unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+            size-adjust: 110%;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sarabun Doc';
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/sarabun/v17/DtVjJx26TKEr37c9aAFJn3YO5gjupg.woff2) format('woff2');
+            unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+            size-adjust: 110%;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sarabun Doc';
+            font-weight: 500;
+            src: url(https://fonts.gstatic.com/s/sarabun/v17/DtVmJx26TKEr37c9YOZqik8s6yLUrwB0lw.woff2) format('woff2');
+            unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+            size-adjust: 110%;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sarabun Doc';
+            font-weight: 600;
+            src: url(https://fonts.gstatic.com/s/sarabun/v17/DtVmJx26TKEr37c9YMptik8s6yLUrwB0lw.woff2) format('woff2');
+            unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+            size-adjust: 110%;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Sarabun Doc';
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/sarabun/v17/DtVmJx26TKEr37c9YK5sik8s6yLUrwB0lw.woff2) format('woff2');
+            unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+            size-adjust: 110%;
+            font-display: swap;
+        }
+
         /* A4 Page Dimensions Constraints */
         .a4-page {
             width: 210mm;
             height: 297mm;
             box-sizing: border-box;
-            padding: 15mm 16mm;
+            padding: 12mm 12mm; /* same as print, so screen, PNG, SVG and paper match */
             position: relative;
             background: white;
             color: #0f172a;
@@ -140,7 +183,7 @@
                 transform: none !important;
                 box-shadow: none !important;
                 margin: 0 !important;
-                padding: 11mm 11mm !important;
+                padding: 12mm 12mm !important;
                 page-break-after: always !important;
                 page-break-inside: avoid !important;
                 width: 210mm !important;
@@ -215,10 +258,10 @@
 
         /* Editorial Section Headings */
         .section-heading {
-            font-family: 'Cormorant Garamond', 'Sarabun', Georgia, serif;
+            font-family: 'Cormorant Garamond', 'Sarabun Doc', Georgia, serif;
             font-style: italic;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15.5px;
             color: #1b365d;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 2px;
@@ -236,7 +279,7 @@
         .bullet-point {
             position: relative;
             padding-left: 14px;
-            font-size: 10px;
+            font-size: 11px;
             line-height: 1.4;
         }
         .bullet-point::before {
@@ -366,29 +409,29 @@
                 <div class="header-bg-accent"></div>
 
                 <!-- Symmetrical Center-Aligned Editorial Header with Address Subtitle -->
-                <header class="text-center pb-4 mb-4 border-b border-slate-100 mt-2">
+                <header class="text-center pb-3 mb-3 border-b border-slate-100 mt-1">
                     <h2 class="text-[28px] font-medium tracking-[0.06em] text-slate-900 font-serif uppercase">
                         Wasu Kudisthalert, Ph.D.
                     </h2>
-                    <div class="flex flex-wrap justify-center items-center gap-x-2.5 gap-y-1 mt-2.5 text-[9.5px] text-slate-650 font-sans tracking-wide">
+                    <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 mt-2.5 text-[10.5px] text-slate-650 font-sans">
                         <a href="mailto:wasu.ku@kmitl.ac.th" class="flex items-center gap-1 font-medium text-slate-900 hover:text-brand-600 dark:text-white dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-envelope text-brand-600 text-[11px]"></i> wasu.ku@kmitl.ac.th
+                            <i class="ph ph-envelope text-brand-600 text-[12px]"></i> wasu.ku@kmitl.ac.th
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <span class="flex items-center gap-1">
-                            <i class="ph ph-phone text-brand-600 text-[11px]"></i> (+66) 92-693-6354
+                            <i class="ph ph-phone text-brand-600 text-[12px]"></i> (+66) 92-693-6354
                         </span>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <a href="https://linkedin.com/in/wkneil" target="_blank" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-linkedin-logo text-brand-600 text-[11px]"></i> linkedin.com/in/wkneil
+                            <i class="ph ph-linkedin-logo text-brand-600 text-[12px]"></i> linkedin.com/in/wkneil
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <a href="https://classes.incortx.com" target="_blank" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-graduation-cap text-brand-600 text-[11px]"></i> classes.incortx.com
+                            <i class="ph ph-graduation-cap text-brand-600 text-[12px]"></i> classes.incortx.com
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <span class="flex items-center gap-1 font-medium text-slate-900">
-                            <i class="ph ph-map-pin text-brand-600 text-[11px]"></i> Bangkok, Thailand
+                            <i class="ph ph-map-pin text-brand-600 text-[12px]"></i> Bangkok, Thailand
                         </span>
                     </div>
                 </header>
@@ -401,7 +444,7 @@
                         <!-- Mini bio box (MINIMAL UPDATE - NO FULL NAME) -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-identification-card"></i> Personal Bio</h4>
-                            <div class="py-1 text-[9.5px] text-slate-600 flex flex-col gap-1.5">
+                            <div class="py-1 text-[10.5px] text-slate-600 flex flex-col gap-1.5">
                                 <div class="flex justify-between">
                                     <span class="font-medium text-slate-800">Nickname</span>
                                     <span class="text-slate-700 font-semibold">Neil</span>
@@ -426,20 +469,20 @@
                             <h4 class="section-heading"><i class="ph ph-graduation-cap"></i> Education</h4>
                             <div class="flex flex-col gap-2.5">
                                 <div class="relative pl-3.5 before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-1.5 before:bg-brand-600 before:rounded-sm">
-                                    <div class="text-[11px] font-bold text-slate-900 leading-tight">Ph.D. in Information Technology</div>
-                                    <div class="text-[9px] text-slate-500 font-semibold">KMITL | Dec 2022</div>
+                                    <div class="text-[12px] font-bold text-slate-900 leading-tight">Ph.D. in Information Technology</div>
+                                    <div class="text-[10px] text-slate-500 font-semibold">KMITL | Dec 2022</div>
                                 </div>
                                 <div class="relative pl-3.5 before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-1.5 before:bg-slate-300 before:rounded-sm">
-                                    <div class="text-[11px] font-bold text-slate-900 leading-tight">M.Sc. in Information Science</div>
-                                    <div class="text-[9px] text-slate-500 font-semibold">KMITL | Jun 2017</div>
+                                    <div class="text-[12px] font-bold text-slate-900 leading-tight">M.Sc. in Information Science</div>
+                                    <div class="text-[10px] text-slate-500 font-semibold">KMITL | Jun 2017</div>
                                 </div>
                                 <div class="relative pl-3.5 before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-1.5 before:bg-slate-300 before:rounded-sm">
-                                    <div class="text-[11px] font-bold text-slate-900 leading-tight">B.Sc. in Computer Science</div>
-                                    <div class="text-[9px] text-slate-500 font-semibold">KMITL | Apr 2012</div>
+                                    <div class="text-[12px] font-bold text-slate-900 leading-tight">B.Sc. in Computer Science</div>
+                                    <div class="text-[10px] text-slate-500 font-semibold">KMITL | Apr 2012</div>
                                 </div>
                                 <div class="relative pl-3.5 before:content-[''] before:absolute before:left-0 before:top-1.5 before:w-1.5 before:h-1.5 before:bg-slate-300 before:rounded-sm">
-                                    <div class="text-[11px] font-bold text-slate-900 leading-tight">High School Diploma</div>
-                                    <div class="text-[9px] text-slate-500 font-semibold">Assumption College Samutprakarn | Apr 2008</div>
+                                    <div class="text-[12px] font-bold text-slate-900 leading-tight">High School Diploma</div>
+                                    <div class="text-[10px] text-slate-500 font-semibold">Assumption College Samutprakarn | Apr 2008</div>
                                 </div>
                             </div>
                         </div>
@@ -449,30 +492,30 @@
                             <h4 class="section-heading"><i class="ph ph-flask"></i> Research Experience</h4>
                             <div class="flex flex-col gap-2.5">
                                 <div class="flex flex-col">
-                                    <div class="text-[10px] font-bold text-slate-900 leading-none">Visiting Researcher</div>
-                                    <div class="text-[8.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2019 | </span>BIDA Lab | UAM, Madrid</div>
-                                    <p class="text-[9.5px] text-slate-600 leading-snug italic mt-0.5">
+                                    <div class="text-[11px] font-bold text-slate-900 leading-none">Visiting Researcher</div>
+                                    <div class="text-[9.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2019 | </span>BIDA Lab | UAM, Madrid</div>
+                                    <p class="text-[10.5px] text-slate-600 leading-snug italic mt-0.5">
                                         Curated biometric datasets & engineered ML models for face verification.
                                     </p>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[10px] font-bold text-slate-900 leading-none">PhD Researcher</div>
-                                    <div class="text-[8.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2018 - 2019 | </span>BIOTEC | Thailand</div>
-                                    <p class="text-[9.5px] text-slate-600 leading-snug italic mt-0.5">
+                                    <div class="text-[11px] font-bold text-slate-900 leading-none">PhD Researcher</div>
+                                    <div class="text-[9.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2018 - 2019 | </span>BIOTEC | Thailand</div>
+                                    <p class="text-[10.5px] text-slate-600 leading-snug italic mt-0.5">
                                         Applied computer vision models to automate thin film malaria parasite detection.
                                     </p>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[10px] font-bold text-slate-900 leading-none">Exchange Researcher</div>
-                                    <div class="text-[8.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2017 | </span>Kurume College | Japan</div>
-                                    <p class="text-[9.5px] text-slate-600 leading-snug italic mt-0.5">
+                                    <div class="text-[11px] font-bold text-slate-900 leading-none">Exchange Researcher</div>
+                                    <div class="text-[9.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2017 | </span>Kurume College | Japan</div>
+                                    <p class="text-[10.5px] text-slate-600 leading-snug italic mt-0.5">
                                         Developed pixel-level voting algorithm to extend microscopic depth of field.
                                     </p>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[10px] font-bold text-slate-900 leading-none">Researcher</div>
-                                    <div class="text-[8.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2016 - 2022 | </span>DSMLR Lab | KMITL</div>
-                                    <p class="text-[9.5px] text-slate-600 leading-snug italic mt-0.5">
+                                    <div class="text-[11px] font-bold text-slate-900 leading-none">Researcher</div>
+                                    <div class="text-[9.5px] text-brand-600 font-semibold uppercase tracking-wider mt-0.5"><span class="date-private">2016 - 2022 | </span>DSMLR Lab | KMITL</div>
+                                    <p class="text-[10.5px] text-slate-600 leading-snug italic mt-0.5">
                                         Spearheaded interdisciplinary AI research in biometrics & virtual drug screening.
                                     </p>
                                 </div>
@@ -482,7 +525,7 @@
                         <!-- Complete Interested Research Topics -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-microscope"></i> Research Focus</h4>
-                            <div class="flex flex-wrap gap-1 text-[9px]">
+                            <div class="flex flex-wrap gap-1 text-[10px]">
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Computer Vision</span>
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Machine Learning</span>
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Vision-Language Models (VLMs)</span>
@@ -502,17 +545,17 @@
                         <!-- Experience summary (RESTORED TO FLAT CARDS - NO EXPERIENCE TIMELINE ON RESUME) -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-briefcase"></i> Experience Summary</h4>
-                            <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-2.5">
                                 <!-- Role 4 -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12px] font-bold text-slate-900">University Lecturer</span>
-                                        <span class="text-[9px] font-bold text-brand-600 uppercase tracking-wider"><span class="date-private">Apr 2026 - Present</span><span class="date-public">Present</span></span>
+                                        <span class="text-[13px] font-bold text-slate-900">University Lecturer</span>
+                                        <span class="text-[10px] font-bold text-brand-600 uppercase tracking-wider"><span class="date-private">Apr 2026 - Present</span><span class="date-public">Present</span></span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         King Mongkut's Institute of Technology Ladkrabang (KMITL)
                                     </div>
-                                    <p class="text-[10px] text-slate-650 leading-relaxed mt-0.5 text-justify">
+                                    <p class="text-[11px] text-slate-650 leading-relaxed mt-0.5 text-justify">
                                         Direct academic curriculum development and lead advanced AI research focusing on Computer Vision, Vision-Language Models (VLMs), and Data Science, while bridging the gap between academic research and industry-ready ML production pipelines, and provide academic services and project management to various Thai government agencies.
                                     </p>
                                 </div>
@@ -520,14 +563,14 @@
                                 <!-- Role 3 -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12px] font-bold text-slate-900">Lead Machine Learning Engineer</span>
-                                        <span class="text-[9px] font-bold text-slate-505 uppercase tracking-wider date-private">Apr 2023 - Mar 2026</span>
+                                        <span class="text-[13px] font-bold text-slate-900">Lead Machine Learning Engineer</span>
+                                        <span class="text-[10px] font-bold text-slate-505 uppercase tracking-wider date-private">Apr 2023 - Mar 2026</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         <span class="company-private">AI & Robotics Ventures (ARV) | Energy Conglomerate Division</span>
                                         <span class="company-public">Deep-Tech Venture Builder & AI/Robotics Subsidiary of a Fortune 500 Global Energy Conglomerate</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-650 leading-relaxed mt-0.5 text-justify">
+                                    <p class="text-[11px] text-slate-650 leading-relaxed mt-0.5 text-justify">
                                         Spearheaded technical machine learning strategy and directed engineering teams to deploy drone and CCTV-based anomaly detection pipelines across offices, factories, and remote areas for active surveillance, threat detection, alerting, and proactive recommendations, while integrating Vision-Language Model (VLM) agents and edge-computing solutions.
                                     </p>
                                 </div>
@@ -535,13 +578,13 @@
                                 <!-- Role 2 -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12px] font-bold text-slate-900">Data Scientist (Independent Consultant)</span>
-                                        <span class="text-[9px] font-bold text-slate-505 uppercase tracking-wider date-private">2020 - 2021</span>
+                                        <span class="text-[13px] font-bold text-slate-900">Data Scientist (Independent Consultant)</span>
+                                        <span class="text-[10px] font-bold text-slate-505 uppercase tracking-wider date-private">2020 - 2021</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         Commercial Enterprises (Private Sector)
                                     </div>
-                                    <p class="text-[10px] text-slate-650 leading-relaxed mt-0.5 text-justify">
+                                    <p class="text-[11px] text-slate-650 leading-relaxed mt-0.5 text-justify">
                                         Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing and liveness detection algorithms for high-security commercial deployments.
                                     </p>
                                 </div>
@@ -549,13 +592,13 @@
                                 <!-- Role 1 -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12px] font-bold text-slate-900">Project Manager & Full-Stack Developer</span>
-                                        <span class="text-[9px] font-bold text-slate-505 uppercase tracking-wider date-private">Jul 2012 - Mar 2023</span>
+                                        <span class="text-[13px] font-bold text-slate-900">Project Manager & Full-Stack Developer</span>
+                                        <span class="text-[10px] font-bold text-slate-505 uppercase tracking-wider date-private">Jul 2012 - Mar 2023</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         Consolidated Public Sector & Enterprise Consultancies (BIOTEC, Gov.)
                                     </div>
-                                    <p class="text-[10px] text-slate-655 leading-relaxed mt-0.5 text-justify">
+                                    <p class="text-[11px] text-slate-655 leading-relaxed mt-0.5 text-justify">
                                         Engineered a wide array of enterprise-grade solutions: architected nationwide GIS/demographic visualization systems and secure data warehouses for multiple government ministries; designed an interactive scientific visualization platform and centralized identity access systems for BIOTEC; and built robust Java-based Content Management Systems (CMS) for national educational institutes.
                                     </p>
                                 </div>
@@ -563,27 +606,27 @@
                         </div>                        <!-- Complete Research Publications (RESTORED TO FLAT PARAGRAPHS - NO TIMELINE ON RESUME) -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-books"></i> Complete Research Publications</h4>
-                            <div class="flex flex-col gap-1.5 text-[9px] leading-relaxed text-slate-750 text-justify">
+                            <div class="flex flex-col gap-1 text-[10px] leading-relaxed text-slate-750 text-justify">
                                 <p>
-                                    Phimsiri, S., Sunpawatr, S., Cherdchusakulchai, R., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al. "Trafficinternvl: Spatially-guided fine-tuning for traffic safety captioning and visual question answering." <span class="italic text-slate-550">IEEE ICCV Workshops</span>, <span class="whitespace-nowrap">2025. <span class="ml-1 text-[7.5px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
+                                    Phimsiri, S., Sunpawatr, S., Cherdchusakulchai, R., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al. "Trafficinternvl: Spatially-guided fine-tuning for traffic safety captioning and visual question answering." <span class="italic text-slate-550">IEEE ICCV Workshops</span>, <span class="whitespace-nowrap">2025. <span class="ml-1 text-[8.5px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
                                 </p>
                                 <p>
-                                    Cherdchusakulchai, R., Phimsiri, S., Trairattanapa, V., Tungjitnob, S., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al. "Online multi-camera people tracking with spatial-temporal mechanism." <span class="italic text-slate-550">IEEE CVPR Workshops</span>, <span class="whitespace-nowrap">2024. <span class="ml-1 text-[7.5px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
+                                    Cherdchusakulchai, R., Phimsiri, S., Trairattanapa, V., Tungjitnob, S., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al. "Online multi-camera people tracking with spatial-temporal mechanism." <span class="italic text-slate-550">IEEE CVPR Workshops</span>, <span class="whitespace-nowrap">2024. <span class="ml-1 text-[8.5px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
                                 </p>
                                 <p>
-                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., Morales, A., and Fierrez, J. "SELM: Siamese extreme learning machine with application to face biometrics." <span class="italic text-slate-550">Neural Computing and Applications</span>, <span class="whitespace-nowrap">2022. <span class="ml-1 text-[7.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., Morales, A., and Fierrez, J. "SELM: Siamese extreme learning machine with application to face biometrics." <span class="italic text-slate-550">Neural Computing and Applications</span>, <span class="whitespace-nowrap">2022. <span class="ml-1 text-[8.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 <p>
-                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., and Tongsima, S. "Counting and classification of malarial parasite from thin film images." <span class="italic text-slate-550">IEEE Access</span>, <span class="whitespace-nowrap">2020. <span class="ml-1 text-[7.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., and Tongsima, S. "Counting and classification of malarial parasite from thin film images." <span class="italic text-slate-550">IEEE Access</span>, <span class="whitespace-nowrap">2020. <span class="ml-1 text-[8.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 <p>
-                                    Pasupa, K., and <span class="font-bold text-slate-900">Kudisthalert, W.</span> "Virtual screening by a new clustering-based weighted similarity extreme learning machine." <span class="italic text-slate-550">PLOS ONE</span>, <span class="whitespace-nowrap">2018. <span class="ml-1 text-[7.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    Pasupa, K., and <span class="font-bold text-slate-900">Kudisthalert, W.</span> "Virtual screening by a new clustering-based weighted similarity extreme learning machine." <span class="italic text-slate-550">PLOS ONE</span>, <span class="whitespace-nowrap">2018. <span class="ml-1 text-[8.5px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 <p>
-                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K. "Clustering-based weighted extreme learning machine in drug discovery." <span class="italic text-slate-550">Neural Information Processing</span>, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[7.5px] font-bold text-slate-550 tracking-wide">[CORE A]</span></span>
+                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K. "Clustering-based weighted extreme learning machine in drug discovery." <span class="italic text-slate-550">Neural Information Processing</span>, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[8.5px] font-bold text-slate-550 tracking-wide">[CORE A]</span></span>
                                 </p>
                                 <p>
-                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K. "A coefficient comparison of weighted similarity extreme learning machine." <span class="italic text-slate-550">IEEE KST</span>, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[7.5px] font-bold text-slate-500 tracking-wide">[CORE C]</span></span>
+                                    <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K. "A coefficient comparison of weighted similarity extreme learning machine." <span class="italic text-slate-550">IEEE KST</span>, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[8.5px] font-bold text-slate-500 tracking-wide">[CORE C]</span></span>
                                 </p>
                             </div>
                         </div>
@@ -592,7 +635,7 @@
                 </div>
 
                 <!-- Footer (A4 page baseline) -->
-                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[9px] text-slate-400 font-sans">
+                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[10px] text-slate-400 font-sans">
                     <span>Wasu Kudisthalert, Ph.D. | Resume</span>
                     <span>Page 1 of 1</span>
                 </div>
@@ -609,29 +652,29 @@
                 <div class="header-bg-accent"></div>
 
                 <!-- Symmetrical Center-Aligned Editorial Header with Address Subtitle -->
-                <header class="text-center pb-4 mb-4 border-b border-slate-100 mt-2">
+                <header class="text-center pb-3 mb-3 border-b border-slate-100 mt-1">
                     <h2 class="text-[28px] font-medium tracking-[0.06em] text-slate-900 font-serif uppercase">
                         Wasu Kudisthalert, Ph.D.
                     </h2>
-                    <div class="flex flex-wrap justify-center items-center gap-x-2.5 gap-y-1 mt-2.5 text-[9.5px] text-slate-605 font-sans tracking-wide">
+                    <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 mt-2.5 text-[10.5px] text-slate-605 font-sans">
                         <a href="mailto:wasu.ku@kmitl.ac.th" class="flex items-center gap-1 font-medium text-slate-900 hover:text-brand-600 dark:text-white dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-envelope text-brand-600 text-[11px]"></i> wasu.ku@kmitl.ac.th
+                            <i class="ph ph-envelope text-brand-600 text-[12px]"></i> wasu.ku@kmitl.ac.th
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <span class="flex items-center gap-1">
-                            <i class="ph ph-phone text-brand-600 text-[11px]"></i> (+66) 92-693-6354
+                            <i class="ph ph-phone text-brand-600 text-[12px]"></i> (+66) 92-693-6354
                         </span>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <a href="https://linkedin.com/in/wkneil" target="_blank" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-linkedin-logo text-brand-600 text-[11px]"></i> linkedin.com/in/wkneil
+                            <i class="ph ph-linkedin-logo text-brand-600 text-[12px]"></i> linkedin.com/in/wkneil
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <a href="https://classes.incortx.com" target="_blank" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-blue-400 transition-colors">
-                            <i class="ph ph-graduation-cap text-brand-600 text-[11px]"></i> classes.incortx.com
+                            <i class="ph ph-graduation-cap text-brand-600 text-[12px]"></i> classes.incortx.com
                         </a>
                         <span class="text-slate-200 dark:text-slate-700 font-light">|</span>
                         <span class="flex items-center gap-1 font-medium text-slate-900">
-                            <i class="ph ph-map-pin text-brand-600 text-[11px]"></i> Bangkok, Thailand
+                            <i class="ph ph-map-pin text-brand-600 text-[12px]"></i> Bangkok, Thailand
                         </span>
                     </div>
                 </header>
@@ -644,7 +687,7 @@
                         <!-- Personal Bio Data (MINIMALIST - FULL NAME REMOVED) -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-identification-card"></i> Personal Bio</h4>
-                            <div class="py-1 flex flex-col gap-1.5 text-[10px] text-slate-650">
+                            <div class="py-1 flex flex-col gap-1.5 text-[11px] text-slate-650">
                                 <div class="flex justify-between">
                                     <span class="font-medium text-slate-800">Nickname</span>
                                     <span class="text-slate-700 font-semibold">Neil</span>
@@ -669,24 +712,24 @@
                             <h4 class="section-heading"><i class="ph ph-graduation-cap"></i> Education</h4>
                             <div class="flex flex-col gap-3">
                                 <div class="flex flex-col">
-                                    <div class="text-[11.5px] font-bold text-slate-900 leading-tight">Ph.D. in Information Technology</div>
-                                    <div class="text-[9.5px] text-brand-600 font-bold mt-0.5">Dec 2022</div>
-                                    <div class="text-[10px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
+                                    <div class="text-[12.5px] font-bold text-slate-900 leading-tight">Ph.D. in Information Technology</div>
+                                    <div class="text-[10.5px] text-brand-600 font-bold mt-0.5">Dec 2022</div>
+                                    <div class="text-[11px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[11.5px] font-bold text-slate-900 leading-tight">M.Sc. in Information Science</div>
-                                    <div class="text-[9.5px] text-slate-500 font-semibold mt-0.5">Jun 2017</div>
-                                    <div class="text-[10px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
+                                    <div class="text-[12.5px] font-bold text-slate-900 leading-tight">M.Sc. in Information Science</div>
+                                    <div class="text-[10.5px] text-slate-500 font-semibold mt-0.5">Jun 2017</div>
+                                    <div class="text-[11px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[11.5px] font-bold text-slate-900 leading-tight">B.Sc. in Computer Science</div>
-                                    <div class="text-[9.5px] text-slate-500 font-semibold mt-0.5">Apr 2012</div>
-                                    <div class="text-[10px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
+                                    <div class="text-[12.5px] font-bold text-slate-900 leading-tight">B.Sc. in Computer Science</div>
+                                    <div class="text-[10.5px] text-slate-500 font-semibold mt-0.5">Apr 2012</div>
+                                    <div class="text-[11px] text-slate-500 leading-tight">King Mongkut's Institute of Technology Ladkrabang</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <div class="text-[11.5px] font-bold text-slate-900 leading-tight">High School Diploma</div>
-                                    <div class="text-[9.5px] text-slate-500 font-semibold mt-0.5">Apr 2008</div>
-                                    <div class="text-[10px] text-slate-500 leading-tight">Assumption College Samutprakarn School</div>
+                                    <div class="text-[12.5px] font-bold text-slate-900 leading-tight">High School Diploma</div>
+                                    <div class="text-[10.5px] text-slate-500 font-semibold mt-0.5">Apr 2008</div>
+                                    <div class="text-[11px] text-slate-500 leading-tight">Assumption College Samutprakarn School</div>
                                 </div>
                             </div>
                         </div>
@@ -694,28 +737,28 @@
                         <!-- Detailed Technical Skills -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-cpu"></i> Specializations</h4>
-                            <div class="flex flex-col gap-3 text-[9.5px]">
+                            <div class="flex flex-col gap-3 text-[10.5px]">
                                 <div>
-                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[8px] dark:text-slate-200">Programming & AI</span>
-                                    <div class="text-[9.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
+                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[9px] dark:text-slate-200">Programming & AI</span>
+                                    <div class="text-[10.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
                                         Python · PyTorch · OpenCV · TensorFlow · Hugging Face · Ultralytics · C++ · Java
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[8px] dark:text-slate-200">Production Deployment</span>
-                                    <div class="text-[9.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
+                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[9px] dark:text-slate-200">Production Deployment</span>
+                                    <div class="text-[10.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
                                         Docker · Kubernetes · CI/CD Pipelines · FastAPI · Apache Kafka
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[8px] dark:text-slate-200">Cloud & Infrastructures</span>
-                                    <div class="text-[9.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
+                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[9px] dark:text-slate-200">Cloud & Infrastructures</span>
+                                    <div class="text-[10.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
                                         AWS (Sagemaker, EC2, S3) · Runpod
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[8px] dark:text-slate-200">Languages</span>
-                                    <div class="text-[9.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
+                                    <span class="font-bold text-slate-800 block mb-0.5 uppercase tracking-wider text-[9px] dark:text-slate-200">Languages</span>
+                                    <div class="text-[10.5px] text-slate-600 dark:text-slate-400 font-sans tracking-wide leading-relaxed">
                                         Thai · English
                                     </div>
                                 </div>
@@ -733,20 +776,20 @@
                                 <!-- Role 6: Lecturer -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">University Lecturer</span>
-                                        <span class="text-[9px] font-bold text-brand-600 uppercase tracking-wider"><span class="date-private">Apr 2026 - Present</span><span class="date-public">Present</span></span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">University Lecturer</span>
+                                        <span class="text-[10px] font-bold text-brand-600 uppercase tracking-wider"><span class="date-private">Apr 2026 - Present</span><span class="date-public">Present</span></span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         King Mongkut's Institute of Technology Ladkrabang (KMITL)
                                     </div>
                                     <ul class="mt-1 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, VLMs, and Data Science.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Advise and mentor graduate researchers and ML engineers, bridging the gap between theoretical AI frameworks and industry production pipelines.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Provide academic services to various Thai government agencies and departments, including managing public-sector projects, technical consultations, and community knowledge-sharing initiatives.
                                         </li>
                                     </ul>
@@ -755,27 +798,27 @@
                                 <!-- Role 5: ARV Lead ML -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">Lead Machine Learning Engineer</span>
-                                        <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wider date-private">Apr 2023 - Mar 2026</span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">Lead Machine Learning Engineer</span>
+                                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider date-private">Apr 2023 - Mar 2026</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         <span class="company-private">AI & Robotics Ventures (ARV)</span>
                                         <span class="company-public">Deep-Tech Venture Builder & AI/Robotics Subsidiary of a Fortune 500 Energy Conglomerate</span>
                                     </div>
                                     <ul class="mt-1 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             <span class="font-semibold text-slate-900">Leadership & Strategy:</span> Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise AI initiatives.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             <span class="font-semibold text-slate-900">Applied Computer Vision:</span> Architected and deployed real-time vision systems, including drone-based thermal anomaly detection, super-resolution license plate tracking, and offshore corrosion segmentation.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             <span class="font-semibold text-slate-900">CCTV Surveillance:</span> Engineered advanced anomaly detection pipelines using CCTV networks in corporate offices and manufacturing plants for active threat detection and proactive alerting.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             <span class="font-semibold text-slate-900">VLM & Agentic AI:</span> Developed state-of-the-art Vision-Language Model (VLM) agents to perform semantic visual analysis and automated report generation.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             <span class="font-semibold text-slate-900">Edge AI R&D:</span> Pioneered IoT edge-computing research for non-intrusive activity estimation.
                                         </li>
                                     </ul>
@@ -784,14 +827,14 @@
                                 <!-- Role 4: Data Scientist independent -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">Data Scientist</span>
-                                        <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wider date-private">2020 and 2021</span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">Data Scientist</span>
+                                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider date-private">2020 and 2021</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         Project-Based Professional | Private Commercial Sector
                                     </div>
                                     <ul class="mt-0.5 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing (liveness detection) mechanisms for commercial deployments.
                                         </li>
                                     </ul>
@@ -800,14 +843,14 @@
                                 <!-- Role 3: BIOTEC Web Dev -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">Web Developer</span>
-                                        <span class="text-[9px] font-bold text-slate-500 date-private">Apr 2018 - Sep 2018</span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">Web Developer</span>
+                                        <span class="text-[10px] font-bold text-slate-500 date-private">Apr 2018 - Sep 2018</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         National Center for Genetic Engineering & Biotechnology (BIOTEC)
                                     </div>
                                     <ul class="mt-0.5 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Architected an interactive scientific data visualization platform and a centralized identity management system for secure administrative control.
                                         </li>
                                     </ul>
@@ -816,18 +859,18 @@
                                 <!-- Role 2: THE EXPERTISE PM -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">Project Manager & Developer</span>
-                                        <span class="text-[9px] font-bold text-slate-505 date-private">Mar 2013 - Mar 2023</span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">Project Manager & Developer</span>
+                                        <span class="text-[10px] font-bold text-slate-505 date-private">Mar 2013 - Mar 2023</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         <span class="company-private">The Expertise | Various Public Sectors (Marine Dept, NSO, Dept of Health)</span>
                                         <span class="company-public">Public Sector IT Consultancy & Enterprise Systems Vendor | Various Government Agencies</span>
                                     </div>
                                     <ul class="mt-0.5 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Developed nationwide GIS and demographic data visualizations utilizing ArcGIS and Oracle Business Intelligence portal.
                                         </li>
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Architected enterprise data warehouses, led full-stack portal development, and directed a 15-app SSO integration.
                                         </li>
                                     </ul>
@@ -836,16 +879,16 @@
                                 <!-- Role 1: AVALANT Java Dev -->
                                 <div class="flex flex-col">
                                     <div class="flex justify-between items-baseline">
-                                        <span class="text-[12.5px] font-bold text-slate-900">Java Developer</span>
-                                        <span class="text-[9px] font-bold text-slate-505 date-private">Jul 2012 - Dec 2012</span>
+                                        <span class="text-[13.5px] font-bold text-slate-900">Java Developer</span>
+                                        <span class="text-[10px] font-bold text-slate-505 date-private">Jul 2012 - Dec 2012</span>
                                     </div>
-                                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                         <span class="company-private">AVALANT</span>
                                         <span class="company-public">Enterprise Software & CMS Solutions Vendor</span>
                                         | IPST Project
                                     </div>
                                     <ul class="mt-0.5 flex flex-col gap-1">
-                                        <li class="bullet-point text-slate-700 text-[10px]">
+                                        <li class="bullet-point text-slate-700 text-[11px]">
                                             Engineered a Java-based Content Management System (CMS) for the centralized orchestration of multimedia assets and educational publications.
                                         </li>
                                     </ul>
@@ -857,7 +900,7 @@
                 </div>
 
                 <!-- Footer pagination -->
-                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[9px] text-slate-400 font-sans">
+                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[10px] text-slate-400 font-sans">
                     <span>Wasu Kudisthalert, Ph.D. | Curriculum Vitae</span>
                     <span>Page 1 of 2</span>
                 </div>
@@ -869,11 +912,11 @@
 
                 <!-- Symmetrical Center-Aligned Continuation Header with Address Subtitle -->
                 <header class="text-center pb-3 mb-3 border-b border-slate-100 mt-2">
-                    <span class="text-[11.5px] font-bold text-brand-600 uppercase tracking-[0.14em] font-sans">
+                    <span class="text-[12.5px] font-bold text-brand-600 uppercase tracking-[0.1em] font-sans">
                         Wasu Kudisthalert, Ph.D.
                     </span>
                     <span class="text-slate-200 dark:text-slate-700 font-light mx-2">|</span>
-                    <span class="text-[9.5px] font-semibold text-slate-400 uppercase tracking-[0.1em] font-sans">
+                    <span class="text-[10.5px] font-semibold text-slate-400 uppercase tracking-[0.06em] font-sans">
                         Curriculum Vitae | Academic Publications & Research Laboratories
                     </span>
                 </header>
@@ -888,37 +931,37 @@
                             <div class="flex flex-col gap-4">
                                 <!-- Lab 1 -->
                                 <div class="flex flex-col gap-0.5">
-                                    <div class="text-[11px] font-bold text-slate-900">Visiting Researcher (Internship)</div>
-                                    <div class="text-[9px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2019 | </span>Madrid, Spain</div>
-                                    <div class="text-[9.5px] font-medium text-slate-500 leading-tight">Biometrics & Data Pattern Analytics Lab (BIDA), Universidad Autónoma de Madrid</div>
-                                    <p class="text-[10px] text-slate-650 leading-snug mt-1 text-justify">
+                                    <div class="text-[12px] font-bold text-slate-900">Visiting Researcher (Internship)</div>
+                                    <div class="text-[10px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2019 | </span>Madrid, Spain</div>
+                                    <div class="text-[10.5px] font-medium text-slate-500 leading-tight">Biometrics & Data Pattern Analytics Lab (BIDA), Universidad Autónoma de Madrid</div>
+                                    <p class="text-[11px] text-slate-650 leading-snug mt-1 text-justify">
                                         Curated a novel biometric dataset and engineered advanced machine learning architectures specifically optimized for high-accuracy face verification tasks.
                                     </p>
                                 </div>
                                 <!-- Lab 2 -->
                                 <div class="flex flex-col gap-0.5">
-                                    <div class="text-[11px] font-bold text-slate-900">PhD Researcher</div>
-                                    <div class="text-[9px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2018 - 2019 | </span>Pathum Thani</div>
-                                    <div class="text-[9.5px] font-medium text-slate-500 leading-tight">Protein-Ligand Engineering & Molecular Biology Laboratory, The National Center for Genetic Engineering and Biotechnology (BIOTEC)</div>
-                                    <p class="text-[10px] text-slate-650 leading-snug mt-1 text-justify">
+                                    <div class="text-[12px] font-bold text-slate-900">PhD Researcher</div>
+                                    <div class="text-[10px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2018 - 2019 | </span>Pathum Thani</div>
+                                    <div class="text-[10.5px] font-medium text-slate-500 leading-tight">Protein-Ligand Engineering & Molecular Biology Laboratory, The National Center for Genetic Engineering and Biotechnology (BIOTEC)</div>
+                                    <p class="text-[11px] text-slate-650 leading-snug mt-1 text-justify">
                                         Applied sophisticated computer vision models to automate erythrocyte detection and precisely classify malaria infection stages.
                                     </p>
                                 </div>
                                 <!-- Lab 3 -->
                                 <div class="flex flex-col gap-0.5">
-                                    <div class="text-[11px] font-bold text-slate-900">Exchange Researcher</div>
-                                    <div class="text-[9px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2017 | </span>Fukuoka, Japan</div>
-                                    <div class="text-[9.5px] font-medium text-slate-500 leading-tight">National Institute, Kurume College</div>
-                                    <p class="text-[10px] text-slate-655 leading-snug mt-1 text-justify">
+                                    <div class="text-[12px] font-bold text-slate-900">Exchange Researcher</div>
+                                    <div class="text-[10px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2017 | </span>Fukuoka, Japan</div>
+                                    <div class="text-[10.5px] font-medium text-slate-500 leading-tight">National Institute, Kurume College</div>
+                                    <p class="text-[11px] text-slate-655 leading-snug mt-1 text-justify">
                                         Developed a novel pixel-level voting algorithm to extend the depth of field in microscopic imaging, synthesizing high-fidelity in-focus captures of blood slides.
                                     </p>
                                 </div>
                                 <!-- Lab 4 -->
                                 <div class="flex flex-col gap-0.5">
-                                    <div class="text-[11px] font-bold text-slate-900">Lab Researcher</div>
-                                    <div class="text-[9px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2016 - 2022 | </span>Bangkok</div>
-                                    <div class="text-[9.5px] font-medium text-slate-500 leading-tight">Data Science & ML Research Lab (DSMLR)</div>
-                                    <p class="text-[10px] text-slate-655 leading-snug mt-1 text-justify">
+                                    <div class="text-[12px] font-bold text-slate-900">Lab Researcher</div>
+                                    <div class="text-[10px] text-brand-600 font-bold uppercase tracking-wider"><span class="date-private">2016 - 2022 | </span>Bangkok</div>
+                                    <div class="text-[10.5px] font-medium text-slate-500 leading-tight">Data Science & ML Research Lab (DSMLR)</div>
+                                    <p class="text-[11px] text-slate-655 leading-snug mt-1 text-justify">
                                         Spearheaded interdisciplinary AI research encompassing face biometrics, computer vision for malaria parasite classification, and virtual screening for drug discovery.
                                     </p>
                                 </div>
@@ -928,7 +971,7 @@
                         <!-- Complete Interested Research Topics -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-microscope"></i> Research Focus</h4>
-                            <div class="flex flex-wrap gap-1 text-[9px]">
+                            <div class="flex flex-wrap gap-1 text-[10px]">
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Computer Vision</span>
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Machine Learning</span>
                                 <span class="px-1.5 py-0.5 border border-slate-200 text-slate-655 rounded">Vision-Language Models (VLMs)</span>
@@ -948,48 +991,48 @@
                         <!-- Selected Publications (Complete List - ELEVATED GRIP) -->
                         <div>
                             <h4 class="section-heading"><i class="ph ph-books"></i> Complete Academic Publications</h4>
-                            <div class="relative border-l border-slate-100 pl-3.5 flex flex-col gap-2.5 text-[9.5px] leading-relaxed text-slate-700 text-justify">
+                            <div class="relative border-l border-slate-100 pl-3.5 flex flex-col gap-2.5 text-[10.5px] leading-relaxed text-slate-700 text-justify">
                                 
                                 <p>
                                     Phimsiri, S., Sunpawatr, S., Cherdchusakulchai, R., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al.
                                     "Trafficinternvl: Spatially-guided fine-tuning with caption refinement for fine-grained traffic safety captioning and visual question answering."
-                                    <span class="italic text-slate-550">Proc. of IEEE/CVF (ICCV) Workshops</span>, <span class="whitespace-nowrap">Oct. 2025. <span class="ml-1 text-[8px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
+                                    <span class="italic text-slate-550">Proc. of IEEE/CVF (ICCV) Workshops</span>, <span class="whitespace-nowrap">Oct. 2025. <span class="ml-1 text-[9px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
                                 </p>
                                 
                                 <p>
                                     Cherdchusakulchai, R., Phimsiri, S., Trairattanapa, V., Tungjitnob, S., <span class="font-bold text-slate-900">Kudisthalert, W.</span>, et al.
                                     "Online multi-camera people tracking with spatial-temporal mechanism and anchor-feature hierarchical clustering."
-                                    <span class="italic text-slate-550">Proc. of IEEE/CVF (CVPR) Workshops</span>, pp. 7198-7207, <span class="whitespace-nowrap">Jun. 2024. <span class="ml-1 text-[8px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
+                                    <span class="italic text-slate-550">Proc. of IEEE/CVF (CVPR) Workshops</span>, pp. 7198-7207, <span class="whitespace-nowrap">Jun. 2024. <span class="ml-1 text-[9px] font-bold text-blue-600 tracking-wide">[CORE A*]</span></span>
                                 </p>
                                 
                                 <p>
                                     <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., Morales, A., and Fierrez, J.
                                     "SELM: Siamese extreme learning machine with application to face biometrics."
-                                    <span class="italic text-slate-550">Neural Computing and Applications</span>, <span class="whitespace-nowrap">2022. <span class="ml-1 text-[8px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    <span class="italic text-slate-550">Neural Computing and Applications</span>, <span class="whitespace-nowrap">2022. <span class="ml-1 text-[9px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 
                                 <p>
                                     <span class="font-bold text-slate-900">Kudisthalert, W.</span>, Pasupa, K., and Tongsima, S.
                                     "Counting and classification of malarial parasite from giemsa-stained thin film images."
-                                    <span class="italic text-slate-550">IEEE Access</span>, vol. 8, pp. 78663-78682, <span class="whitespace-nowrap">2020. <span class="ml-1 text-[8px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    <span class="italic text-slate-550">IEEE Access</span>, vol. 8, pp. 78663-78682, <span class="whitespace-nowrap">2020. <span class="ml-1 text-[9px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 
                                 <p>
                                     Pasupa, K., and <span class="font-bold text-slate-900">Kudisthalert, W.</span>
                                     "Virtual screening by a new clustering-based weighted similarity extreme learning machine approach."
-                                    <span class="italic text-slate-550">PLOS ONE</span>, vol. 13, pp. 1-25, <span class="whitespace-nowrap">Apr. 2018. <span class="ml-1 text-[8px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
+                                    <span class="italic text-slate-550">PLOS ONE</span>, vol. 13, pp. 1-25, <span class="whitespace-nowrap">Apr. 2018. <span class="ml-1 text-[9px] font-bold text-emerald-600 tracking-wide">[Q1]</span></span>
                                 </p>
                                 
                                 <p>
                                     <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K.
                                     "Clustering-based weighted extreme learning machine for classification in drug discovery process."
-                                    <span class="italic text-slate-550">Neural Information Processing</span>, pp. 441-450, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[8px] font-bold text-slate-550 tracking-wide">[CORE A]</span></span>
+                                    <span class="italic text-slate-550">Neural Information Processing</span>, pp. 441-450, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[9px] font-bold text-slate-550 tracking-wide">[CORE A]</span></span>
                                 </p>
                                 
                                 <p>
                                     <span class="font-bold text-slate-900">Kudisthalert, W.</span>, and Pasupa, K.
                                     "A coefficient comparison of weighted similarity extreme learning machine for drug screening."
-                                    <span class="italic text-slate-600">2016 8th Int. Conf. on Knowledge and Smart Technology (KST)</span>, pp. 43-48, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[8px] font-bold text-slate-500 tracking-wide">[CORE C]</span></span>
+                                    <span class="italic text-slate-600">2016 8th Int. Conf. on Knowledge and Smart Technology (KST)</span>, pp. 43-48, <span class="whitespace-nowrap">2016. <span class="ml-1 text-[9px] font-bold text-slate-500 tracking-wide">[CORE C]</span></span>
                                 </p>
                             </div>
                         </div>
@@ -998,7 +1041,7 @@
                 </div>
 
                 <!-- Footer pagination -->
-                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[9px] text-slate-400 font-sans">
+                <div class="border-t border-slate-100 pt-2.5 mt-2 flex justify-between items-center text-[10px] text-slate-400 font-sans">
                     <span>Wasu Kudisthalert, Ph.D. | Curriculum Vitae</span>
                     <span>Page 2 of 2</span>
                 </div>
@@ -1157,112 +1200,112 @@
             "Sex": "เพศ",
             "Male": "ชาย",
             "Birthdate": "วันเกิด",
-            "26 Dec 1989": "26 ธ.ค. 2532",
+            "26 Dec 1989": "26 ธ.ค.&nbsp;2532",
             "<i class=\"ph ph-graduation-cap\"></i> Education": "<i class=\"ph ph-graduation-cap\"></i> การศึกษา",
             "Ph.D. in Information Technology": "ปร.ด. (เทคโนโลยีสารสนเทศ)",
-            "KMITL | Dec 2022": "สจล. | ธ.ค. 2565",
+            "KMITL | Dec 2022": "สจล. | ธ.ค.&nbsp;2565",
             "M.Sc. in Information Science": "วท.ม. (วิทยาการสารสนเทศ)",
-            "KMITL | Jun 2017": "สจล. | มิ.ย. 2560",
+            "KMITL | Jun 2017": "สจล. | มิ.ย.&nbsp;2560",
             "B.Sc. in Computer Science": "วท.บ. (วิทยาการคอมพิวเตอร์)",
-            "KMITL | Apr 2012": "สจล. | เม.ย. 2555",
+            "KMITL | Apr 2012": "สจล. | เม.ย.&nbsp;2555",
             "High School Diploma": "มัธยมศึกษาตอนปลาย",
-            "Assumption College Samutprakarn | Apr 2008": "โรงเรียนอัสสัมชัญสมุทรปราการ | เม.ย. 2551",
+            "Assumption College Samutprakarn | Apr 2008": "โรงเรียนอัสสัมชัญสมุทรปราการ | เม.ย.&nbsp;2551",
             "<i class=\"ph ph-flask\"></i> Research Experience": "<i class=\"ph ph-flask\"></i> ประสบการณ์วิจัย",
             "Visiting Researcher": "นักวิจัยรับเชิญ",
             "<span class=\"date-private\">2019 | </span>BIDA Lab | UAM, Madrid": "<span class=\"date-private\">2562 | </span>BIDA Lab | UAM, มาดริด",
-            "Curated biometric datasets &amp; engineered ML models for face verification.": "สร้างชุดข้อมูล Biometrics และพัฒนาโมเดล ML สำหรับ Face Verification",
+            "Curated biometric datasets &amp; engineered ML models for face verification.": "จัดทำชุดข้อมูล Biometrics และพัฒนาโมเดล Machine Learning สำหรับการยืนยันตัวตนด้วยใบหน้า",
             "PhD Researcher": "นักวิจัยระดับปริญญาเอก",
             "<span class=\"date-private\">2018 - 2019 | </span>BIOTEC | Thailand": "<span class=\"date-private\">2561 - 2562 | </span>ไบโอเทค | ประเทศไทย",
-            "Applied computer vision models to automate thin film malaria parasite detection.": "ประยุกต์ใช้โมเดล Computer Vision ตรวจหาเชื้อมาลาเรียจากฟิล์มเลือดบางแบบอัตโนมัติ",
+            "Applied computer vision models to automate thin film malaria parasite detection.": "ประยุกต์ใช้โมเดล Computer Vision ในการตรวจหาเชื้อมาลาเรียจากฟิล์มเลือดบางโดยอัตโนมัติ",
             "Exchange Researcher": "นักวิจัยแลกเปลี่ยน",
             "<span class=\"date-private\">2017 | </span>Kurume College | Japan": "<span class=\"date-private\">2560 | </span>Kurume College | ญี่ปุ่น",
-            "Developed pixel-level voting algorithm to extend microscopic depth of field.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span> Pixel-level Voting เพื่อขยาย Depth of Field ของภาพกล้องจุลทรรศน์",
+            "Developed pixel-level voting algorithm to extend microscopic depth of field.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span> Pixel-level Voting เพื่อเพิ่มระยะชัดลึก (Depth of Field) ของภาพจากกล้องจุลทรรศน์",
             "Researcher": "นักวิจัย",
             "<span class=\"date-private\">2016 - 2022 | </span>DSMLR Lab | KMITL": "<span class=\"date-private\">2559 - 2565 | </span>DSMLR Lab | สจล.",
-            "Spearheaded interdisciplinary AI research in biometrics &amp; virtual drug screening.": "นำงานวิจัย AI แบบ<span class=\"th-word\">สหวิทยาการ</span>ด้าน Biometrics และ Virtual Screening สำหรับการค้นพบยา",
+            "Spearheaded interdisciplinary AI research in biometrics &amp; virtual drug screening.": "เป็นผู้นำงานวิจัย AI เชิง<span class=\"th-word\">สหวิทยาการ</span>ด้าน Biometrics และการคัดกรองยาด้วยวิธี Virtual Screening",
             "<i class=\"ph ph-microscope\"></i> Research Focus": "<i class=\"ph ph-microscope\"></i> หัวข้อวิจัยที่สนใจ",
             "<i class=\"ph ph-briefcase\"></i> Experience Summary": "<i class=\"ph ph-briefcase\"></i> สรุปประสบการณ์ทำงาน",
             "University Lecturer": "อาจารย์มหาวิทยาลัย",
-            "Apr 2026 - Present": "เม.ย. 2569 - ปัจจุบัน",
+            "Apr 2026 - Present": "เม.ย.&nbsp;2569 - ปัจจุบัน",
             "Present": "ปัจจุบัน",
             "King Mongkut's Institute of Technology Ladkrabang (KMITL)": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (สจล.)",
-            "Direct academic curriculum development and lead advanced AI research focusing on Computer Vision, Vision-Language Models (VLMs), and Data Science, while bridging the gap between academic research and industry-ready ML production pipelines, and provide academic services and project management to various Thai government agencies.": "พัฒนาหลักสูตรและนำงานวิจัย AI ขั้นสูงด้าน Computer Vision, Vision-Language Models (VLMs) และ Data Science เชื่อมงานวิจัยเชิงวิชาการเข้ากับ ML production pipeline ของภาค<span class=\"th-word\">อุตสาหกรรม</span> รวมถึงให้บริการวิชาการและบริหารโครงการแก่หน่วยงานภาครัฐต่าง ๆ",
+            "Direct academic curriculum development and lead advanced AI research focusing on Computer Vision, Vision-Language Models (VLMs), and Data Science, while bridging the gap between academic research and industry-ready ML production pipelines, and provide academic services and project management to various Thai government agencies.": "รับผิดชอบการพัฒนาหลักสูตรและเป็นผู้นำงานวิจัย AI ขั้นสูงด้าน Computer Vision, Vision-Language Models (VLMs) และ Data Science โดยมุ่งเชื่อมโยงองค์ความรู้จากงานวิจัยสู่การใช้งานจริงในระบบ ML ระดับ production ของภาค<span class=\"th-word\">อุตสาหกรรม</span> อีกทั้งให้บริการวิชาการและบริหารโครงการให้แก่หน่วยงาน<span class=\"th-word\">ภาครัฐ</span>",
             "Lead Machine Learning Engineer": "Lead Machine Learning Engineer",
-            "Apr 2023 - Mar 2026": "เม.ย. 2566 - มี.ค. 2569",
+            "Apr 2023 - Mar 2026": "เม.ย.&nbsp;2566 - มี.ค.&nbsp;2569",
             "AI &amp; Robotics Ventures (ARV) | Energy Conglomerate Division": "AI &amp; Robotics Ventures (ARV) | กลุ่มธุรกิจพลังงาน",
-            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Global Energy Conglomerate": "บริษัทในเครือด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ของกลุ่มธุรกิจพลังงานระดับ Fortune 500",
-            "Spearheaded technical machine learning strategy and directed engineering teams to deploy drone and CCTV-based anomaly detection pipelines across offices, factories, and remote areas for active surveillance, threat detection, alerting, and proactive recommendations, while integrating Vision-Language Model (VLM) agents and edge-computing solutions.": "กำหนดกลยุทธ์ด้าน Machine Learning และบริหารทีมวิศวกรในการ deploy anomaly detection pipeline จากโดรนและกล้อง CCTV ในสำนักงาน โรงงาน และพื้นที่ห่างไกล เพื่อเฝ้าระวัง ตรวจจับภัยคุกคาม แจ้งเตือน และให้คำแนะนำเชิงรุก พร้อมผสาน VLM agents และ Edge Computing",
+            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Global Energy Conglomerate": "บริษัทด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ในเครือกลุ่มธุรกิจพลังงานระดับ Fortune&nbsp;500",
+            "Spearheaded technical machine learning strategy and directed engineering teams to deploy drone and CCTV-based anomaly detection pipelines across offices, factories, and remote areas for active surveillance, threat detection, alerting, and proactive recommendations, while integrating Vision-Language Model (VLM) agents and edge-computing solutions.": "กำหนดทิศทางด้าน Machine Learning และบริหารทีมวิศวกรในการพัฒนาและติดตั้งระบบ Anomaly Detection จากโดรนและกล้อง CCTV ทั้งในสำนักงาน โรงงาน และพื้นที่ห่างไกล เพื่อ<span class=\"th-word\">เฝ้าระวัง</span>เหตุ ตรวจจับภัยคุกคาม แจ้งเตือน และให้ข้อเสนอแนะเชิงป้องกัน ตลอดจนนำ VLM agents และ Edge Computing มาประยุกต์ใช้ในระบบ",
             "Data Scientist (Independent Consultant)": "Data Scientist (ที่ปรึกษาอิสระ)",
             "2020 - 2021": "2563 - 2564",
             "Commercial Enterprises (Private Sector)": "ภาคธุรกิจเอกชน",
-            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing and liveness detection algorithms for high-security commercial deployments.": "พัฒนา Biometric Face Verification API ระดับ production ผสาน<span class=\"th-word\">อัลกอริทึม</span> Anti-Spoofing และ Liveness Detection สำหรับงานเชิงพาณิชย์ที่ต้องการความปลอดภัยสูง",
+            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing and liveness detection algorithms for high-security commercial deployments.": "พัฒนา API สำหรับยืนยันตัวตนด้วยใบหน้า (Biometric Face Verification) ที่พร้อมใช้งานจริง โดยผสานเทคนิค Anti-Spoofing และ Liveness Detection เพื่อรองรับการใช้งานเชิงพาณิชย์ที่ต้องการความปลอดภัยสูง",
             "Project Manager &amp; Full-Stack Developer": "Project Manager &amp; Full-Stack Developer",
-            "Jul 2012 - Mar 2023": "ก.ค. 2555 - มี.ค. 2566",
-            "Consolidated Public Sector &amp; Enterprise Consultancies (BIOTEC, Gov.)": "บริษัทที่ปรึกษาด้านภาครัฐและองค์กร (ไบโอเทค, หน่วยงานรัฐ)",
-            "Engineered a wide array of enterprise-grade solutions: architected nationwide GIS/demographic visualization systems and secure data warehouses for multiple government ministries; designed an interactive scientific visualization platform and centralized identity access systems for BIOTEC; and built robust Java-based Content Management Systems (CMS) for national educational institutes.": "พัฒนา<span class=\"th-word\">โซลูชัน</span>ระดับองค์กรหลากหลาย ได้แก่ ระบบ GIS/Demographic Visualization ระดับประเทศ และ Data Warehouse ที่ปลอดภัยให้กระทรวงต่าง ๆ, Interactive Visualization Platform ทางวิทยาศาสตร์ และ Centralized Identity Management ให้ไบโอเทค รวมถึง CMS บน Java ให้สถาบันการศึกษาระดับชาติ",
+            "Jul 2012 - Mar 2023": "ก.ค.&nbsp;2555 - มี.ค.&nbsp;2566",
+            "Consolidated Public Sector &amp; Enterprise Consultancies (BIOTEC, Gov.)": "บริษัทที่ปรึกษาด้านระบบ<span class=\"th-word\">สารสนเทศ</span>สำหรับ<span class=\"th-word\">ภาครัฐ</span>และองค์กร (<span class=\"th-word\">ไบโอเทค</span> และหน่วยงาน<span class=\"th-word\">ภาครัฐ</span>)",
+            "Engineered a wide array of enterprise-grade solutions: architected nationwide GIS/demographic visualization systems and secure data warehouses for multiple government ministries; designed an interactive scientific visualization platform and centralized identity access systems for BIOTEC; and built robust Java-based Content Management Systems (CMS) for national educational institutes.": "พัฒนาระบบระดับองค์กรหลายโครงการ ได้แก่ ระบบ GIS และ Demographic Visualization ระดับประเทศ และ Data Warehouse ที่มีความปลอดภัยสูงให้แก่กระทรวงต่าง ๆ แพลตฟอร์ม Interactive Visualization สำหรับข้อมูลทางวิทยาศาสตร์ และระบบ Centralized Identity Management ให้แก่<span class=\"th-word\">ไบโอเทค</span> รวมถึงระบบ CMS บน Java ให้แก่สถาบันการศึกษาระดับชาติ",
             "<i class=\"ph ph-books\"></i> Complete Research Publications": "<i class=\"ph ph-books\"></i> ผลงานตีพิมพ์ทั้งหมด",
-            "Wasu Kudisthalert, Ph.D. | Resume": "ดร.วสุ คูดิษฐาเลิศ | เรซูเม่",
+            "Wasu Kudisthalert, Ph.D. | Resume": "ดร.วสุ คูดิษฐาเลิศ | ประวัติโดยย่อ (Resume)",
             "Page 1 of 1": "หน้า 1 จาก 1",
-            "Dec 2022": "ธ.ค. 2565",
+            "Dec 2022": "ธ.ค.&nbsp;2565",
             "King Mongkut's Institute of Technology Ladkrabang": "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง",
-            "Jun 2017": "มิ.ย. 2560",
-            "Apr 2012": "เม.ย. 2555",
-            "Apr 2008": "เม.ย. 2551",
+            "Jun 2017": "มิ.ย.&nbsp;2560",
+            "Apr 2012": "เม.ย.&nbsp;2555",
+            "Apr 2008": "เม.ย.&nbsp;2551",
             "Assumption College Samutprakarn School": "โรงเรียนอัสสัมชัญสมุทรปราการ",
             "<i class=\"ph ph-cpu\"></i> Specializations": "<i class=\"ph ph-cpu\"></i> ความเชี่ยวชาญ",
-            "Programming &amp; AI": "<span class=\"th-word\">โปรแกรมมิง</span>และ AI",
-            "Production Deployment": "การ<span class=\"th-word\">ดีพลอย</span>ระบบ<span class=\"th-word\">โปรดักชัน</span>",
+            "Programming &amp; AI": "การเขียนโปรแกรมและ AI",
+            "Production Deployment": "การนำระบบขึ้นใช้งานจริง",
             "Cloud &amp; Infrastructures": "คลาวด์และโครงสร้างพื้นฐาน",
             "Languages": "ภาษา",
             "Thai · English": "ไทย · อังกฤษ",
             "<i class=\"ph ph-briefcase\"></i> Professional Experience": "<i class=\"ph ph-briefcase\"></i> ประสบการณ์ทำงาน",
-            "Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, VLMs, and Data Science.": "นำการพัฒนาหลักสูตรและงานวิจัยขั้นสูงด้าน<span class=\"th-word\">ปัญญาประดิษฐ์</span> โดยเน้น Computer Vision, VLMs และ Data Science",
-            "Advise and mentor graduate researchers and ML engineers, bridging the gap between theoretical AI frameworks and industry production pipelines.": "ให้คำปรึกษาและเป็นพี่เลี้ยงแก่นักวิจัยระดับบัณฑิตศึกษาและวิศวกร ML เชื่อมทฤษฎี AI เข้ากับ production pipeline ของภาค<span class=\"th-word\">อุตสาหกรรม</span>",
-            "Provide academic services to various Thai government agencies and departments, including managing public-sector projects, technical consultations, and community knowledge-sharing initiatives.": "ให้บริการวิชาการแก่หน่วยงานภาครัฐและกรมต่าง ๆ รวมถึงบริหารโครงการภาครัฐ ให้คำปรึกษาทางเทคนิค และจัดกิจกรรมถ่ายทอดความรู้สู่ชุมชน",
-            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Energy Conglomerate": "บริษัทในเครือด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ของกลุ่มธุรกิจพลังงานระดับ Fortune 500",
-            "<span class=\"font-semibold text-slate-900\">Leadership &amp; Strategy:</span> Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise AI initiatives.": "<span class=\"font-semibold text-slate-900\">ผู้นำและกลยุทธ์:</span> กำหนดกลยุทธ์ทางเทคนิคและบริหารทีมวิศวกร ML ขับเคลื่อนโครงการ AI ระดับองค์กรตลอดวงจรตั้งแต่ต้นจนจบ",
-            "<span class=\"font-semibold text-slate-900\">Applied Computer Vision:</span> Architected and deployed real-time vision systems, including drone-based thermal anomaly detection, super-resolution license plate tracking, and offshore corrosion segmentation.": "<span class=\"font-semibold text-slate-900\">Applied Computer Vision:</span> ออกแบบและ deploy ระบบ Vision แบบ Real-time เช่น Thermal Anomaly Detection ด้วยโดรน License Plate Tracking ด้วย Super-Resolution และ Corrosion Segmentation บนแท่นนอกชายฝั่ง",
-            "<span class=\"font-semibold text-slate-900\">CCTV Surveillance:</span> Engineered advanced anomaly detection pipelines using CCTV networks in corporate offices and manufacturing plants for active threat detection and proactive alerting.": "<span class=\"font-semibold text-slate-900\">ระบบเฝ้าระวัง CCTV:</span> พัฒนา anomaly detection pipeline จากเครือข่ายกล้อง CCTV ในสำนักงานและโรงงาน เพื่อตรวจจับภัยคุกคามและแจ้งเตือนเชิงรุก",
-            "<span class=\"font-semibold text-slate-900\">VLM &amp; Agentic AI:</span> Developed state-of-the-art Vision-Language Model (VLM) agents to perform semantic visual analysis and automated report generation.": "<span class=\"font-semibold text-slate-900\">VLM และ Agentic AI:</span> พัฒนา VLM agents ล้ำสมัย สำหรับ Semantic Visual Analysis และสร้างรายงานอัตโนมัติ",
-            "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> Pioneered IoT edge-computing research for non-intrusive activity estimation.": "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> บุกเบิกงานวิจัย Edge Computing บน IoT สำหรับ Non-Intrusive Activity Estimation",
+            "Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, VLMs, and Data Science.": "รับผิดชอบการพัฒนาหลักสูตรและเป็นผู้นำงานวิจัยขั้นสูงด้าน<span class=\"th-word\">ปัญญาประดิษฐ์</span> โดยมุ่งเน้น Computer Vision, VLMs และ Data Science",
+            "Advise and mentor graduate researchers and ML engineers, bridging the gap between theoretical AI frameworks and industry production pipelines.": "ให้คำปรึกษาและดูแลนักวิจัยระดับบัณฑิตศึกษาและวิศวกร ML โดยเชื่อมโยงทฤษฎีด้าน AI เข้ากับการพัฒนาระบบ production ในภาค<span class=\"th-word\">อุตสาหกรรม</span>",
+            "Provide academic services to various Thai government agencies and departments, including managing public-sector projects, technical consultations, and community knowledge-sharing initiatives.": "ให้บริการวิชาการแก่หน่วยงาน<span class=\"th-word\">ภาครัฐ</span>ในระดับกรมและหน่วยงานต่าง ๆ ทั้งการบริหารโครงการ<span class=\"th-word\">ภาครัฐ</span> การให้คำปรึกษาทางเทคนิค และการถ่ายทอดความรู้สู่ชุมชน",
+            "Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Fortune 500 Energy Conglomerate": "บริษัทด้าน AI และหุ่นยนต์ (Deep-Tech Venture Builder) ในเครือกลุ่มธุรกิจพลังงานระดับ Fortune&nbsp;500",
+            "<span class=\"font-semibold text-slate-900\">Leadership &amp; Strategy:</span> Spearheaded technical strategy and directed ML engineering teams to drive the end-to-end lifecycle of enterprise AI initiatives.": "<span class=\"font-semibold text-slate-900\">ภาวะผู้นำและกลยุทธ์:</span> กำหนดกลยุทธ์ทางเทคนิคและบริหารทีมวิศวกร ML เพื่อขับเคลื่อนโครงการ AI ขององค์กร ตั้งแต่ขั้นวิจัยจนถึงการใช้งานจริง",
+            "<span class=\"font-semibold text-slate-900\">Applied Computer Vision:</span> Architected and deployed real-time vision systems, including drone-based thermal anomaly detection, super-resolution license plate tracking, and offshore corrosion segmentation.": "<span class=\"font-semibold text-slate-900\">Applied Computer Vision:</span> ออกแบบและติดตั้งระบบวิเคราะห์ภาพแบบ Real-time หลายระบบ เช่น Thermal Anomaly Detection ด้วยโดรน, License Plate Tracking ด้วยเทคนิค Super-Resolution และ Corrosion Segmentation สำหรับโครงสร้างนอกชายฝั่ง",
+            "<span class=\"font-semibold text-slate-900\">CCTV Surveillance:</span> Engineered advanced anomaly detection pipelines using CCTV networks in corporate offices and manufacturing plants for active threat detection and proactive alerting.": "<span class=\"font-semibold text-slate-900\">ระบบ<span class=\"th-word\">เฝ้าระวัง</span>ด้วย CCTV:</span> พัฒนาระบบ Anomaly Detection จากเครือข่ายกล้อง CCTV ในสำนักงานและโรงงาน เพื่อตรวจจับภัยคุกคามและแจ้งเตือนได้อย่าง<span class=\"th-word\">ทันท่วงที</span>",
+            "<span class=\"font-semibold text-slate-900\">VLM &amp; Agentic AI:</span> Developed state-of-the-art Vision-Language Model (VLM) agents to perform semantic visual analysis and automated report generation.": "<span class=\"font-semibold text-slate-900\">VLM และ Agentic AI:</span> พัฒนา VLM agents สำหรับวิเคราะห์เนื้อหาภาพเชิงความหมาย (Semantic Visual Analysis) และจัดทำรายงานโดยอัตโนมัติ",
+            "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> Pioneered IoT edge-computing research for non-intrusive activity estimation.": "<span class=\"font-semibold text-slate-900\">Edge AI R&amp;D:</span> ริเริ่มงานวิจัยด้าน Edge Computing บนอุปกรณ์ IoT เพื่อประมาณกิจกรรมของผู้ใช้โดยไม่รบกวนการใช้ชีวิต (Non-Intrusive Activity Estimation)",
             "Data Scientist": "Data Scientist",
             "2020 and 2021": "2563 และ 2564",
-            "Project-Based Professional | Private Commercial Sector": "งานรับจ้างรายโครงการ | ภาคธุรกิจเอกชน",
-            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing (liveness detection) mechanisms for commercial deployments.": "พัฒนา Biometric Face Verification API ระดับ production ผสานกลไก Anti-Spoofing (Liveness Detection) สำหรับงานเชิงพาณิชย์",
+            "Project-Based Professional | Private Commercial Sector": "รับงานอิสระรายโครงการ | ภาคธุรกิจเอกชน",
+            "Engineered a production-ready biometric face verification API, integrating advanced anti-spoofing (liveness detection) mechanisms for commercial deployments.": "พัฒนา API สำหรับยืนยันตัวตนด้วยใบหน้าที่พร้อมใช้งานจริง พร้อมกลไก Anti-Spoofing (Liveness Detection) สำหรับการใช้งานเชิงพาณิชย์",
             "Web Developer": "Web Developer",
-            "Apr 2018 - Sep 2018": "เม.ย. 2561 - ก.ย. 2561",
-            "National Center for Genetic Engineering &amp; Biotechnology (BIOTEC)": "ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (ไบโอเทค)",
-            "Architected an interactive scientific data visualization platform and a centralized identity management system for secure administrative control.": "ออกแบบ Interactive Scientific Data Visualization Platform และ Centralized Identity Management System เพื่อควบคุมสิทธิ์ผู้ดูแลระบบอย่างปลอดภัย",
+            "Apr 2018 - Sep 2018": "เม.ย.&nbsp;2561 - ก.ย.&nbsp;2561",
+            "National Center for Genetic Engineering &amp; Biotechnology (BIOTEC)": "ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (<span class=\"th-word\">ไบโอเทค</span>)",
+            "Architected an interactive scientific data visualization platform and a centralized identity management system for secure administrative control.": "ออกแบบแพลตฟอร์ม Interactive Data Visualization สำหรับข้อมูลทางวิทยาศาสตร์ และระบบ Centralized Identity Management เพื่อบริหารสิทธิ์การเข้าถึงของผู้ดูแลระบบอย่างปลอดภัย",
             "Project Manager &amp; Developer": "Project Manager &amp; Developer",
-            "Mar 2013 - Mar 2023": "มี.ค. 2556 - มี.ค. 2566",
-            "The Expertise | Various Public Sectors (Marine Dept, NSO, Dept of Health)": "The Expertise | หน่วยงานภาครัฐ (กรมเจ้าท่า, สำนักงานสถิติแห่งชาติ, กรมสนับสนุนบริการสุขภาพ)",
-            "Public Sector IT Consultancy &amp; Enterprise Systems Vendor | Various Government Agencies": "บริษัทที่ปรึกษาไอทีภาครัฐและผู้พัฒนาระบบองค์กร | หน่วยงานภาครัฐต่าง ๆ",
-            "Developed nationwide GIS and demographic data visualizations utilizing ArcGIS and Oracle Business Intelligence portal.": "พัฒนาระบบ GIS และ Demographic Data Visualization ระดับประเทศด้วย ArcGIS และ Oracle Business Intelligence",
-            "Architected enterprise data warehouses, led full-stack portal development, and directed a 15-app SSO integration.": "ออกแบบ Enterprise Data Warehouse นำการพัฒนา Full-Stack Portal และบริหารการเชื่อมระบบ SSO ของ 15 <span class=\"th-word\">แอปพลิเคชัน</span>",
+            "Mar 2013 - Mar 2023": "มี.ค.&nbsp;2556 - มี.ค.&nbsp;2566",
+            "The Expertise | Various Public Sectors (Marine Dept, NSO, Dept of Health)": "The Expertise | หน่วยงาน<span class=\"th-word\">ภาครัฐ</span> (กรมเจ้าท่า, สำนักงานสถิติแห่งชาติ, กรมสนับสนุนบริการสุขภาพ)",
+            "Public Sector IT Consultancy &amp; Enterprise Systems Vendor | Various Government Agencies": "บริษัทที่ปรึกษาด้านไอทีสำหรับ<span class=\"th-word\">ภาครัฐ</span>และผู้พัฒนาระบบองค์กร | หน่วยงาน<span class=\"th-word\">ภาครัฐ</span>ต่าง ๆ",
+            "Developed nationwide GIS and demographic data visualizations utilizing ArcGIS and Oracle Business Intelligence portal.": "พัฒนาระบบแสดงผลข้อมูล GIS และข้อมูลประชากรระดับประเทศ โดยใช้ ArcGIS และ Oracle Business Intelligence",
+            "Architected enterprise data warehouses, led full-stack portal development, and directed a 15-app SSO integration.": "ออกแบบ Enterprise Data Warehouse เป็นผู้นำการพัฒนา Full-Stack Portal และบริหารการเชื่อมต่อระบบ SSO สำหรับ<span class=\"th-word\">แอปพลิเคชัน</span> 15 ระบบ",
             "Java Developer": "Java Developer",
-            "Jul 2012 - Dec 2012": "ก.ค. 2555 - ธ.ค. 2555",
-            "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">Enterprise Software &amp; CMS Solutions Vendor</span> | IPST Project": "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">ผู้พัฒนา<span class=\"th-word\">ซอฟต์แวร์</span>องค์กรและ<span class=\"th-word\">โซลูชัน</span> CMS</span> | โครงการ สสวท.",
-            "Engineered a Java-based Content Management System (CMS) for the centralized orchestration of multimedia assets and educational publications.": "พัฒนา CMS (Content Management System) บน Java สำหรับบริหารสื่อ<span class=\"th-word\">มัลติมีเดีย</span>และสิ่งพิมพ์ทางการศึกษาแบบ<span class=\"th-word\">รวมศูนย์</span>",
-            "Wasu Kudisthalert, Ph.D. | Curriculum Vitae": "ดร.วสุ คูดิษฐาเลิศ | ซีวี (Curriculum Vitae)",
+            "Jul 2012 - Dec 2012": "ก.ค.&nbsp;2555 - ธ.ค.&nbsp;2555",
+            "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">Enterprise Software &amp; CMS Solutions Vendor</span> | IPST Project": "<span class=\"company-private\">AVALANT</span> <span class=\"company-public\">ผู้พัฒนา<span class=\"th-word\">ซอฟต์แวร์</span>องค์กรและระบบ CMS</span> | โครงการของ สสวท.",
+            "Engineered a Java-based Content Management System (CMS) for the centralized orchestration of multimedia assets and educational publications.": "พัฒนาระบบจัดการเนื้อหา (CMS) บน Java สำหรับบริหารจัดการสื่อ<span class=\"th-word\">มัลติมีเดีย</span>และสิ่งพิมพ์ทางการศึกษาแบบ<span class=\"th-word\">รวมศูนย์</span>",
+            "Wasu Kudisthalert, Ph.D. | Curriculum Vitae": "ดร.วสุ คูดิษฐาเลิศ | ประวัติและผลงาน (Curriculum Vitae)",
             "Page 1 of 2": "หน้า 1 จาก 2",
-            "Curriculum Vitae | Academic Publications &amp; Research Laboratories": "ซีวี | ผลงานตีพิมพ์และ<span class=\"th-word\">ห้องปฏิบัติการ</span>วิจัย",
-            "Visiting Researcher (Internship)": "นักวิจัยรับเชิญ (ฝึกงาน)",
+            "Curriculum Vitae | Academic Publications &amp; Research Laboratories": "ประวัติและผลงาน | ผลงานตีพิมพ์และ<span class=\"th-word\">ห้องปฏิบัติการ</span>วิจัย",
+            "Visiting Researcher (Internship)": "นักวิจัยรับเชิญ (ฝึกงานวิจัย)",
             "<span class=\"date-private\">2019 | </span>Madrid, Spain": "<span class=\"date-private\">2562 | </span>มาดริด สเปน",
             "Biometrics &amp; Data Pattern Analytics Lab (BIDA), Universidad Autónoma de Madrid": "<span class=\"th-word\">ห้องปฏิบัติการ</span> Biometrics &amp; Data Pattern Analytics (BIDA), Universidad Autónoma de Madrid",
-            "Curated a novel biometric dataset and engineered advanced machine learning architectures specifically optimized for high-accuracy face verification tasks.": "สร้างชุดข้อมูล Biometrics ชุดใหม่ และพัฒนา<span class=\"th-word\">สถาปัตยกรรม</span> Machine Learning ขั้นสูงสำหรับ Face Verification ที่แม่นยำสูง",
+            "Curated a novel biometric dataset and engineered advanced machine learning architectures specifically optimized for high-accuracy face verification tasks.": "จัดทำชุดข้อมูล Biometrics ชุดใหม่ และพัฒนา<span class=\"th-word\">สถาปัตยกรรม</span> Machine Learning ที่ออกแบบมาเพื่อการยืนยันตัวตนด้วยใบหน้า (Face Verification) ให้มีความแม่นยำสูง",
             "<span class=\"date-private\">2018 - 2019 | </span>Pathum Thani": "<span class=\"date-private\">2561 - 2562 | </span>ปทุมธานี",
-            "Protein-Ligand Engineering &amp; Molecular Biology Laboratory, The National Center for Genetic Engineering and Biotechnology (BIOTEC)": "<span class=\"th-word\">ห้องปฏิบัติการ</span>วิศวกรรมโปรตีน-ลิแกนด์และอณู<span class=\"th-word\">ชีววิทยา</span> ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (ไบโอเทค)",
-            "Applied sophisticated computer vision models to automate erythrocyte detection and precisely classify malaria infection stages.": "ประยุกต์ใช้โมเดล Computer Vision ตรวจหาเม็ดเลือดแดงอัตโนมัติ และจำแนกระยะการติดเชื้อมาลาเรียอย่างแม่นยำ",
+            "Protein-Ligand Engineering &amp; Molecular Biology Laboratory, The National Center for Genetic Engineering and Biotechnology (BIOTEC)": "<span class=\"th-word\">ห้องปฏิบัติการ</span>วิศวกรรมโปรตีน-ลิแกนด์และอณู<span class=\"th-word\">ชีววิทยา</span> ศูนย์พันธุวิศวกรรมและเทคโนโลยีชีวภาพแห่งชาติ (<span class=\"th-word\">ไบโอเทค</span>)",
+            "Applied sophisticated computer vision models to automate erythrocyte detection and precisely classify malaria infection stages.": "ประยุกต์ใช้โมเดล Computer Vision ในการตรวจหาเม็ดเลือดแดงโดยอัตโนมัติ และจำแนกระยะการติดเชื้อมาลาเรียได้อย่างแม่นยำ",
             "<span class=\"date-private\">2017 | </span>Fukuoka, Japan": "<span class=\"date-private\">2560 | </span>ฟุกุโอกะ ญี่ปุ่น",
             "National Institute, Kurume College": "สถาบันเทคโนโลยีแห่งชาติ วิทยาลัยคุรุเมะ",
-            "Developed a novel pixel-level voting algorithm to extend the depth of field in microscopic imaging, synthesizing high-fidelity in-focus captures of blood slides.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span> Pixel-level Voting แบบใหม่เพื่อขยาย Depth of Field ของภาพกล้องจุลทรรศน์ สังเคราะห์ภาพสไลด์เลือดที่คมชัดทั้งภาพ",
+            "Developed a novel pixel-level voting algorithm to extend the depth of field in microscopic imaging, synthesizing high-fidelity in-focus captures of blood slides.": "พัฒนา<span class=\"th-word\">อัลกอริทึม</span> Pixel-level Voting เพื่อเพิ่มระยะชัดลึก (Depth of Field) ของภาพจากกล้องจุลทรรศน์ และสร้างภาพสไลด์เลือดที่คมชัดตลอดทั้งภาพ",
             "Lab Researcher": "นักวิจัยประจำ<span class=\"th-word\">ห้องปฏิบัติการ</span>",
             "<span class=\"date-private\">2016 - 2022 | </span>Bangkok": "<span class=\"date-private\">2559 - 2565 | </span>กรุงเทพฯ",
             "Data Science &amp; ML Research Lab (DSMLR)": "<span class=\"th-word\">ห้องปฏิบัติการ</span>วิจัย Data Science และ Machine Learning (DSMLR)",
-            "Spearheaded interdisciplinary AI research encompassing face biometrics, computer vision for malaria parasite classification, and virtual screening for drug discovery.": "นำงานวิจัย AI แบบ<span class=\"th-word\">สหวิทยาการ</span> ครอบคลุม Face Biometrics, Computer Vision สำหรับจำแนกเชื้อมาลาเรีย และ Virtual Screening สำหรับการค้นพบยา",
+            "Spearheaded interdisciplinary AI research encompassing face biometrics, computer vision for malaria parasite classification, and virtual screening for drug discovery.": "เป็นผู้นำงานวิจัย AI เชิง<span class=\"th-word\">สหวิทยาการ</span> ครอบคลุมด้าน Face Biometrics, การใช้ Computer Vision จำแนกเชื้อมาลาเรีย และการคัดกรองยาด้วยวิธี Virtual Screening",
             "<i class=\"ph ph-books\"></i> Complete Academic Publications": "<i class=\"ph ph-books\"></i> ผลงานตีพิมพ์ทางวิชาการทั้งหมด",
             "Page 2 of 2": "หน้า 2 จาก 2",
-            "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> Bangkok, Thailand": "<i class=\"ph ph-map-pin text-brand-600 text-[11px]\"></i> กรุงเทพฯ ประเทศไทย"
+            "<i class=\"ph ph-map-pin text-brand-600 text-[12px]\"></i> Bangkok, Thailand": "<i class=\"ph ph-map-pin text-brand-600 text-[12px]\"></i> กรุงเทพฯ ประเทศไทย"
 };
 
         let currentLang = 'en';
@@ -1341,8 +1384,113 @@
             updateDocumentTitle();
         });
 
+        // ===== SVG EMBEDDING: fonts and icons travel inside the file =====
+        // An SVG opened as an <img>, in a viewer or offline cannot fetch web fonts or the icon font,
+        // so the exporter inlines the font files it actually uses (base64) and swaps each icon-font
+        // <i> for that icon's own vector path.
+        const embedCache = new Map();
+
+        function fetchDataUrl(url) {
+            if (!embedCache.has(url)) {
+                embedCache.set(url, fetch(url)
+                    .then(r => { if (!r.ok) throw new Error(`${r.status} ${url}`); return r.blob(); })
+                    .then(blob => new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(blob);
+                    })));
+            }
+            return embedCache.get(url);
+        }
+
+        // Font faces the page has actually rendered with, as "family|weight|style"
+        function loadedFaceKeys() {
+            return new Set([...document.fonts]
+                .filter(f => f.status === 'loaded')
+                .map(f => `${f.family.replace(/["']/g, '')}|${f.weight}|${f.style}`));
+        }
+
+        // Every @font-face the page can use: Google Fonts (Latin subset) + the page's own (Sarabun Doc, Thai)
+        async function collectFontFaces() {
+            const faces = [];
+            const link = document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+            if (link) {
+                const css = await (await fetch(link.href)).text();
+                const block = /\/\*\s*([\w-]+)\s*\*\/\s*@font-face\s*\{([^}]*)\}/g;
+                let m;
+                while ((m = block.exec(css))) {
+                    if (m[1] !== 'latin') continue;   // English text, names and citations only need Latin
+                    const prop = name => ((m[2].match(new RegExp(name + ':\\s*([^;]+);')) || [])[1] || '').trim();
+                    faces.push({
+                        family: prop('font-family').replace(/["']/g, ''), style: prop('font-style') || 'normal',
+                        weight: prop('font-weight'), url: (prop('src').match(/url\(([^)]+)\)/) || [])[1],
+                        range: prop('unicode-range'), extra: ''
+                    });
+                }
+            }
+            for (const sheet of document.styleSheets) {
+                let rules;
+                try { rules = sheet.cssRules; } catch (e) { continue; }
+                for (const rule of rules) {
+                    if (!(rule instanceof CSSFontFaceRule)) continue;
+                    const st = rule.style;
+                    const url = (st.getPropertyValue('src').match(/url\("?([^")]+)"?\)/) || [])[1];
+                    if (!url) continue;
+                    const sizeAdjust = st.getPropertyValue('size-adjust');
+                    faces.push({
+                        family: st.getPropertyValue('font-family').replace(/["']/g, '').trim(),
+                        style: st.getPropertyValue('font-style') || 'normal', weight: st.getPropertyValue('font-weight'),
+                        url, range: st.getPropertyValue('unicode-range'), extra: sizeAdjust ? `size-adjust: ${sizeAdjust};` : ''
+                    });
+                }
+            }
+            return faces;
+        }
+
+        // @font-face rules with data: URLs, only for faces in use. Google serves variable fonts, so several
+        // weights can share one file: emit that file once with a weight range.
+        async function buildEmbeddedFontCss() {
+            await document.fonts.ready;   // a view switched just before export may still be loading faces
+            const used = loadedFaceKeys();
+            const byFile = new Map();
+            for (const f of await collectFontFaces()) {
+                if (!used.has(`${f.family}|${f.weight}|${f.style}`)) continue;
+                const key = `${f.url}|${f.style}|${f.family}`;
+                if (!byFile.has(key)) byFile.set(key, { ...f, weights: [] });
+                byFile.get(key).weights.push(Number(f.weight));
+            }
+            const rules = await Promise.all([...byFile.values()].map(async f => {
+                const lo = Math.min(...f.weights), hi = Math.max(...f.weights);
+                return `@font-face { font-family: '${f.family}'; font-style: ${f.style}; ` +
+                    `font-weight: ${lo === hi ? lo : lo + ' ' + hi}; src: url(${await fetchDataUrl(f.url)}) format('woff2'); ` +
+                    (f.range ? `unicode-range: ${f.range}; ` : '') + `${f.extra} }`;
+            }));
+            return rules.join('\n');
+        }
+
+        // Replace each Phosphor icon-font <i> with the icon's own SVG path (a few hundred bytes each,
+        // instead of the 144 KB icon font)
+        async function inlineIcons(root) {
+            await Promise.all([...root.querySelectorAll('i.ph')].map(async icon => {
+                const name = [...icon.classList].find(c => c.startsWith('ph-'));
+                if (!name) return;
+                const url = `https://unpkg.com/@phosphor-icons/core@2.1.1/assets/regular/${name.slice(3)}.svg`;
+                if (!embedCache.has(url)) embedCache.set(url, fetch(url).then(r => r.ok ? r.text() : null));
+                const text = await embedCache.get(url);
+                if (!text) return;
+                const svg = document.importNode(new DOMParser().parseFromString(text, 'image/svg+xml').documentElement, true);
+                svg.setAttribute('class', [...icon.classList].filter(c => c !== 'ph' && c !== name).join(' '));
+                svg.setAttribute('width', '1em');
+                svg.setAttribute('height', '1em');
+                svg.setAttribute('fill', 'currentColor');
+                svg.setAttribute('style', 'display: inline-block; vertical-align: -0.125em; flex-shrink: 0;');
+                icon.replaceWith(svg);
+            }));
+        }
+
         // Render and download A4 page as an SVG Vector Graphics file (Locked to standard 72 DPI PostScript Points A4 size)
-        function exportSVG(pageElement, filename) {
+        async function exportSVG(pageElement, filename) {
             // Clone the page element
             const clone = pageElement.cloneNode(true);
             
@@ -1367,34 +1515,22 @@
             
             // Apply standard XHTML namespace to root clone
             clone.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-            
-            // Prepare complete stylesheet block
-            let stylesText = `
-                @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap');
-                @import url('https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css');
-            `;
-            
-            // Extract all active styles currently loaded in the DOM (Tailwind compiled rules + Custom overrides)
+
+            // Icons become inline vector paths; fonts are embedded below, so nothing is fetched on open
+            await inlineIcons(clone);
+            let stylesText = await buildEmbeddedFontCss() + "\n";
+
+            // Extract all active styles currently loaded in the DOM (Tailwind compiled rules + custom overrides,
+            // which already include every <style> tag). Remote @font-face rules are dropped: embedded above.
             for (const sheet of document.styleSheets) {
                 try {
-                    let rulesText = "";
-                    const rules = sheet.cssRules || sheet.rules;
-                    if (rules) {
-                        for (const rule of rules) {
-                            rulesText += rule.cssText + "\n";
-                        }
+                    for (const rule of sheet.cssRules) {
+                        if (!(rule instanceof CSSFontFaceRule)) stylesText += rule.cssText + "\n";
                     }
-                    stylesText += rulesText + "\n";
                 } catch (e) {
                     // Safe bypass for cross-origin sheets
                 }
             }
-            
-            // Extract inline styles
-            const styleTags = document.querySelectorAll('style');
-            styleTags.forEach(tag => {
-                stylesText += tag.innerHTML + "\n";
-            });
 
             // Escape CDATA termination strings
             stylesText = stylesText.replace(/]]>/g, ']]&gt;');
@@ -1414,7 +1550,7 @@
                 margin: 0 !important;
                 width: 793.7px !important;
                 height: 1122.52px !important;
-                padding: 15mm 16mm !important;
+                padding: 12mm 12mm !important;
                 box-sizing: border-box !important;
                 background: white !important;
                 color: #0f172a !important;
@@ -1432,7 +1568,7 @@
         </style>
     </defs>
     <foreignObject x="0" y="0" width="793.7" height="1122.52" style="overflow: hidden !important;">
-        <div xmlns="http://www.w3.org/1999/xhtml" class="${document.body.className}" style="width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden !important; font-family: 'Plus Jakarta Sans', 'Sarabun', system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased;">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="${document.body.className}" style="width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden !important; font-family: 'Plus Jakarta Sans', 'Sarabun Doc', system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased;">
             ${new XMLSerializer().serializeToString(clone)}
         </div>
     </foreignObject>
@@ -1464,18 +1600,15 @@
             const dd = String(today.getDate()).padStart(2, '0');
             const dateStr = `${yy}${mm}${dd}`;
             
-            if (isCv) {
-                const cvPages = document.querySelectorAll('.cv-container .a4-page');
-                cvPages.forEach((page, index) => {
-                    const pageNum = index + 1;
-                    const filename = `Wasu Kudisthalert, Ph.D. - CV_Page${pageNum}${maskSuffix}_${dateStr}.svg`;
-                    exportSVG(page, filename);
+            const jobs = isCv
+                ? [...document.querySelectorAll('.cv-container .a4-page')].map((page, index) =>
+                    [page, `Wasu Kudisthalert, Ph.D. - CV_Page${index + 1}${maskSuffix}_${dateStr}.svg`])
+                : [[document.querySelector('.resume-container .a4-page'), `Wasu Kudisthalert, Ph.D. - Resume${maskSuffix}_${dateStr}.svg`]];
+            jobs.reduce((chain, [page, filename]) => chain.then(() => exportSVG(page, filename)), Promise.resolve())
+                .catch(err => {
+                    console.error('SVG export failed:', err);
+                    alert('SVG export needs an internet connection to embed fonts and icons.');
                 });
-            } else {
-                const resumePage = document.querySelector('.resume-container .a4-page');
-                const filename = `Wasu Kudisthalert, Ph.D. - Resume${maskSuffix}_${dateStr}.svg`;
-                exportSVG(resumePage, filename);
-            }
         }
 
         // Render and download A4 page as a PNG Image utilizing html2canvas to prevent canvas security tainting
