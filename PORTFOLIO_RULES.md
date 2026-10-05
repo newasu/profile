@@ -114,6 +114,11 @@ This document consolidates all core design rules, layout architectures, export s
   * Style constraints: `style="width: 595.27px; height: 841.89px;"`
   * Coordinate viewBox: `viewBox="0 0 793.7 1122.52"` (scales high-fidelity Tailwind elements automatically).
 
+### Masking, Fonts & Phone Scale
+- Mask/Thai selectors key on the class (`.public-mode`, `.lang-th`), never on `body.`: the exporter copies body's classes onto a `<div>`.
+- The exporter deletes the hidden mask variant (`.company-private`/`.date-private` when masked) and all HTML comments from the clone, so real company names never sit in the SVG source.
+- The wrapper `<div>` sets the base font itself (Tailwind puts it on `<html>`), the icon CSS is `@phosphor-icons/web@2.1.1/src/regular/style.css` (`src/style.css` is a 404), and the clone's inline phone-screen transform is cleared.
+
 ### Stylesheet Extraction & Scrollbar Hiding
 - The SVG parser must extract all active styles (Tailwind compiled rules + custom inline overrides) and encapsulate them.
 - External Google Fonts and Phosphor Icons must be bundled inside `@import` rules inside the SVG `<defs>`.
@@ -124,10 +129,11 @@ This document consolidates all core design rules, layout architectures, export s
 ## 🖼️ 7. High-Resolution Image Exporter (PNG)
 
 ### Bypassing Security Taints
-- Traditional `<foreignObject>` canvas drawing triggers strict security taints in WebKit/Blink engines. Bypass this entirely by utilizing the **`html2canvas`** library.
+- Traditional `<foreignObject>` canvas drawing triggers strict security taints in WebKit/Blink engines. Bypass this entirely by utilizing **`html2canvas-pro`** (drop-in fork; html2canvas 1.4.1 drew text a few px below its box).
 - `html2canvas` constructs pixel-perfect renders by parsing active computed CSS nodes from the DOM.
 
 ### Exporter Configurations
+- **Phone Scale**: Clear the inline `adjustScale()` transform on every page before rendering, export pages one at a time, and call `adjustScale()` once at the end; otherwise phones export a 45%-size, low-resolution image.
 - **Crisp Pixel Scale**: Use `scale: 3` to achieve ultra-sharp high-resolution density exports.
 - **Cross-Origin Handling**: Set `useCORS: true` to guarantee Google Fonts and Phosphor Icon CDNs fetch cleanly.
 - **Active State Binding**: Exporter background color must adapt dynamically based on `body.classList.contains('dark')` (`#0f172a` for dark, `#ffffff` for light).

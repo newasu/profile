@@ -37,8 +37,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- html2canvas library for high-fidelity client-side PNG rendering -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- html2canvas-pro (drop-in html2canvas fork) for client-side PNG rendering; html2canvas 1.4.1
+         drew every text line a few px below its box (tags, bullets, heading rules all misaligned) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/dist/html2canvas-pro.min.js"></script>
 
     <style>
         /* A4 Page Dimensions Constraints */
@@ -198,18 +199,19 @@
         .company-private { display: inline; }
         .company-public { display: none; }
 
-        body.public-mode .company-private {
+        /* Selectors key on the class, not on <body>: the SVG exporter copies body's classes onto a <div> */
+        .public-mode .company-private {
             display: none !important;
         }
-        body.public-mode .company-public {
+        .public-mode .company-public {
             display: inline !important;
         }
 
         /* Date Period Private/Public Visibility Toggles */
         .date-private { display: inline; }
         .date-public { display: none; }
-        body.public-mode .date-private { display: none !important; }
-        body.public-mode .date-public { display: inline !important; }
+        .public-mode .date-private { display: none !important; }
+        .public-mode .date-public { display: inline !important; }
 
         /* Editorial Section Headings */
         .section-heading {
@@ -250,15 +252,15 @@
         }
 
         /* Thai mode: no synthetic italics on Thai text (A4 pages only; the control bar never changes) */
-        body.lang-th .a4-page .italic,
-        body.lang-th .a4-page .section-heading {
+        .lang-th .a4-page .italic,
+        .lang-th .a4-page .section-heading {
             font-style: normal;
         }
         /* Thai has no spaces between words: justify opens big gaps, tracking pulls vowels off their consonants */
-        body.lang-th .a4-page .text-justify {
+        .lang-th .a4-page .text-justify {
             text-align: left;
         }
-        body.lang-th .a4-page [class*="tracking-"]:not(header > div) {
+        .lang-th .a4-page [class*="tracking-"]:not(header > div) {
             letter-spacing: normal;
         }
         .th-word {
@@ -1347,6 +1349,21 @@
             // Remove any interactive control headers or non-printable elements
             const noPrintItems = clone.querySelectorAll('.no-print');
             noPrintItems.forEach(el => el.remove());
+
+            // Masking hides text with CSS only; strip the hidden variant so it is not in the file's source
+            const isMasked = document.body.classList.contains('public-mode');
+            clone.querySelectorAll(isMasked ? '.company-private, .date-private' : '.company-public, .date-public')
+                .forEach(el => el.remove());
+
+            // Source comments name the real companies (e.g. "Role 1: AVALANT"); never ship them
+            const comments = document.createTreeWalker(clone, NodeFilter.SHOW_COMMENT);
+            const commentNodes = [];
+            while (comments.nextNode()) commentNodes.push(comments.currentNode);
+            commentNodes.forEach(c => c.remove());
+
+            // Drop the phone-screen scale that adjustScale() puts on the page
+            clone.style.transform = '';
+            clone.style.marginBottom = '';
             
             // Apply standard XHTML namespace to root clone
             clone.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
@@ -1354,7 +1371,7 @@
             // Prepare complete stylesheet block
             let stylesText = `
                 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap');
-                @import url('https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css');
+                @import url('https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css');
             `;
             
             // Extract all active styles currently loaded in the DOM (Tailwind compiled rules + Custom overrides)
@@ -1415,7 +1432,7 @@
         </style>
     </defs>
     <foreignObject x="0" y="0" width="793.7" height="1122.52" style="overflow: hidden !important;">
-        <div xmlns="http://www.w3.org/1999/xhtml" class="${document.body.className}" style="width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden !important;">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="${document.body.className}" style="width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden !important; font-family: 'Plus Jakarta Sans', 'IBM Plex Sans Thai', system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased;">
             ${new XMLSerializer().serializeToString(clone)}
         </div>
     </foreignObject>
@@ -1473,7 +1490,7 @@
             };
             
             // Execute HTML to canvas conversion
-            html2canvas(pageElement, options).then(canvas => {
+            return html2canvas(pageElement, options).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = imgData;
@@ -1499,18 +1516,19 @@
             const dd = String(today.getDate()).padStart(2, '0');
             const dateStr = `${yy}${mm}${dd}`;
             
-            if (isCv) {
-                const cvPages = document.querySelectorAll('.cv-container .a4-page');
-                cvPages.forEach((page, index) => {
-                    const pageNum = index + 1;
-                    const filename = `Wasu Kudisthalert, Ph.D. - CV_Page${pageNum}${maskSuffix}_${dateStr}.png`;
-                    exportPNG(page, filename);
-                });
-            } else {
-                const resumePage = document.querySelector('.resume-container .a4-page');
-                const filename = `Wasu Kudisthalert, Ph.D. - Resume${maskSuffix}_${dateStr}.png`;
-                exportPNG(resumePage, filename);
-            }
+            const jobs = isCv
+                ? [...document.querySelectorAll('.cv-container .a4-page')].map((page, index) =>
+                    [page, `Wasu Kudisthalert, Ph.D. - CV_Page${index + 1}${maskSuffix}_${dateStr}.png`])
+                : [[document.querySelector('.resume-container .a4-page'), `Wasu Kudisthalert, Ph.D. - Resume${maskSuffix}_${dateStr}.png`]];
+
+            // html2canvas sizes the image from the on-screen box, so lift the phone-screen scale
+            // for the whole run (pages one at a time) and put it back once at the end
+            document.querySelectorAll('.a4-page').forEach(page => {
+                page.style.transform = '';
+                page.style.marginBottom = '';
+            });
+            jobs.reduce((chain, [page, filename]) => chain.then(() => exportPNG(page, filename)), Promise.resolve())
+                .finally(adjustScale);
         }
     </script>
 
