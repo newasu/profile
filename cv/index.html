@@ -157,6 +157,15 @@
                 background: #0f172a !important;
                 color: #f8fafc !important;
             }
+            /* iOS Safari ignores @page { margin: 0 } and prints inside its own margins, so a full
+               297mm page spills a sliver onto a blank sheet after every page. Shrink the page
+               so it fits inside those margins (181 x 255mm leaves ~14-20mm per side). */
+            body.ios-print .a4-page {
+                zoom: 0.86;
+            }
+            html:has(body.ios-print), body.ios-print {
+                height: auto !important;
+            }
             /* Hide the inactive containers in print */
             body.show-resume .cv-container {
                 display: none !important;
@@ -1024,6 +1033,11 @@
             });
         }
         window.addEventListener('resize', adjustScale);
+        // iPhone / iPad (iPadOS reports itself as a Mac with touch) need the smaller print page
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+            document.addEventListener('DOMContentLoaded', () => document.body.classList.add('ios-print'));
+        }
         // Phones print the screen-scaled page unless the inline scale is cleared first
         window.addEventListener('beforeprint', () => {
             document.querySelectorAll('.a4-page').forEach(page => {

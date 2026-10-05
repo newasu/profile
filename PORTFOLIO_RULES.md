@@ -93,6 +93,7 @@ This document consolidates all core design rules, layout architectures, export s
 - **CV Mode** must print on **exactly 2 pages**.
 - **Zero Overflow Page-Breaks**: Neutralize wrappers, gaps, paddings, and heights of container layouts under `@media print`.
 - **Mobile Print Scale**: `adjustScale()` shrinks `.a4-page` with an inline `transform: scale()` on narrow screens (≈0.45 on an iPhone). The print CSS must keep `transform: none !important` and the `beforeprint` handler must clear the inline scale, or phones print the page at 45% size.
+- **iOS Print Margins**: iOS Safari ignores `@page { margin: 0 }` and prints inside its own margins, so a 297mm page spills onto a blank sheet after every page. On iPhone/iPad the page adds `body.ios-print`, which zooms `.a4-page` to 0.86 and frees the html/body height in print. Desktop print is unchanged.
 - **Avoid Orphan Sheets**: Enforce strict `page-break-after: avoid !important;` on the active last visible page being printed:
   * `.resume-container .a4-page:last-child` (Resume View)
   * `.cv-container .a4-page:last-child` (CV View)
