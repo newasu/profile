@@ -11,7 +11,8 @@
   So: all rules are scoped under .wkp (no bare body/h1/a/:root selectors), variables are --wkp-*,
   standalone-only rules use body:has(> .wkp), the email stays a data-u/data-d span with id="instructor-email",
   sections keep .fade-up, and every link is absolute.
-  Facts come from WK_CV.json (single source of truth); company names stay in their masked form.
+  Facts come from WK_CV.json (single source of truth). Content is always blind, like the CV's masked mode:
+  masked company names and no work or research dates (the current role shows only "Present").
 -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
@@ -153,35 +154,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 .wkp-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 .wkp-btn-primary { background: var(--wkp-navy); border-color: var(--wkp-navy); color: #fff; }
 .wkp-btn-primary:hover { background: var(--wkp-navy-deep); border-color: var(--wkp-navy-deep); }
-
-/* ---------- Highlights ---------- */
-.wkp-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin: 18px 0 0;
-}
-.wkp-stat {
-    padding: 18px 20px;
-    background: var(--wkp-surface);
-    border: 1px solid var(--wkp-line);
-    border-radius: 14px;
-}
-.wkp-stat b {
-    display: block;
-    font-family: var(--wkp-serif);
-    font-size: 2rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--wkp-navy);
-}
-.wkp-stat span {
-    display: block;
-    margin-top: 6px;
-    font-size: .8rem;
-    line-height: 1.4;
-    color: var(--wkp-muted);
-}
 
 /* ---------- Sections ---------- */
 .wkp-section { margin-top: 56px; }
@@ -329,7 +301,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
-    .wkp-stats { grid-template-columns: repeat(2, 1fr); }
     .wkp-edu { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
@@ -346,8 +317,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
     .wkp-pub-year { font-size: 1.2rem; }
 }
 @media (max-width: 380px) {
-    .wkp-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .wkp-stat { padding: 14px; }
     .wkp-btn { padding: 0 14px; font-size: .82rem; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -369,26 +338,13 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
             <p class="wkp-role">University Lecturer
                 <small>Computer Science, School of Science · King Mongkut's Institute of Technology Ladkrabang (KMITL)</small>
             </p>
-            <p class="wkp-lede">Teaching and research in Computer Vision, Vision-Language Models and Data Science, grounded in more than a decade of industry and public-sector engineering, from drone and CCTV anomaly detection to nationwide government information systems, alongside academic services and project management for Thai government agencies.</p>
+            <p class="wkp-lede">Teaching and research in Computer Vision, Vision-Language Models and Data Science, grounded in industry and public-sector engineering, from drone and CCTV anomaly detection to nationwide government information systems, alongside academic services and project management for Thai government agencies.</p>
             <div class="wkp-actions">
-                <a class="wkp-btn wkp-btn-primary" href="https://profile.wkneil.com/cv/?view=cv" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>
-                    Curriculum Vitae
-                </a>
-                <a class="wkp-btn" href="https://profile.wkneil.com/cv/" target="_blank" rel="noopener">Résumé</a>
                 <span class="wkp-btn" id="instructor-email" data-u="wasu.ku" data-d="kmitl.ac.th">wasu.ku&#64;kmitl.ac.th</span>
                 <a class="wkp-btn" href="https://linkedin.com/in/wkneil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
         </div>
     </header>
-
-    <!-- Highlights (counts from WK_CV.json) -->
-    <div class="wkp-stats fade-up">
-        <div class="wkp-stat"><b>7</b><span>Peer-reviewed publications</span></div>
-        <div class="wkp-stat"><b>3</b><span>Q1 journal articles</span></div>
-        <div class="wkp-stat"><b>2</b><span>CVPR &amp; ICCV workshop papers</span></div>
-        <div class="wkp-stat"><b>4</b><span>Research labs in Thailand, Japan &amp; Spain</span></div>
-    </div>
 
     <!-- Research interests -->
     <section class="wkp-section fade-up">
@@ -412,7 +368,7 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
             <li class="wkp-current">
                 <div class="wkp-tl-top">
                     <h3 class="wkp-tl-role">University Lecturer</h3>
-                    <span class="wkp-tl-date">Apr 2026 – Present</span>
+                    <span class="wkp-tl-date">Present</span>
                 </div>
                 <p class="wkp-tl-org">King Mongkut's Institute of Technology Ladkrabang (KMITL) · Bangkok</p>
                 <p class="wkp-tl-text">Directs curriculum development and leads advanced AI research in Computer Vision, Vision-Language Models (VLMs) and Data Science, bridging academic research and industry-ready ML production pipelines, and provides academic services and project management to Thai government agencies.</p>
@@ -420,7 +376,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
             <li>
                 <div class="wkp-tl-top">
                     <h3 class="wkp-tl-role">Lead Machine Learning Engineer</h3>
-                    <span class="wkp-tl-date">Apr 2023 – Mar 2026</span>
                 </div>
                 <p class="wkp-tl-org">Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Global Fortune 500 Energy Conglomerate · Bangkok</p>
                 <p class="wkp-tl-text">Set the machine learning strategy and led engineering teams deploying drone and CCTV-based anomaly detection across offices, factories and remote sites for surveillance, threat detection, alerting and proactive recommendations, integrating Vision-Language Model (VLM) agents and edge computing.</p>
@@ -428,7 +383,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
             <li>
                 <div class="wkp-tl-top">
                     <h3 class="wkp-tl-role">Data Scientist (Independent Consultant)</h3>
-                    <span class="wkp-tl-date">2020 – 2021</span>
                 </div>
                 <p class="wkp-tl-org">Commercial Enterprises (Private Sector) · Bangkok</p>
                 <p class="wkp-tl-text">Engineered a production-ready biometric face verification API with anti-spoofing and liveness detection for high-security commercial deployments.</p>
@@ -436,9 +390,8 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
             <li>
                 <div class="wkp-tl-top">
                     <h3 class="wkp-tl-role">Project Manager &amp; Full-Stack Developer</h3>
-                    <span class="wkp-tl-date">Jul 2012 – Mar 2023</span>
                 </div>
-                <p class="wkp-tl-org">Digital Consultancies &amp; Public Sector Projects (BIOTEC and Thai Government Agencies) · Bangkok &amp; Pathum Thani</p>
+                <p class="wkp-tl-org">Consolidated Public Sector &amp; Enterprise Consultancies (BIOTEC, Gov.) · Bangkok &amp; Pathum Thani</p>
                 <p class="wkp-tl-text">Architected nationwide GIS and demographic visualization systems and secure data warehouses for government ministries, an interactive scientific visualization platform and centralized identity access for BIOTEC, and Java-based content management systems for national educational institutes.</p>
             </li>
         </ol>
@@ -449,25 +402,25 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
         <div class="wkp-section-head"><h2>Research Experience</h2></div>
         <div class="wkp-grid">
             <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2019</span><span>Madrid, Spain</span></div>
+                <div class="wkp-card-meta"><span>Madrid, Spain</span></div>
                 <h3>Visiting Researcher (Internship)</h3>
                 <p class="wkp-card-org">BIDA Lab, Universidad Autónoma de Madrid</p>
                 <p class="wkp-card-text">Curated a novel biometric dataset and engineered machine learning architectures optimized for high-accuracy face verification.</p>
             </article>
             <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2018 – 2019</span><span>Pathum Thani, Thailand</span></div>
+                <div class="wkp-card-meta"><span>Pathum Thani, Thailand</span></div>
                 <h3>Ph.D. Researcher</h3>
                 <p class="wkp-card-org">Protein-Ligand Engineering &amp; Molecular Biology Lab, BIOTEC</p>
                 <p class="wkp-card-text">Applied computer vision models to automate erythrocyte detection and classify malaria infection stages.</p>
             </article>
             <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2017</span><span>Fukuoka, Japan</span></div>
+                <div class="wkp-card-meta"><span>Fukuoka, Japan</span></div>
                 <h3>Exchange Researcher</h3>
                 <p class="wkp-card-org">National Institute of Technology, Kurume College</p>
                 <p class="wkp-card-text">Developed a pixel-level voting algorithm that extends depth of field in microscopic imaging, producing in-focus captures of blood slides.</p>
             </article>
             <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2016 – 2022</span><span>Bangkok, Thailand</span></div>
+                <div class="wkp-card-meta"><span>Bangkok, Thailand</span></div>
                 <h3>Researcher</h3>
                 <p class="wkp-card-org">Data Science &amp; Machine Learning Research (DSMLR) Lab, KMITL</p>
                 <p class="wkp-card-text">Interdisciplinary AI research in face biometrics, computer vision for malaria parasite classification and machine learning for virtual drug screening.</p>
@@ -559,7 +512,7 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 
     <footer class="wkp-foot">
         <span>Wasu Kudisthalert, Ph.D. · Bangkok, Thailand</span>
-        <span><a href="https://profile.wkneil.com/cv/?view=cv" target="_blank" rel="noopener">Full CV</a> · <a href="https://classes.incortx.com" target="_blank" rel="noopener">INCORTX Classes</a></span>
+        <span><a href="https://classes.incortx.com" target="_blank" rel="noopener">INCORTX Classes</a></span>
     </footer>
 </div>
 <script>
