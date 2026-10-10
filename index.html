@@ -3,458 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instructor Profile</title>
+    <title>Wasu Kudisthalert, Ph.D. · Instructor Profile</title>
+    <meta name="description" content="Wasu Kudisthalert, Ph.D. — University Lecturer in Computer Science at KMITL. Computer Vision, Vision-Language Models and production machine learning.">
+<!--
+  EMBED CONTRACT (course landing pages fetch this page):
+  every <style> below and the single .container are injected into the host page, and scripts never run there.
+  So: all rules are scoped under .wkp (no bare body/h1/a/:root selectors), variables are --wkp-*,
+  standalone-only rules use body:has(> .wkp), the email stays a data-u/data-d span with id="instructor-email",
+  sections keep .fade-up, and every link is absolute.
+  Facts come from WK_CV.json (single source of truth); company names stay in their masked form.
+-->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-:root {
-    --navy: #0f172a;
-    --slate: #1e293b;
-    --card: #ffffff;
-    --text: #1e293b;
-    --muted: #64748b;
-    --body: #334155;
-    --accent: #2563eb;
-    --blue: #2563eb;
-    --teal: #0d9488;
-    --coral: #e11d48;
-    --purple: #7c3aed;
-    --amber: #d97706;
-    --emerald: #059669;
-    --surface-warm: #faf9f7;
-    --surface-cool: #f5f5f8;
-    --bg: var(--surface-warm);
-    --bg2: var(--surface-cool);
-    --border: #e2e8f0;
-}
+.wkp {
+    --wkp-navy: #1b365d;
+    --wkp-navy-deep: #112543;
+    --wkp-ink: #0f172a;
+    --wkp-body: #334155;
+    --wkp-muted: #64748b;
+    --wkp-faint: #94a3b8;
+    --wkp-line: #e2e8f0;
+    --wkp-surface: #ffffff;
+    --wkp-tint: #f4f7fb;
+    --wkp-teal: #0f766e;
+    --wkp-serif: 'Cormorant Garamond', Georgia, serif;
+    --wkp-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-.container {
-    max-width: 1100px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 24px;
-}
-
-/* Standalone top/bottom spacing (ignored when injected into section) */
-body > .container {
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    color: var(--text);
+    box-sizing: border-box;
+    font-family: var(--wkp-sans);
+    color: var(--wkp-body);
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-align: left;
+}
+.wkp *, .wkp *::before, .wkp *::after { box-sizing: border-box; }
+.wkp :where(a) { color: inherit; }   /* zero specificity: never beats a component's own color */
+
+/* Standalone page only (an embedded copy sits inside the host's section, never directly under <body>) */
+body:has(> .wkp) {
     margin: 0;
-    padding: 0;
+    background: #f6f7f9;
 }
+body > .wkp {
+    padding-top: 72px;
+    padding-bottom: 64px;
+}
+body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 
-.instructor-header {
-    display: flex;
-    gap: 28px;
+/* ---------- Hero ---------- */
+.wkp-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
     align-items: center;
-    margin-bottom: 40px;
+    padding: 40px 44px;
+    background: var(--wkp-surface);
+    border: 1px solid var(--wkp-line);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 32px -12px rgba(15, 23, 42, .12);
 }
-
-.avatar-badge {
-    width: 90px;
-    height: 90px;
+.wkp-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--wkp-navy) 0%, #475569 55%, #cbd5e1 100%);
+}
+.wkp-monogram {
+    width: 112px;
+    height: 112px;
     border-radius: 50%;
-    flex-shrink: 0;
-    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
-    font-weight: 900;
+    background: radial-gradient(circle at 30% 25%, #2c4f80 0%, var(--wkp-navy) 45%, var(--wkp-navy-deep) 100%);
     color: #fff;
-    letter-spacing: -.02em;
-}
-
-.instructor-meta {
-    flex: 1;
-    min-width: 0;
-}
-
-.instructor-meta h3 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--navy);
-    margin: 0;
-}
-
-.instructor-meta p {
-    font-size: .9rem;
-    color: var(--body);
-    margin-top: 4px;
-    margin-bottom: 0;
-}
-
-.meta-chips {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.meta-chip {
-    font-size: .72rem;
+    font-family: var(--wkp-serif);
+    font-size: 2.6rem;
     font-weight: 600;
-    color: var(--blue);
-    background: rgba(37, 99, 235, .08);
-    padding: 3px 12px;
-    border-radius: 99px;
-}
-
-.cv-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 32px;
-}
-
-@media(max-width:768px) {
-    .cv-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .pub-list li {
-        flex-wrap: wrap;
-        white-space: normal;
-        gap: 6px 8px;
-        padding: 12px 14px;
-    }
-    
-    .pub-list li strong.pub-title {
-        white-space: normal;
-        overflow: visible;
-        text-overflow: clip;
-        flex-basis: 100%;
-        margin-top: 2px;
-    }
-    
-    .pub-list li.tier-a-star:hover,
-    .pub-list li.tier-q1:hover,
-    .pub-list li.tier-a:hover,
-    .pub-list li.tier-c:hover {
-        transform: none !important; /* Prevent sticky hover translate shifts on mobile */
-    }
-}
-
-@media(max-width:640px) {
-    .instructor-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    
-    .avatar-badge {
-        width: 80px;
-        height: 80px;
-        font-size: 1.6rem;
-    }
-    
-    .meta-chips {
-        justify-content: center;
-    }
-}
-
-@media(max-width:480px) {
-    .container {
-        padding: 0 16px;
-    }
-    
-    body > .container {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-    
-    .instructor-meta h3 {
-        font-size: 1.3rem;
-    }
-    
-    .cv-card {
-        padding: 16px 18px;
-    }
-}
-
-.cv-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px 22px;
-    border-left: 4px solid var(--blue);
-}
-
-.cv-card .role-tag {
-    font-size: .65rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--muted);
-    margin-bottom: 6px;
-}
-
-.cv-card h4 {
-    font-size: .92rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-top: 0;
-    margin-bottom: 4px;
-    line-height: 1.3;
-}
-
-.cv-card .company-type {
-    font-size: .72rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 6px;
-}
-
-.cv-card .duration {
-    font-size: .75rem;
-    color: var(--teal);
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.cv-card p {
-    font-size: .82rem;
-    color: var(--body);
-    line-height: 1.65;
-    margin: 0;
-}
-
-.research-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-    margin-bottom: 32px;
-}
-
-.research-card {
-    background: linear-gradient(135deg, rgba(13, 148, 136, .05) 0%, rgba(37, 99, 235, .04) 100%);
-    border: 1px solid rgba(13, 148, 136, .18);
-    border-radius: 12px;
-    padding: 16px 18px;
-}
-
-.research-card h5 {
-    font-size: .8rem;
-    font-weight: 700;
-    color: var(--teal);
-    margin-top: 0;
-    margin-bottom: 4px;
-}
-
-.research-card p {
-    font-size: .75rem;
-    color: var(--body);
-    line-height: 1.6;
-    margin: 0;
-}
-
-.pub-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0;
-    margin: 0;
-}
-
-.pub-list li {
-    background: var(--bg2);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: .82rem;
-    color: var(--body);
-    border-left: 3px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow: hidden;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-}
-
-.pub-list li.tier-a-star,
-.pub-list li.tier-q1 {
-    border-left-color: var(--purple);
-}
-
-.pub-list li.tier-a-star:hover,
-.pub-list li.tier-q1:hover {
-    background: rgba(124, 58, 237, 0.05);
-    transform: translateX(4px);
-}
-
-.pub-list li.tier-a {
-    border-left-color: var(--blue);
-}
-
-.pub-list li.tier-a:hover {
-    background: rgba(37, 99, 235, 0.05);
-    transform: translateX(4px);
-}
-
-.pub-list li.tier-c {
-    border-left-color: var(--teal);
-}
-
-.pub-list li.tier-c:hover {
-    background: rgba(13, 148, 136, 0.05);
-    transform: translateX(4px);
-}
-
-.pub-list li strong {
-    color: var(--navy);
+    letter-spacing: .02em;
+    box-shadow: 0 0 0 6px var(--wkp-tint), 0 10px 24px -8px rgba(27, 54, 93, .55);
     flex-shrink: 0;
 }
-
-.pub-list li strong.pub-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-shrink: 1;
-}
-
-.pub-venue {
+.wkp-eyebrow {
+    margin: 0 0 6px;
     font-size: .72rem;
     font-weight: 700;
-    color: var(--coral);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--wkp-navy);
+}
+.wkp-name {
+    margin: 0;
+    font-family: var(--wkp-serif);
+    font-size: clamp(2rem, 4.2vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--wkp-ink);
+    letter-spacing: .005em;
+}
+.wkp-name span { color: var(--wkp-muted); font-weight: 500; }
+.wkp-role {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--wkp-ink);
+}
+.wkp-role small {
+    display: block;
+    margin-top: 2px;
+    font-size: .88rem;
+    font-weight: 500;
+    color: var(--wkp-muted);
+}
+.wkp-lede {
+    margin: 14px 0 0;
+    max-width: 62ch;
+    font-size: .95rem;
+    color: var(--wkp-body);
+}
+.wkp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+.wkp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--wkp-line);
+    background: var(--wkp-surface);
+    color: var(--wkp-ink);
+    font-size: .86rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.wkp-btn:hover { border-color: var(--wkp-navy); transform: translateY(-1px); }
+.wkp-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.wkp-btn-primary { background: var(--wkp-navy); border-color: var(--wkp-navy); color: #fff; }
+.wkp-btn-primary:hover { background: var(--wkp-navy-deep); border-color: var(--wkp-navy-deep); }
+
+/* ---------- Highlights ---------- */
+.wkp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 18px 0 0;
+}
+.wkp-stat {
+    padding: 18px 20px;
+    background: var(--wkp-surface);
+    border: 1px solid var(--wkp-line);
+    border-radius: 14px;
+}
+.wkp-stat b {
+    display: block;
+    font-family: var(--wkp-serif);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--wkp-navy);
+}
+.wkp-stat span {
+    display: block;
+    margin-top: 6px;
+    font-size: .8rem;
+    line-height: 1.4;
+    color: var(--wkp-muted);
 }
 
-/* Ensure fade-up items are visible without JS when standalone */
-body > .container .fade-up {
-    opacity: 1 !important;
-    transform: none !important;
+/* ---------- Sections ---------- */
+.wkp-section { margin-top: 56px; }
+.wkp-section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+.wkp-section-head h2 {
+    margin: 0;
+    font-family: var(--wkp-serif);
+    font-style: italic;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--wkp-navy);
+    white-space: nowrap;
+}
+.wkp-section-head::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--wkp-line);
+    transform: translateY(-6px);
 }
 
-.section-tag {
-    display: none;
+.wkp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wkp-chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--wkp-tint);
+    border: 1px solid #dbe4f0;
+    color: var(--wkp-navy);
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+/* Experience timeline */
+.wkp-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.wkp-timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--wkp-line);
+}
+.wkp-timeline li { position: relative; padding: 0 0 26px 36px; }
+.wkp-timeline li:last-child { padding-bottom: 0; }
+.wkp-timeline li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--wkp-surface);
+    border: 3px solid #cbd5e1;
+}
+.wkp-timeline li.wkp-current::before { border-color: var(--wkp-navy); background: var(--wkp-navy); box-shadow: 0 0 0 4px #dbe4f0; }
+.wkp-tl-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.wkp-tl-role { margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--wkp-ink); }
+.wkp-tl-date { font-size: .8rem; font-weight: 600; color: var(--wkp-muted); white-space: nowrap; }
+.wkp-current .wkp-tl-date { color: var(--wkp-navy); }
+.wkp-tl-org { margin: 2px 0 0; font-size: .86rem; font-weight: 600; color: var(--wkp-navy); }
+.wkp-tl-text { margin: 8px 0 0; font-size: .9rem; max-width: 78ch; }
+
+/* Cards (research labs) */
+.wkp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.wkp-card {
+    padding: 22px 24px;
+    background: var(--wkp-surface);
+    border: 1px solid var(--wkp-line);
+    border-radius: 14px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+.wkp-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 24px -14px rgba(15, 23, 42, .25); }
+.wkp-card-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--wkp-muted);
+}
+.wkp-card h3 { margin: 10px 0 2px; font-size: 1rem; font-weight: 700; color: var(--wkp-ink); }
+.wkp-card-org { margin: 0; font-size: .84rem; font-weight: 600; color: var(--wkp-navy); }
+.wkp-card p.wkp-card-text { margin: 10px 0 0; font-size: .87rem; }
+
+/* Education */
+.wkp-edu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.wkp-edu .wkp-card h3 { margin-top: 6px; }
+
+/* Publications */
+.wkp-pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.wkp-pub {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 18px;
+    padding: 18px 22px;
+    background: var(--wkp-surface);
+    border: 1px solid var(--wkp-line);
+    border-radius: 14px;
+}
+.wkp-pub-year { font-family: var(--wkp-serif); font-size: 1.5rem; font-weight: 600; line-height: 1.1; color: var(--wkp-navy); }
+.wkp-pub-title { margin: 0; font-size: .95rem; font-weight: 700; line-height: 1.45; color: var(--wkp-ink); }
+.wkp-pub-authors { margin: 4px 0 0; font-size: .82rem; color: var(--wkp-muted); }
+.wkp-pub-authors b { color: var(--wkp-ink); font-weight: 700; }
+.wkp-pub-venue { margin: 6px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .84rem; font-style: italic; color: var(--wkp-body); }
+.wkp-rank {
+    font-style: normal;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.wkp-rank-astar { background: var(--wkp-navy); color: #fff; }
+.wkp-rank-q1 { background: #e6f4f1; color: var(--wkp-teal); }
+.wkp-rank-a { background: #eef2f7; color: #334155; }
+.wkp-rank-c { background: #f1f5f9; color: var(--wkp-muted); }
+
+/* Footer */
+.wkp-foot {
+    margin-top: 56px;
+    padding-top: 22px;
+    border-top: 1px solid var(--wkp-line);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: .8rem;
+    color: var(--wkp-muted);
+}
+.wkp-foot a { color: var(--wkp-navy); font-weight: 600; text-decoration: none; }
+.wkp-foot a:hover { text-decoration: underline; }
+
+/* Section label used by course landing pages; hidden here */
+.wkp .section-tag { display: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+    .wkp-stats { grid-template-columns: repeat(2, 1fr); }
+    .wkp-edu { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+    .wkp { padding: 0 16px; }
+    body > .wkp { padding-top: 32px; padding-bottom: 40px; }
+    .wkp-hero { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 32px 22px; gap: 20px; }
+    .wkp-monogram { width: 92px; height: 92px; font-size: 2.1rem; }
+    .wkp-lede { margin-left: auto; margin-right: auto; }
+    .wkp-actions { justify-content: center; }
+    .wkp-grid { grid-template-columns: 1fr; }
+    .wkp-section { margin-top: 44px; }
+    .wkp-section-head h2 { font-size: 1.5rem; }
+    .wkp-pub { grid-template-columns: 1fr; gap: 6px; padding: 16px 18px; }
+    .wkp-pub-year { font-size: 1.2rem; }
+}
+@media (max-width: 380px) {
+    .wkp-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .wkp-stat { padding: 14px; }
+    .wkp-btn { padding: 0 14px; font-size: .82rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .wkp-btn, .wkp-card { transition: none; }
+    .wkp-btn:hover { transform: none; }
 }
 </style>
 </head>
 <body>
-        <div class="container">
-            <span class="section-tag">Your Instructor</span>
-            <div class="instructor-header fade-up">
-                <div class="avatar-badge">WK</div>
-                <div class="instructor-meta">
-                    <h3>Wasu Kudisthalert (Neil)</h3>
-                    <p>University Lecturer · KMITL School of Science</p>
-                    <div class="meta-chips">
-                        <span class="meta-chip">Ph.D. IT · KMITL</span>
-                        <span class="meta-chip" id="instructor-email" data-u="wasu.ku" data-d="kmitl.ac.th">wasu.ku&#64;kmitl.ac.th</span>
+<div class="container wkp">
+    <span class="section-tag">Your Instructor</span>
 
-                        <a href="https://linkedin.com/in/wkneil" class="meta-chip" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">linkedin.com/in/wkneil</a>
-                        <span class="meta-chip">Computer Vision</span>
-                        <span class="meta-chip">Machine Learning</span>
-                        <span class="meta-chip">Vision-Language Models</span>
-                        <span class="meta-chip">Edge AI</span>
-                        <span class="meta-chip">3D Spatial Intelligence</span>
-                        <span class="meta-chip">Biometrics</span>
-                        <span class="meta-chip">Chemoinformatics</span>
-                        <span class="meta-chip">Bioinformatics</span>
-                    </div>
-                </div>
+    <!-- Hero -->
+    <header class="wkp-hero fade-up">
+        <div class="wkp-monogram" aria-hidden="true">WK</div>
+        <div>
+            <p class="wkp-eyebrow">Instructor Profile</p>
+            <h1 class="wkp-name">Wasu Kudisthalert, <span>Ph.D.</span></h1>
+            <p class="wkp-role">University Lecturer
+                <small>Computer Science, School of Science · King Mongkut's Institute of Technology Ladkrabang (KMITL)</small>
+            </p>
+            <p class="wkp-lede">Teaching and research in Computer Vision, Vision-Language Models and Data Science, grounded in more than a decade of industry and public-sector engineering, from drone and CCTV anomaly detection to nationwide government information systems, alongside academic services and project management for Thai government agencies.</p>
+            <div class="wkp-actions">
+                <a class="wkp-btn wkp-btn-primary" href="https://profile.wkneil.com/cv/?view=cv" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>
+                    Curriculum Vitae
+                </a>
+                <a class="wkp-btn" href="https://profile.wkneil.com/cv/" target="_blank" rel="noopener">Résumé</a>
+                <span class="wkp-btn" id="instructor-email" data-u="wasu.ku" data-d="kmitl.ac.th">wasu.ku&#64;kmitl.ac.th</span>
+                <a class="wkp-btn" href="https://linkedin.com/in/wkneil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
-
-            <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px" class="fade-up">Professional
-                Experience</h3>
-            <div class="cv-grid fade-up">
-                <div class="cv-card" style="border-left-color:var(--coral)">
-                    <div class="role-tag">Academia · Current</div>
-                    <h4>University Lecturer · KMITL</h4>
-                    <div class="company-type">Public Research University</div>
-                    <div class="duration">Apr 2026 – Present · Bangkok, Thailand</div>
-                    <p>Direct curriculum development and lead advanced AI research in Computer Vision, Vision-Language
-                        Models (VLMs), and Data Science — bridging academic research and industry-ready ML production
-                        pipelines — and provide academic services and project management to various Thai government agencies.</p>
-                </div>
-                <div class="cv-card" style="border-left-color:var(--teal)">
-                    <div class="role-tag">Deep-Tech · 2023–2026</div>
-                    <h4>Lead Machine Learning Engineer</h4>
-                    <div class="company-type">Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Global Fortune
-                        500 Energy Conglomerate</div>
-                    <div class="duration">Apr 2023 – Mar 2026 · Bangkok, Thailand</div>
-                    <p>Spearheaded ML strategy and directed engineering teams: Deployed drone &amp; CCTV-based anomaly
-                        detection pipelines across offices, factories, and remote areas; integrated Vision-Language
-                        Model (VLM) agents and edge-computing solutions.</p>
-                </div>
-                <div class="cv-card">
-                    <div class="role-tag">Consulting · 2020–2021</div>
-                    <h4>Data Scientist (Independent Consultant)</h4>
-                    <div class="company-type">Independent AI &amp; Computer Vision Consultant</div>
-                    <div class="duration">2020 – 2021 · Bangkok, Thailand</div>
-                    <p>Engineered a production-ready biometric face verification API integrating advanced anti-spoofing
-                        and liveness detection algorithms for high-security commercial deployments.</p>
-                </div>
-                <div class="cv-card">
-                    <div class="role-tag">Industry · 2012–2023</div>
-                    <h4>Project Manager &amp; Full-Stack Developer</h4>
-                    <div class="company-type">Various Digital Consultancies &amp; Public Sector Projects</div>
-                    <div class="duration">Jul 2012 – Mar 2023 · Bangkok, Thailand</div>
-                    <p>Engineered enterprise-grade solutions: Nationwide GIS/demographic visualization systems and
-                        secure data warehouses for multiple government ministries; interactive scientific visualization
-                        for BIOTEC; centralized identity access systems.</p>
-                </div>
-            </div>
-
-            <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px" class="fade-up">Research
-                Experience</h3>
-            <div class="research-grid fade-up">
-                <div class="research-card">
-                    <h5>DSMLR Lab · KMITL</h5>
-                    <p>2016–2022 · Bangkok, Thailand<br>Biometric face verification, malaria parasite classification,
-                        ML-based drug discovery.</p>
-                </div>
-                <div class="research-card">
-                    <h5>BIDA Lab · Madrid</h5>
-                    <p>2019 · Spain<br>Curated novel biometric datasets; engineered advanced ML architectures for face
-                        verification.</p>
-                </div>
-                <div class="research-card">
-                    <h5>BIOTEC Lab · Pathum Thani</h5>
-                    <p>2018–2019 · Thailand<br>CV models for automated erythrocyte detection and malaria infection stage
-                        classification.</p>
-                </div>
-                <div class="research-card">
-                    <h5>Kurume College · Japan</h5>
-                    <p>2017 · Fukuoka, Japan<br>Pixel-level voting algorithm to extend depth of field in microscopic
-                        blood-slide imaging.</p>
-                </div>
-            </div>
-
-            <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:16px" class="fade-up">Selected
-                Publications</h3>
-            <ul class="pub-list fade-up">
-                <li class="tier-a-star"><strong>[ICCV Workshop 2025]</strong> <span class="ex-tag"
-                        style="background:#fff5f5;color:var(--coral);font-weight:800">CORE Rank: A*</span> <strong
-                        class="pub-title">TrafficInternVL: Spatially-Guided Fine-Tuning for Traffic Safety VQA</strong>
-                </li>
-                <li class="tier-a-star"><strong>[CVPR Workshop 2024]</strong> <span class="ex-tag"
-                        style="background:#fff5f5;color:var(--coral);font-weight:800">CORE Rank: A*</span> <strong
-                        class="pub-title">Online Multi-Camera People Tracking with Spatial-Temporal Mechanism &amp;
-                        Anchor-Feature Clustering</strong></li>
-                <li class="tier-q1"><strong>[Neural Computing and Applications 2022]</strong> <span class="ex-tag"
-                        style="background:#faf5ff;color:var(--purple);font-weight:800">Q1</span> <strong
-                        class="pub-title">SELM: Siamese Extreme Learning Machine for Face Biometrics</strong></li>
-                <li class="tier-q1"><strong>[IEEE Access 2020]</strong> <span class="ex-tag"
-                        style="background:#faf5ff;color:var(--purple);font-weight:800">Q1</span> <strong
-                        class="pub-title">Counting and Classification of Malarial Parasite from Giemsa-Stained Thin Film
-                        Images</strong></li>
-                <li class="tier-q1"><strong>[PLOS ONE 2018]</strong> <span class="ex-tag"
-                        style="background:#faf5ff;color:var(--purple);font-weight:800">Q1</span> <strong
-                        class="pub-title">Virtual Screening by Clustering-Based Weighted Similarity ELM</strong></li>
-                <li class="tier-a"><strong>[Neural Information Processing 2016]</strong> <span class="ex-tag"
-                        style="background:#eff6ff;color:var(--blue);font-weight:800">CORE Rank: A</span> <strong
-                        class="pub-title">Clustering-Based Weighted ELM for Drug Discovery Classification</strong></li>
-                <li class="tier-c"><strong>[KST 2016]</strong> <span class="ex-tag"
-                        style="background:#f0fdf9;color:var(--teal);font-weight:800">CORE Rank: C</span> <strong
-                        class="pub-title">Coefficient Comparison of Weighted Similarity ELM for Drug Screening</strong>
-                </li>
-            </ul>
         </div>
+    </header>
+
+    <!-- Highlights (counts from WK_CV.json) -->
+    <div class="wkp-stats fade-up">
+        <div class="wkp-stat"><b>7</b><span>Peer-reviewed publications</span></div>
+        <div class="wkp-stat"><b>3</b><span>Q1 journal articles</span></div>
+        <div class="wkp-stat"><b>2</b><span>CVPR &amp; ICCV workshop papers</span></div>
+        <div class="wkp-stat"><b>4</b><span>Research labs in Thailand, Japan &amp; Spain</span></div>
+    </div>
+
+    <!-- Research interests -->
+    <section class="wkp-section fade-up">
+        <div class="wkp-section-head"><h2>Research Interests</h2></div>
+        <div class="wkp-chips">
+            <span class="wkp-chip">Computer Vision</span>
+            <span class="wkp-chip">Machine Learning</span>
+            <span class="wkp-chip">Vision-Language Models</span>
+            <span class="wkp-chip">Edge AI</span>
+            <span class="wkp-chip">3D Spatial Intelligence</span>
+            <span class="wkp-chip">Biometrics</span>
+            <span class="wkp-chip">Chemoinformatics</span>
+            <span class="wkp-chip">Bioinformatics</span>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="wkp-section fade-up">
+        <div class="wkp-section-head"><h2>Professional Experience</h2></div>
+        <ol class="wkp-timeline">
+            <li class="wkp-current">
+                <div class="wkp-tl-top">
+                    <h3 class="wkp-tl-role">University Lecturer</h3>
+                    <span class="wkp-tl-date">Apr 2026 – Present</span>
+                </div>
+                <p class="wkp-tl-org">King Mongkut's Institute of Technology Ladkrabang (KMITL) · Bangkok</p>
+                <p class="wkp-tl-text">Directs curriculum development and leads advanced AI research in Computer Vision, Vision-Language Models (VLMs) and Data Science, bridging academic research and industry-ready ML production pipelines, and provides academic services and project management to Thai government agencies.</p>
+            </li>
+            <li>
+                <div class="wkp-tl-top">
+                    <h3 class="wkp-tl-role">Lead Machine Learning Engineer</h3>
+                    <span class="wkp-tl-date">Apr 2023 – Mar 2026</span>
+                </div>
+                <p class="wkp-tl-org">Deep-Tech Venture Builder &amp; AI/Robotics Subsidiary of a Global Fortune 500 Energy Conglomerate · Bangkok</p>
+                <p class="wkp-tl-text">Set the machine learning strategy and led engineering teams deploying drone and CCTV-based anomaly detection across offices, factories and remote sites for surveillance, threat detection, alerting and proactive recommendations, integrating Vision-Language Model (VLM) agents and edge computing.</p>
+            </li>
+            <li>
+                <div class="wkp-tl-top">
+                    <h3 class="wkp-tl-role">Data Scientist (Independent Consultant)</h3>
+                    <span class="wkp-tl-date">2020 – 2021</span>
+                </div>
+                <p class="wkp-tl-org">Commercial Enterprises (Private Sector) · Bangkok</p>
+                <p class="wkp-tl-text">Engineered a production-ready biometric face verification API with anti-spoofing and liveness detection for high-security commercial deployments.</p>
+            </li>
+            <li>
+                <div class="wkp-tl-top">
+                    <h3 class="wkp-tl-role">Project Manager &amp; Full-Stack Developer</h3>
+                    <span class="wkp-tl-date">Jul 2012 – Mar 2023</span>
+                </div>
+                <p class="wkp-tl-org">Digital Consultancies &amp; Public Sector Projects (BIOTEC and Thai Government Agencies) · Bangkok &amp; Pathum Thani</p>
+                <p class="wkp-tl-text">Architected nationwide GIS and demographic visualization systems and secure data warehouses for government ministries, an interactive scientific visualization platform and centralized identity access for BIOTEC, and Java-based content management systems for national educational institutes.</p>
+            </li>
+        </ol>
+    </section>
+
+    <!-- Research experience -->
+    <section class="wkp-section fade-up">
+        <div class="wkp-section-head"><h2>Research Experience</h2></div>
+        <div class="wkp-grid">
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2019</span><span>Madrid, Spain</span></div>
+                <h3>Visiting Researcher (Internship)</h3>
+                <p class="wkp-card-org">BIDA Lab, Universidad Autónoma de Madrid</p>
+                <p class="wkp-card-text">Curated a novel biometric dataset and engineered machine learning architectures optimized for high-accuracy face verification.</p>
+            </article>
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2018 – 2019</span><span>Pathum Thani, Thailand</span></div>
+                <h3>Ph.D. Researcher</h3>
+                <p class="wkp-card-org">Protein-Ligand Engineering &amp; Molecular Biology Lab, BIOTEC</p>
+                <p class="wkp-card-text">Applied computer vision models to automate erythrocyte detection and classify malaria infection stages.</p>
+            </article>
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2017</span><span>Fukuoka, Japan</span></div>
+                <h3>Exchange Researcher</h3>
+                <p class="wkp-card-org">National Institute of Technology, Kurume College</p>
+                <p class="wkp-card-text">Developed a pixel-level voting algorithm that extends depth of field in microscopic imaging, producing in-focus captures of blood slides.</p>
+            </article>
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2016 – 2022</span><span>Bangkok, Thailand</span></div>
+                <h3>Researcher</h3>
+                <p class="wkp-card-org">Data Science &amp; Machine Learning Research (DSMLR) Lab, KMITL</p>
+                <p class="wkp-card-text">Interdisciplinary AI research in face biometrics, computer vision for malaria parasite classification and machine learning for virtual drug screening.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section class="wkp-section fade-up">
+        <div class="wkp-section-head"><h2>Education</h2></div>
+        <div class="wkp-edu">
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2022</span><span>KMITL</span></div>
+                <h3>Ph.D. in Information Technology</h3>
+            </article>
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2017</span><span>KMITL</span></div>
+                <h3>M.Sc. in Information Science</h3>
+            </article>
+            <article class="wkp-card">
+                <div class="wkp-card-meta"><span>2012</span><span>KMITL</span></div>
+                <h3>B.Sc. in Computer Science</h3>
+            </article>
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <section class="wkp-section fade-up">
+        <div class="wkp-section-head"><h2>Selected Publications</h2></div>
+        <ol class="wkp-pubs">
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2025</div>
+                <div>
+                    <p class="wkp-pub-title">TrafficInternVL: Spatially-Guided Fine-Tuning with Caption Refinement for Fine-Grained Traffic Safety Captioning and Visual Question Answering</p>
+                    <p class="wkp-pub-authors">Phimsiri, S., Sunpawatr, S., Cherdchusakulchai, R., … <b>Kudisthalert, W.</b>, … Suttichaya, V.</p>
+                    <p class="wkp-pub-venue">IEEE/CVF ICCV Workshops <span class="wkp-rank wkp-rank-astar">CORE A*</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2024</div>
+                <div>
+                    <p class="wkp-pub-title">Online Multi-Camera People Tracking with Spatial-Temporal Mechanism and Anchor-Feature Hierarchical Clustering</p>
+                    <p class="wkp-pub-authors">Cherdchusakulchai, R., Phimsiri, S., Trairattanapa, V., Tungjitnob, S., <b>Kudisthalert, W.</b>, … Suttichaya, V.</p>
+                    <p class="wkp-pub-venue">IEEE/CVF CVPR Workshops <span class="wkp-rank wkp-rank-astar">CORE A*</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2022</div>
+                <div>
+                    <p class="wkp-pub-title">SELM: Siamese Extreme Learning Machine with Application to Face Biometrics</p>
+                    <p class="wkp-pub-authors"><b>Kudisthalert, W.</b>, Pasupa, K., Morales, A., Fierrez, J.</p>
+                    <p class="wkp-pub-venue">Neural Computing and Applications <span class="wkp-rank wkp-rank-q1">Q1</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2020</div>
+                <div>
+                    <p class="wkp-pub-title">Counting and Classification of Malarial Parasite from Giemsa-Stained Thin Film Images</p>
+                    <p class="wkp-pub-authors"><b>Kudisthalert, W.</b>, Pasupa, K., Tongsima, S.</p>
+                    <p class="wkp-pub-venue">IEEE Access <span class="wkp-rank wkp-rank-q1">Q1</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2018</div>
+                <div>
+                    <p class="wkp-pub-title">Virtual Screening by a New Clustering-Based Weighted Similarity Extreme Learning Machine Approach</p>
+                    <p class="wkp-pub-authors">Pasupa, K., <b>Kudisthalert, W.</b></p>
+                    <p class="wkp-pub-venue">PLOS ONE <span class="wkp-rank wkp-rank-q1">Q1</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2016</div>
+                <div>
+                    <p class="wkp-pub-title">Clustering-Based Weighted Extreme Learning Machine for Classification in Drug Discovery Process</p>
+                    <p class="wkp-pub-authors"><b>Kudisthalert, W.</b>, Pasupa, K.</p>
+                    <p class="wkp-pub-venue">Neural Information Processing <span class="wkp-rank wkp-rank-a">CORE A</span></p>
+                </div>
+            </li>
+            <li class="wkp-pub">
+                <div class="wkp-pub-year">2016</div>
+                <div>
+                    <p class="wkp-pub-title">A Coefficient Comparison of Weighted Similarity Extreme Learning Machine for Drug Screening</p>
+                    <p class="wkp-pub-authors"><b>Kudisthalert, W.</b>, Pasupa, K.</p>
+                    <p class="wkp-pub-venue">8th International Conference on Knowledge and Smart Technology (KST) <span class="wkp-rank wkp-rank-c">CORE C</span></p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <footer class="wkp-foot">
+        <span>Wasu Kudisthalert, Ph.D. · Bangkok, Thailand</span>
+        <span><a href="https://profile.wkneil.com/cv/?view=cv" target="_blank" rel="noopener">Full CV</a> · <a href="https://classes.incortx.com" target="_blank" rel="noopener">INCORTX Classes</a></span>
+    </footer>
+</div>
 <script>
 (function(){
     var el = document.getElementById('instructor-email');
