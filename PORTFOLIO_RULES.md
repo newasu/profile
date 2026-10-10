@@ -71,6 +71,14 @@ This document consolidates all core design rules, layout architectures, export s
 
 ---
 
+## 🔗 3b. URL Parameters (cv/index.html)
+
+- `?view=cv|resume` · `?lang=th|en` · `?reveal=1` (also `true`/`yes`; anything else stays masked). Example: `cv/?view=cv&lang=th&reveal=1`.
+- Defaults are omitted (resume, masked, saved language or English). URL `lang` beats the saved `cv-lang` preference.
+- Every toggle rewrites the address bar with `history.replaceState` (via `updateDocumentTitle()` → `syncUrl()`), so the current URL is always a shareable link to exactly what is on screen. A `reveal=1` link shows real company names to whoever opens it.
+
+---
+
 ## 👁️ 4. Dynamic Anonymization & Company Masking
 
 ### Privacy Mode Behavior

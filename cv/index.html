@@ -1109,6 +1109,7 @@
             const dateStr = `${yy}${mm}${dd}`;
             
             document.title = `Wasu Kudisthalert, Ph.D. - ${modeName}${maskSuffix}_${dateStr}`;
+            syncUrl();
         }
 
         // Switch between Resume (1-Page) and CV (2-Pages) views safely
@@ -1356,9 +1357,31 @@
             applyLanguage(currentLang === 'th' ? 'en' : 'th');
         }
 
-        // Startup: ?lang=th|en in the URL wins over the saved preference
+        // ===== URL STATE: ?view=cv|resume  &lang=th|en  &reveal=1 =====
+        // The URL always mirrors the page, so the address bar is a shareable link to exactly what is on screen.
+        // Defaults (resume, masked, saved language or English) are left out of the URL.
+        let urlSyncReady = false;
+
+        function syncUrl() {
+            if (!urlSyncReady) return;
+            const params = new URLSearchParams(window.location.search);
+            ['view', 'lang', 'reveal'].forEach(k => params.delete(k));
+            if (document.body.classList.contains('show-cv')) params.set('view', 'cv');
+            if (currentLang === 'th') params.set('lang', 'th');
+            if (!document.body.classList.contains('public-mode')) params.set('reveal', '1');
+            const query = params.toString();
+            try {
+                history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
+            } catch (e) {
+                // Some file:// contexts refuse replaceState; the page still works
+            }
+        }
+
+        // Startup: URL parameters win over the saved language preference
         document.addEventListener('DOMContentLoaded', () => {
-            let lang = new URLSearchParams(window.location.search).get('lang');
+            const params = new URLSearchParams(window.location.search);
+
+            let lang = params.get('lang');
             if (lang !== 'th' && lang !== 'en') {
                 try {
                     lang = localStorage.getItem('cv-lang');
@@ -1367,6 +1390,17 @@
                 }
             }
             if (lang === 'th') applyLanguage('th');
+
+            const view = params.get('view');
+            if (view === 'cv' || view === 'resume') switchView(view);
+
+            // ?reveal=1 (also true / yes) shows real company names and dates; anything else stays masked
+            if (/^(1|true|yes)$/i.test(params.get('reveal') || '') && document.body.classList.contains('public-mode')) {
+                togglePublicMode();
+            }
+
+            urlSyncReady = true;
+            syncUrl();
         });
 
         // Apply saved theme preferences on startup securely
