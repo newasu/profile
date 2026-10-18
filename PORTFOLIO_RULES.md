@@ -181,6 +181,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 ### Content
 - **Always blind**, like the CV's masked mode: masked company names, no work or research dates (current roles show only `Present`). Education years stay.
 - **Section order**: Hero → Education → Teaching → Professional Experience → Research Interests → Research Experience → Selected Publications → footer. No mark in the hero (the WK monogram was removed 2026-10-18); the name carries it.
+- **Research interests sphere**: on the standalone page at ≥861px, a script reads the Research Interests chips, draws them as a rotating, draggable word sphere on the right of the hero (`.wkp-ri-stage`, 300px, colours from the `--wkp-*` tokens, no auto-rotation under reduced motion) and hides `#research-interests` so the interests appear once. Phones and embedded copies keep the plain chips section. Edit the interests in the chips (and `WK_CV.json`), never in the script.
 - **Hero buttons**: email (copy button), LinkedIn, Google Scholar, INCORTX Classes. ORCID is kept in `WK_CV.json` but not shown.
 - **Teaching** comes from `WK_CV.json` → `teaching` (courses and talks, absolute links to classes.incortx.com). No terms, years or session counts.
 - **Professional Experience** lists two current roles: University Lecturer (KMITL) and Founder & Director, INCORTX (`WK_CV.json` → `incortx`).

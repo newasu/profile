@@ -352,6 +352,18 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 .wkp-foot a { color: var(--wkp-accent); font-weight: 600; text-decoration: none; }
 .wkp-foot a:hover { text-decoration: underline; }
 
+/* Research interests sphere: standalone desktop only. The script reads the words from the
+   Research Interests chips, draws them on a rotating sphere in the hero, and hides that section
+   so the interests appear once. Embedded copies and phones keep the plain chips. */
+.wkp-ri-stage { display: none; }
+body > .wkp .wkp-hero.wkp-has-sphere { grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; }
+body > .wkp .wkp-hero.wkp-has-sphere .wkp-actions { gap: 8px; }
+body > .wkp .wkp-hero.wkp-has-sphere .wkp-btn { padding: 0 14px; }   /* keeps the four buttons on one row beside the sphere */
+body > .wkp .wkp-hero.wkp-has-sphere .wkp-ri-stage { display: block; width: 300px; height: 300px; align-self: center; }
+.wkp-ri-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+.wkp-ri-stage canvas:active { cursor: grabbing; }
+body > .wkp #research-interests.wkp-in-hero { display: none; }
+
 /* Theme button: standalone page only (hidden when a course page embeds this profile) */
 .wkp-theme { display: none; }
 body > .wkp .wkp-theme { all: unset; box-sizing: border-box; position: fixed; z-index: 10; top: calc(16px + env(safe-area-inset-top, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; background: var(--wkp-surface); border: 1px solid var(--wkp-line); box-shadow: var(--wkp-shadow-sm); color: var(--wkp-muted); cursor: pointer; }
@@ -412,6 +424,7 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
                 <a class="wkp-btn" href="https://classes.incortx.com" target="_blank" rel="noopener">INCORTX Classes</a>
             </div>
         </div>
+        <div class="wkp-ri-stage"><canvas></canvas></div>
     </header>
 
     <!-- Education -->
@@ -510,7 +523,7 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
     </section>
 
     <!-- Research interests -->
-    <section class="wkp-section fade-up">
+    <section class="wkp-section fade-up" id="research-interests">
         <div class="wkp-section-head"><h2>Research Interests</h2></div>
         <div class="wkp-chips">
             <span class="wkp-chip">Computer Vision</span>
@@ -668,6 +681,58 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
         });
         el.parentNode.replaceChild(b, el);
     });
+})();
+// research interests sphere (standalone desktop; the plain chips stay for phones and embedded copies)
+(function(){
+    var hero = document.querySelector('body > .wkp .wkp-hero'), sec = document.getElementById('research-interests');
+    var stage = hero && hero.querySelector('.wkp-ri-stage'); if (!stage || !sec) return;
+    var words = Array.prototype.map.call(sec.querySelectorAll('.wkp-chip'), function (c) { return c.textContent.trim(); });
+    var canvas = stage.querySelector('canvas'), ctx = canvas.getContext('2d'), wkp = hero.parentNode;
+    var wide = matchMedia('(min-width: 861px)'), still = matchMedia('(prefers-reduced-motion: reduce)');
+    var W = 0, H = 0, dpr = 1, yaw = 0.4, pitch = -0.25, drag = null, col = {}, on = false, visible = true, last = 0;
+    stage.setAttribute('role', 'img');
+    stage.setAttribute('aria-label', 'Research interests: ' + words.join(', '));
+    function fib(n) { var out = []; for (var i = 0; i < n; i++) { var y = 1 - 2 * (i + .5) / n, r = Math.sqrt(1 - y * y), t = i * 2.39996; out.push([Math.cos(t) * r, y, Math.sin(t) * r]); } return out; }
+    var shell = fib(260), pts = fib(words.length);
+    function rgb(v) { v = v.trim(); if (v.charAt(0) === '#') { v = v.slice(1); return [0, 2, 4].map(function (i) { return parseInt(v.slice(i, i + 2), 16); }); } var m = v.match(/\d+/g); return m ? m.slice(0, 3).map(Number) : [120, 120, 120]; }
+    function readCol() { var cs = getComputedStyle(wkp); col = { ink: rgb(cs.getPropertyValue('--wkp-ink')), accent: rgb(cs.getPropertyValue('--wkp-accent')), muted: rgb(cs.getPropertyValue('--wkp-muted')) }; }
+    function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')'; }
+    function resize() { dpr = Math.min(window.devicePixelRatio || 1, 2); var r = canvas.getBoundingClientRect(); W = r.width; H = r.height; canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); }
+    function proj(p, R) { var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+        var x1 = p[0] * cy - p[2] * sy, z1 = p[0] * sy + p[2] * cy, y2 = p[1] * cp - z1 * sp, z2 = p[1] * sp + z1 * cp, f = 3 / (3 + z2);
+        return [W / 2 + x1 * R * f, H / 2 - y2 * R * f, z2, f]; }
+    function draw() {
+        if (!W) return;
+        var R = W * 0.29;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+        shell.forEach(function (p) { var q = proj(p, R), a = 0.08 + 0.28 * (1 - (q[2] + 1) / 2); ctx.fillStyle = rgba(col.muted, a); ctx.fillRect(q[0] - 1.2 * q[3], q[1] - 1.2 * q[3], 2.4 * q[3], 2.4 * q[3]); });
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        pts.map(function (p, i) { return [proj(p, R), words[i]]; }).sort(function (a, b) { return b[0][2] - a[0][2]; }).forEach(function (e) {
+            var q = e[0], w = e[1], front = 1 - (q[2] + 1) / 2;
+            ctx.font = (front > .55 ? 600 : 500) + ' ' + Math.round(10 + 5 * front) + "px 'Plus Jakarta Sans', system-ui, sans-serif";
+            var h = ctx.measureText(w).width / 2 + 3, x = Math.min(Math.max(q[0], h), W - h);   // keep every word on the canvas
+            ctx.fillStyle = rgba(front > .55 ? col.accent : col.ink, 0.25 + 0.75 * front); ctx.fillText(w, x, q[1]);
+        });
+    }
+    function frame(now) {
+        var dt = Math.min(.05, (now - last) / 1000); last = now;
+        if (on && visible && !document.hidden) { if (!drag && !still.matches) yaw += dt * 0.35; draw(); }
+        requestAnimationFrame(frame);
+    }
+    function apply() {
+        on = wide.matches;
+        hero.classList.toggle('wkp-has-sphere', on); sec.classList.toggle('wkp-in-hero', on);
+        if (on) { resize(); readCol(); draw(); }
+    }
+    canvas.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY, yaw, pitch]; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', function (e) { if (!drag) return; yaw = drag[2] + (e.clientX - drag[0]) * 0.01; pitch = Math.max(-1.2, Math.min(1.2, drag[3] + (e.clientY - drag[1]) * 0.01)); draw(); });
+    function end() { drag = null; } canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
+    (wide.addEventListener ? wide.addEventListener('change', apply) : wide.addListener(apply));
+    new MutationObserver(function () { readCol(); draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { readCol(); draw(); });
+    if (window.IntersectionObserver) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(stage);
+    window.addEventListener('resize', function () { if (on) { resize(); draw(); } });
+    apply(); requestAnimationFrame(function (t) { last = t; frame(t); });
 })();
 // theme button: Auto (follows the device) -> Light -> Dark, kept on this device
 (function(){
