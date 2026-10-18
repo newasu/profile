@@ -1572,10 +1572,10 @@
             stylesText = stylesText.replace(/]]>/g, ']]&gt;');
 
             // Construct self-contained SVG package
-            // Standard A4 dimensions at 72 DPI (PostScript Points) for 100% Figma & Illustrator accuracy is exactly 595.27 x 841.89
-            // Internal viewBox remains 793.7 x 1122.52 to fit Tailwind screen pixels beautifully, while SVG auto-scales it down.
+            // A4 at 96 DPI (CSS px) = 793.7 x 1122.52, the same as the viewBox: WebKit (Safari, Preview, Quick Look)
+            // does not scale <foreignObject> HTML by the viewBox, so a 595 x 842 (pt) outer size showed it 1.33x, cropped.
             const svgString = `
-<svg xmlns="http://www.w3.org/2000/svg" width="595.27" height="841.89" viewBox="0 0 793.7 1122.52" style="width: 595.27px; height: 841.89px;">
+<svg xmlns="http://www.w3.org/2000/svg" width="793.7" height="1122.52" viewBox="0 0 793.7 1122.52">
     <defs>
         <style type="text/css">
             <![CDATA[
