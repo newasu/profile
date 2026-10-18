@@ -25,6 +25,10 @@
         "linkedin": {
             "url": "https://www.linkedin.com/in/wkneil",
             "display": "WKNEIL"
+        },
+        "orcid": {
+            "url": "https://orcid.org/0000-0003-3638-6673",
+            "display": "0000-0003-3638-6673"
         }
     },
     "education": [
@@ -273,7 +277,8 @@
             "booktitle": "2016 8th International Conference on Knowledge and Smart Technology (KST)",
             "pages": "43--48",
             "year": 2016,
-            "rank_quartile": "CORE Rank: C"
+            "rank_quartile": "CORE Rank: C",
+            "doi": "10.1109/KST.2016.7440525"
         },
         {
             "order": 2,
@@ -286,7 +291,8 @@
             "year": 2016,
             "publisher": "Springer International Publishing",
             "address": "Cham",
-            "rank_quartile": "CORE Rank: A"
+            "rank_quartile": "CORE Rank: A",
+            "doi": "10.1007/978-3-319-46687-3_49"
         },
         {
             "order": 3,
@@ -299,7 +305,8 @@
             "pages": "1--25",
             "month": "April",
             "year": 2018,
-            "rank_quartile": "Q1"
+            "rank_quartile": "Q1",
+            "doi": "10.1371/journal.pone.0195478"
         },
         {
             "order": 4,
@@ -311,7 +318,8 @@
             "volume": "8",
             "pages": "78663--78682",
             "year": 2020,
-            "rank_quartile": "Q1"
+            "rank_quartile": "Q1",
+            "doi": "10.1109/ACCESS.2020.2990497"
         },
         {
             "order": 5,
@@ -321,7 +329,8 @@
             "title": "SELM: Siamese extreme learning machine with application to face biometrics",
             "journal": "Neural Computing and Applications",
             "year": 2022,
-            "rank_quartile": "Q1"
+            "rank_quartile": "Q1",
+            "doi": "10.1007/s00521-022-07100-z"
         },
         {
             "order": 6,
@@ -333,7 +342,8 @@
             "pages": "7198--7207",
             "month": "June",
             "year": 2024,
-            "rank_quartile": "CORE Rank: A*"
+            "rank_quartile": "CORE Rank: A*",
+            "doi": "10.1109/CVPRW63382.2024.00715"
         },
         {
             "order": 7,
@@ -345,7 +355,8 @@
             "pages": "5299--5306",
             "month": "October",
             "year": 2025,
-            "rank_quartile": "CORE Rank: A*"
+            "rank_quartile": "CORE Rank: A*",
+            "doi": "10.1109/ICCVW69036.2025.00559"
         }
     ],
     "incortx": {
