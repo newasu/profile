@@ -184,7 +184,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Hero buttons**: email (copy button), LinkedIn, Google Scholar, INCORTX Classes. ORCID is kept in `WK_CV.json` but not shown.
 - **Teaching** comes from `WK_CV.json` → `teaching` (courses and talks, absolute links to classes.incortx.com). No terms, years or session counts.
 - **Professional Experience** lists two current roles: University Lecturer (KMITL) and Founder & Director, INCORTX (`WK_CV.json` → `incortx`).
-- **INCORTX** is described broadly in two parts, Classes and research (`incortx.research`, from the ClickUp Research space). Research is named by topic only: no partner, hospital or collaborator names. The Publications section opens with one line summarising the published themes (`incortx.research.published_themes`).
+- **INCORTX** is described broadly in two parts, Classes and research (`incortx.research`, from the ClickUp Research space). Keep it broad: one line ("medical imaging AI with clinical partners"), no project-level detail, no partner, hospital or collaborator names. The Publications section opens with one broad line on the fields of the published work (`incortx.research.published_themes`).
 - **Publications** link to `https://doi.org/<doi>` from each entry's `doi` field, show the DOI in mono under the venue, and end with "All publications on Google Scholar".
 
 ### Embed contract (course landing pages fetch this page)
