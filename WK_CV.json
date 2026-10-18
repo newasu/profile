@@ -387,7 +387,16 @@
         },
         "mission": "Slides, labs and project briefs for Signal Processing, Computer Vision and Data Analytics.",
         "tagline": "Time. Light. Entropy.",
-        "portal_url": "https://classes.incortx.com"
+        "portal_url": "https://classes.incortx.com",
+        "research": {
+            "summary": "Medical imaging AI with clinical partners.",
+            "projects": [
+                {"name": "Vertebral fracture assessment", "summary": "Vertebral fracture assessment (VFA) from spine images."},
+                {"name": "Appendicular lean mass", "summary": "Appendicular lean mass (ALM/ALMI) estimation from DXA scans for sarcopenia screening."},
+                {"name": "Dementia", "summary": "Dementia classification (AD / MCI / CN) from brain MRI."}
+            ],
+            "published_themes": ["Traffic-scene captioning and visual question answering", "Multi-camera people tracking", "Face biometrics", "Malaria parasite detection in blood-smear images", "Machine learning for virtual drug screening"]
+        }
     },
     "teaching": {
         "portal_url": "https://classes.incortx.com",
