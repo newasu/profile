@@ -123,26 +123,24 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 
 ## 📐 6. Scalable A4 Vector Exporter (SVG)
 
-### Graphics Canvas Dimensions
-- To guarantee perfect A4 canvas alignment when SVG assets are imported into Figma or Adobe Illustrator, the exporter must lock standard physical bounds at **72 DPI PostScript Points**:
-  * Physical bounds: `width="595.27"` and `height="841.89"`
-  * Style constraints: `style="width: 595.27px; height: 841.89px;"`
-  * Coordinate viewBox: `viewBox="0 0 793.7 1122.52"` (scales high-fidelity Tailwind elements automatically).
+### True vector, no `<foreignObject>`
+- `exportSVG()` runs **dom-to-svg@0.12.2** (`cdn.jsdelivr.net/npm/dom-to-svg@0.12.2/+esm`) on the live, laid-out page: text becomes `<text>/<tspan>`, boxes and borders `<rect>/<path>`. Figma, Illustrator and Inkscape can open and edit it.
+- Never go back to wrapping HTML in a `<foreignObject>`: design tools show a blank page, and WebKit (Safari, Preview, Quick Look) ignores the viewBox scale for it, so a 595 × 842 outer size showed the page at 1.33×, cropped.
+- Canvas: `width`/`height` = the page box (793.7 × 1122.5 px = A4 at 96 DPI) with a matching viewBox.
+
+### Justified text and word positions
+- dom-to-svg fits every line chunk with `textLength` + `lengthAdjust="spacingAndGlyphs"`, which stretches the glyphs of justified lines (they look a size larger); `lengthAdjust="spacing"` letter-spaces them instead, and WebKit ignores `word-spacing` on SVG text. So the exporter drops `textLength` and places **one tspan per word at its own x**, spreading the line's gap over its word spaces as HTML justify does. Lines are measured on an off-screen copy (`getComputedTextLength()`, `getSubStringLength()`).
+- A line is split into one tspan per inline element (bold name, italic venue), each at its own x. Browsers drop a tspan's leading/trailing spaces when measuring: trim both, shift x right by one space for a leading space, and use the next tspan's x as the chunk's end. Chunks followed by another chunk are always split into words, because WebKit sets text ~0.5% wider than the Chromium layout, enough to close a space.
+- Check after any exporter change: gap before every word that follows another tspan on the same line > 1.5 px in both Chromium and WebKit, rightmost text ≤ ~751 px (column edge 748). Thai lines without spaces stay ragged.
 
 ### Embedded Fonts & Icons
-- The SVG must open with zero network requests (as an `<img>`, offline, in a viewer). On export, `buildEmbeddedFontCss()` inlines as base64 only the font faces `document.fonts` reports as loaded (Google Latin subset + `Sarabun Doc`), merging variable-font weights that share one file; remote `@font-face`/`@import` rules are dropped.
-- `inlineIcons()` swaps each Phosphor `<i class="ph ph-*">` for that icon's own path from `@phosphor-icons/core@2.1.1/assets/regular/` (instead of the 144 KB icon font).
-- Result: ~185 KB per English page, ~240 KB per Thai page. Export itself needs internet to fetch the files once.
+- On export, `buildEmbeddedFontCss()` inlines as base64 only the font faces `document.fonts` reports as loaded (Google Latin subset + `Sarabun Doc`) in a `<style>` at the top of the SVG, merging variable-font weights that share one file. Browsers and viewers use them; design tools ignore embedded fonts and substitute installed ones of the same name.
+- `inlineIcons()` swaps each Phosphor `<i class="ph ph-*">` on the live page for that icon's own path from `@phosphor-icons/core@2.1.1/assets/regular/` and returns the swaps; the exporter puts the `<i>` back after the run.
+- Result: ~230–275 KB per English page, ~340 KB per Thai page. Export itself needs internet to fetch the files once.
 
-### Masking, Fonts & Phone Scale
-- Mask/Thai selectors key on the class (`.public-mode`, `.lang-th`), never on `body.`: the exporter copies body's classes onto a `<div>`.
-- The exporter deletes the hidden mask variant (`.company-private`/`.date-private` when masked) and all HTML comments from the clone, so real company names never sit in the SVG source.
-- The wrapper `<div>` sets the base font itself (Tailwind puts it on `<html>`), the icon CSS is `@phosphor-icons/web@2.1.1/src/regular/style.css` (`src/style.css` is a 404), and the clone's inline phone-screen transform is cleared.
-
-### Stylesheet Extraction & Scrollbar Hiding
-- The SVG parser must extract all active styles (Tailwind compiled rules + custom inline overrides) and encapsulate them.
-- External Google Fonts and Phosphor Icons must be bundled inside `@import` rules inside the SVG `<defs>`.
-- Block default browser scrollbars inside the generated SVG file by enforcing `overflow: hidden !important;` on the `<foreignObject>` container.
+### Masking & Phone Scale
+- dom-to-svg only draws rendered boxes, so the hidden mask variant (`display: none`) and HTML comments never reach the SVG: masked files contain no real company names (check with a grep after any exporter change).
+- The page's inline phone-screen transform from `adjustScale()` is cleared for the run and restored after.
 
 ---
 

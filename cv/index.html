@@ -1506,8 +1506,9 @@
         }
 
         // Replace each Phosphor icon-font <i> with the icon's own SVG path (a few hundred bytes each,
-        // instead of the 144 KB icon font)
+        // instead of the 144 KB icon font). Returns [icon, svg] pairs so the caller can swap them back.
         async function inlineIcons(root) {
+            const swaps = [];
             await Promise.all([...root.querySelectorAll('i.ph')].map(async icon => {
                 const name = [...icon.classList].find(c => c.startsWith('ph-'));
                 if (!name) return;
@@ -1522,95 +1523,100 @@
                 svg.setAttribute('fill', 'currentColor');
                 svg.setAttribute('style', 'display: inline-block; vertical-align: -0.125em; flex-shrink: 0;');
                 icon.replaceWith(svg);
+                swaps.push([icon, svg]);
             }));
+            return swaps;
         }
 
-        // Render and download A4 page as an SVG Vector Graphics file (Locked to standard 72 DPI PostScript Points A4 size)
+        // Render and download an A4 page as a true vector SVG. dom-to-svg turns the laid-out page into
+        // <text>, <rect> and <path> elements instead of wrapping HTML in a <foreignObject>, which Figma,
+        // Illustrator and Inkscape cannot read and WebKit (Safari, Preview, Quick Look) shows cropped.
         async function exportSVG(pageElement, filename) {
-            // Clone the page element
-            const clone = pageElement.cloneNode(true);
-            
-            // Remove any interactive control headers or non-printable elements
-            const noPrintItems = clone.querySelectorAll('.no-print');
-            noPrintItems.forEach(el => el.remove());
+            const { elementToSVG } = await import('https://cdn.jsdelivr.net/npm/dom-to-svg@0.12.2/+esm');
+            const fontCss = await buildEmbeddedFontCss();
 
-            // Masking hides text with CSS only; strip the hidden variant so it is not in the file's source
-            const isMasked = document.body.classList.contains('public-mode');
-            clone.querySelectorAll(isMasked ? '.company-private, .date-private' : '.company-public, .date-public')
-                .forEach(el => el.remove());
+            // Work on the live page (dom-to-svg reads its layout): icons become vector paths and the
+            // phone-screen scale from adjustScale() is lifted, both only for this run.
+            const swaps = await inlineIcons(pageElement);
+            const { transform, marginBottom } = pageElement.style;
+            pageElement.style.transform = '';
+            pageElement.style.marginBottom = '';
+            let svg;
+            try {
+                // Only rendered boxes become shapes, so masked (display: none) names and source comments stay out
+                svg = elementToSVG(pageElement).documentElement;
+            } finally {
+                swaps.forEach(([icon, vector]) => vector.replaceWith(icon));
+                pageElement.style.transform = transform;
+                pageElement.style.marginBottom = marginBottom;
+            }
 
-            // Source comments name the real companies (e.g. "Role 1: AVALANT"); never ship them
-            const comments = document.createTreeWalker(clone, NodeFilter.SHOW_COMMENT);
-            const commentNodes = [];
-            while (comments.nextNode()) commentNodes.push(comments.currentNode);
-            commentNodes.forEach(c => c.remove());
-
-            // Drop the phone-screen scale that adjustScale() puts on the page
-            clone.style.transform = '';
-            clone.style.marginBottom = '';
-            
-            // Apply standard XHTML namespace to root clone
-            clone.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-
-            // Icons become inline vector paths; fonts are embedded below, so nothing is fetched on open
-            await inlineIcons(clone);
-            let stylesText = await buildEmbeddedFontCss() + "\n";
-
-            // Extract all active styles currently loaded in the DOM (Tailwind compiled rules + custom overrides,
-            // which already include every <style> tag). Remote @font-face rules are dropped: embedded above.
-            for (const sheet of document.styleSheets) {
-                try {
-                    for (const rule of sheet.cssRules) {
-                        if (!(rule instanceof CSSFontFaceRule)) stylesText += rule.cssText + "\n";
+            // dom-to-svg fits each line to its width with textLength, which stretches the glyphs (or, with
+            // lengthAdjust="spacing", the letters) of justified lines. Justify them the way HTML does instead:
+            // measure the line and spread the gap over its word spaces.
+            const probe = document.createElement('div');
+            probe.style.cssText = 'position: absolute; left: -10000px; top: 0;';
+            probe.appendChild(svg);
+            document.body.appendChild(probe);
+            try {
+                // A line is split into one tspan per inline element (a bold name, an italic venue), each placed
+                // at its own x. Browsers drop a tspan's leading and trailing spaces when measuring, so trim
+                // both: a leading space moves the start right by one space, and where the line goes on, the
+                // trailing space (stretched like the others) is the gap before the next tspan.
+                const tspans = [...svg.querySelectorAll('tspan')];
+                tspans.forEach((t, i) => {
+                    if (!t.hasAttribute('textLength')) return;
+                    const next = tspans[i + 1];
+                    const lead = /^\s/.test(t.textContent);
+                    const lineGoesOn = /\s$/.test(t.textContent) && next && next.getAttribute('y') === t.getAttribute('y');
+                    let x0 = parseFloat(t.getAttribute('x'));
+                    // Where the line goes on, the next tspan's x is the true end (textLength can run past it)
+                    let target = lineGoesOn
+                        ? parseFloat(next.getAttribute('x')) - x0
+                        : parseFloat(t.getAttribute('textLength'));
+                    t.removeAttribute('textLength');
+                    t.removeAttribute('lengthAdjust');
+                    const text = t.textContent.trim();
+                    let spaceWidth = 0;
+                    if (lead || lineGoesOn) {
+                        t.textContent = 'x x';
+                        spaceWidth = t.getComputedTextLength();
+                        t.textContent = 'xx';
+                        spaceWidth -= t.getComputedTextLength();
                     }
-                } catch (e) {
-                    // Safe bypass for cross-origin sheets
-                }
+                    if (lead) {
+                        x0 += spaceWidth;
+                        target -= spaceWidth;
+                        t.setAttribute('x', x0.toFixed(2));
+                    }
+                    t.textContent = text;
+                    const gap = target - t.getComputedTextLength() - (lineGoesOn ? spaceWidth : 0);
+                    const spaces = (text.match(/ /g) || []).length + (lineGoesOn ? 1 : 0);
+                    // Justified, or followed by another tspan on the line (WebKit sets text ~0.5% wider than
+                    // the Chromium layout, enough to close a space): one tspan per word at its own x. WebKit
+                    // ignores word-spacing on SVG text, and design tools keep explicit positions.
+                    if (!spaces || (gap <= 0.5 && !lineGoesOn)) return;
+                    const stretch = Math.max(gap, 0) / spaces;
+                    for (const m of text.matchAll(/\S+/g)) {
+                        const word = t.cloneNode(false);
+                        word.textContent = m[0];
+                        const before = (text.slice(0, m.index).match(/ /g) || []).length;
+                        word.setAttribute('x', (x0 + (m.index ? t.getSubStringLength(0, m.index) : 0) + before * stretch).toFixed(2));
+                        t.before(word);
+                    }
+                    t.remove();
+                });
+            } finally {
+                probe.remove();
             }
 
-            // Escape CDATA termination strings
-            stylesText = stylesText.replace(/]]>/g, ']]&gt;');
+            // Embedded fonts for browsers and viewers; design tools fall back to installed fonts of the same name
+            const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+            style.textContent = fontCss;
+            svg.insertBefore(style, svg.firstChild);
 
-            // Construct self-contained SVG package
-            // A4 at 96 DPI (CSS px) = 793.7 x 1122.52, the same as the viewBox: WebKit (Safari, Preview, Quick Look)
-            // does not scale <foreignObject> HTML by the viewBox, so a 595 x 842 (pt) outer size showed it 1.33x, cropped.
-            const svgString = `
-<svg xmlns="http://www.w3.org/2000/svg" width="793.7" height="1122.52" viewBox="0 0 793.7 1122.52">
-    <defs>
-        <style type="text/css">
-            <![CDATA[
-            ${stylesText}
-            /* Exporter-specific visual resets */
-            .a4-page {
-                box-shadow: none !important;
-                margin: 0 !important;
-                width: 793.7px !important;
-                height: 1122.52px !important;
-                padding: 12mm 12mm !important;
-                box-sizing: border-box !important;
-                background: white !important;
-                color: #0f172a !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: space-between !important;
-                position: relative !important;
-                overflow: hidden !important;
-            }
-            .dark .a4-page {
-                background: #0f172a !important;
-                color: #f8fafc !important;
-            }
-            ]]>
-        </style>
-    </defs>
-    <foreignObject x="0" y="0" width="793.7" height="1122.52" style="overflow: hidden !important;">
-        <div xmlns="http://www.w3.org/1999/xhtml" class="${document.body.className}" style="width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden !important; font-family: 'Plus Jakarta Sans', 'Sarabun Doc', system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased;">
-            ${new XMLSerializer().serializeToString(clone)}
-        </div>
-    </foreignObject>
-</svg>
-            `.trim();
-            
+            const svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
+
             // Trigger automatic download
             const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
             const url = URL.createObjectURL(blob);
