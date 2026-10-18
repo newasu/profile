@@ -29,6 +29,10 @@
         "orcid": {
             "url": "https://orcid.org/0000-0003-3638-6673",
             "display": "0000-0003-3638-6673"
+        },
+        "google_scholar": {
+            "url": "https://scholar.google.com/citations?user=7FwrOhIAAAAJ&hl=en",
+            "display": "Google Scholar"
         }
     },
     "education": [
@@ -380,5 +384,39 @@
         },
         "mission": "Exclusive academic resources, engineering fundamentals, and advanced research materials designed for elite scientists, researchers, and innovators.",
         "portal_url": "https://classes.incortx.com"
+    },
+    "teaching": {
+        "portal_url": "https://classes.incortx.com",
+        "student_contact": "wasu.ku@kmitl.ac.th",
+        "courses": [
+            {
+                "order": 1,
+                "name": "Signal Processing",
+                "url": "https://classes.incortx.com/SignalProcessing/",
+                "summary": "From sampling and convolution to the DFT, spectrograms and digital filters, every idea run on real signals and sounds."
+            },
+            {
+                "order": 2,
+                "name": "Computer Vision",
+                "url": "https://classes.incortx.com/ComputerVision/",
+                "summary": "From image formation and filtering to features, geometry, CNNs, detection and segmentation, on real images and video."
+            },
+            {
+                "order": 3,
+                "name": "Data Analytics",
+                "url": "https://classes.incortx.com/DataAnalytics/",
+                "summary": "Turning raw data into decisions you can defend: cleaning, supervised and unsupervised learning, generative models, and honest results."
+            }
+        ],
+        "talks": [
+            {
+                "order": 1,
+                "title": "Data-First Data Science",
+                "subtitle": "Foundations and Strategic Preparation",
+                "series": "Advanced Machine Learning Series",
+                "length_minutes": 20,
+                "url": "https://classes.incortx.com/Talks/data-first-data-science/"
+            }
+        ]
     }
 }
