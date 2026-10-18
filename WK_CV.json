@@ -371,18 +371,22 @@
         "acronym_breakdown": {
             "IN": {
                 "prefix": "IN-",
-                "meanings": ["Intelligence", "Inference", "Insight", "Integration", "Incorporate", "Innovation"]
+                "gloss": "what comes in",
+                "meanings": ["Intelligence", "Interference", "Input", "Insight", "Infinity", "Information", "Innovation", "Intensity", "Inference", "Integration"]
             },
             "COR": {
                 "prefix": "COR",
-                "meanings": ["Cortex", "Core", "Corpus", "Correlation", "Coordination", "Correction"]
+                "gloss": "what makes sense of it",
+                "meanings": ["Cortex", "Corona", "Correlation", "Cornea", "Core", "Correlator", "Corpus", "Correspondence", "Coordination", "Correction"]
             },
             "TX": {
                 "prefix": "-TX",
-                "meanings": ["Technology", "Transformation", "Transmission", "Transfer", "Tensor", "Transaction"]
+                "gloss": "what goes out",
+                "meanings": ["Technology", "Time", "Transform", "Trend", "Transmission", "Trajectory", "Transformation", "Tensor", "Transfer", "Transaction"]
             }
         },
-        "mission": "Exclusive academic resources, engineering fundamentals, and advanced research materials designed for elite scientists, researchers, and innovators.",
+        "mission": "Slides, labs and project briefs for Signal Processing, Computer Vision and Data Analytics.",
+        "tagline": "Time. Light. Entropy.",
         "portal_url": "https://classes.incortx.com"
     },
     "teaching": {

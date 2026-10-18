@@ -6,8 +6,12 @@ This document consolidates all core design rules, layout architectures, export s
 
 ## 📂 1. Portfolio Architecture & Data Profiles
 
+### Two pages
+- **`index.html`** (profile.wkneil.com) is the public profile landing page, also embedded by course landing pages. Its rules are in **§9**.
+- **`cv/index.html`** (profile.wkneil.com/cv/) is the Resume / CV. Everything in §1 to §8 below is about this page unless it says otherwise.
+
 ### Dual-Mode Separation Rule
-- **index.html** operates in two separate modes controlled by the interactive header tabs:
+- **cv/index.html** operates in two separate modes controlled by the interactive header tabs:
   1. **Resume (1-Page)**: A high-level professional summary.
   2. **CV (2-Pages)**: A detailed and comprehensive academic curriculum vitae.
 - Data is mapped statically in HTML elements using values from `WK_CV.json` to enable zero-CORS, lightweight, and offline-compatible rendering.
@@ -31,6 +35,8 @@ This document consolidates all core design rules, layout architectures, export s
 ---
 
 ## 🎨 2. Design System & Symmetrical Aesthetics
+
+These are the CV page's (`cv/index.html`) design rules. The profile page has its own type and colour tokens (§9); the forbidden-colour rule below applies to both.
 
 ### Typography & Fonts
 - **Sizes**: body text 10–11px, roles 13.5px, section headings 15.5px (raised 1px across the board on 2026-10-05 for readability). Page padding is 12mm on screen, export and print alike. Keep ≥20px free per column in both languages; the contact row and the CV page-2 header must stay on one line.
@@ -167,3 +173,33 @@ This document consolidates all core design rules, layout architectures, export s
 - Fonts: Thai glyphs use `Sarabun Doc`, the page's own `@font-face` for the Thai subset of Sarabun (Google build of TH Sarabun New, the government document font) with `size-adjust: 110%` so Thai matches the Latin x-height. It sits after the Latin fonts in each stack, so English glyphs are unchanged.
 - Thai wording: formal, complete sentences with connectives (โดย, เพื่อ, ทั้ง…และ, อีกทั้ง), not stacked noun phrases. Dates keep month and year together with `&nbsp;`; loanwords and words like ภาครัฐ / ไบโอเทค sit in `.th-word` so they never split.
 - Exports and the print title get a ` - TH` suffix in Thai mode. Resume must still print as 1 page and CV as 2 pages in both languages.
+
+---
+
+## 🪪 9. Profile Landing Page (index.html)
+
+### Content
+- **Always blind**, like the CV's masked mode: masked company names, no work or research dates (current roles show only `Present`). Education years stay.
+- **Section order**: Hero → Education → Teaching → Professional Experience → Research Interests → Research Experience → Selected Publications → footer. No mark in the hero (the WK monogram was removed 2026-10-18); the name carries it.
+- **Hero buttons**: email (copy button), LinkedIn, Google Scholar, INCORTX Classes. ORCID is kept in `WK_CV.json` but not shown.
+- **Teaching** comes from `WK_CV.json` → `teaching` (courses and talks, absolute links to classes.incortx.com). No terms, years or session counts.
+- **Professional Experience** lists two current roles: University Lecturer (KMITL) and Founder & Academic Director, INCORTX Research Lab (`WK_CV.json` → `incortx`).
+- **Publications** link to `https://doi.org/<doi>` from each entry's `doi` field, show the DOI in mono under the venue, and end with "All publications on Google Scholar".
+
+### Embed contract (course landing pages fetch this page)
+- Every `<style>` and the single `.container` are injected into the host page and scripts never run there. All rules stay scoped under `.wkp`, variables are `--wkp-*`, links are absolute, sections keep `.fade-up`.
+- **Standalone-only** rules use `body > .wkp` or `body:has(> .wkp)`: the dark theme, the page background and the theme button. An embedded copy is always the light theme and never shows the theme button.
+- The email stays a `<span id="instructor-email" data-u="wasu.ku" data-d="kmitl.ac.th">`; never write `mailto:` in the HTML (Cloudflare rewrites it). On the standalone page a script turns every `[data-u][data-d]` span into a button that copies the address and shows "Copied".
+
+### Look
+- **Type**: `Instrument Serif` (name, section heads, years), `Plus Jakarta Sans` (body), `JetBrains Mono` (small uppercase labels, DOIs), loaded with one `@import` inside the style block so embedded copies get them too.
+- **Light**: white page, near-white cards `#FCFCFD` lifted by a soft shadow, text `#0B0D12`, navy accent `#1b365d`.
+- **Dark** (Deep space, as on classes.incortx.com): page `#050608`, cards `#0D0F13`, no shadows. Text accent becomes `#9DB8E6` (navy is unreadable on black); navy stays for fills such as the CORE A* badge.
+- No warm colours (§2 applies): the gold "Light" accent of classes.incortx.com is never used here.
+- Every text colour is checked at 4.5:1 or better on every background it sits on, in both themes.
+
+### Theme button
+- Fixed top-right, standalone only, cycles Auto → Light → Dark by setting `data-theme` on `<html>` (Auto removes it). The choice is kept in `localStorage` under `theme` and a one-line script in `<head>` applies it before first paint. Phones pad the page top (76px) so the button never covers the hero.
+
+### Share preview
+- `og:*` and `twitter:card` tags point at `https://profile.wkneil.com/og-image.png` (1200 × 630, no monogram: name, role, KMITL, URL). Re-render it whenever the name, title or institution changes.
