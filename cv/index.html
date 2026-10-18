@@ -142,6 +142,8 @@
                 print-color-adjust: exact !important;
             }
             @page {
+                /* without a size the browser prints on its default paper (Letter in the US/macOS), cutting ~18mm off each A4 page */
+                size: A4;
                 margin: 0;
             }
             html, body {
