@@ -183,7 +183,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Section order**: Hero → Education → Teaching → Professional Experience → Research Interests → Research Experience → Selected Publications → footer. No mark in the hero (the WK monogram was removed 2026-10-18); the name carries it.
 - **Hero buttons**: email (copy button), LinkedIn, Google Scholar, INCORTX Classes. ORCID is kept in `WK_CV.json` but not shown.
 - **Teaching** comes from `WK_CV.json` → `teaching` (courses and talks, absolute links to classes.incortx.com). No terms, years or session counts.
-- **Professional Experience** lists two current roles: University Lecturer (KMITL) and Founder & Academic Director, INCORTX Research Lab (`WK_CV.json` → `incortx`).
+- **Professional Experience** lists two current roles: University Lecturer (KMITL) and Founder, INCORTX (`WK_CV.json` → `incortx`).
 - **Publications** link to `https://doi.org/<doi>` from each entry's `doi` field, show the DOI in mono under the venue, and end with "All publications on Google Scholar".
 
 ### Embed contract (course landing pages fetch this page)
