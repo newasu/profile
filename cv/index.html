@@ -212,17 +212,17 @@
             }
             /* iOS Safari ignores @page { margin: 0 } and prints inside its own margins, so a full
                297mm page spills a sliver onto a blank sheet after every page. Shrink the page
-               so it fits inside those margins (172 x 244mm). */
+               so it fits inside those margins. */
             body.ios-print .a4-page {
                 /* transform, not zoom: in an iPad print, zoom shrank the page box but not the text, so the text
                    ran ~16% too big and rewrapped. The negative margins give back the space the scale frees,
                    so the page takes its scaled size in the layout as well. */
-                /* 0.82: an iPad A4 sheet prints ~245mm of height inside its margins and URL/date lines, so the
-                   0.86 page (255mm) left its blank bottom padding on a second sheet. 4.2mm left margin centres
-                   it in the 181mm the iPad gives across. */
-                transform: scale(0.82) !important;
+                /* 0.77 (162 x 229mm): an iPad A4 sheet paginates every ~237mm (read off an iPad PDF where a
+                   paragraph was pushed to the break), so 0.86 (255mm) and 0.82 (244mm) each left a blank
+                   second sheet. The 10.4mm left margin centres it in the ~182.6mm the iPad gives across. */
+                transform: scale(0.77) !important;
                 transform-origin: 0 0 !important;
-                margin: 0 calc(210mm * -0.18) calc(297mm * -0.18) 4.2mm !important;
+                margin: 0 calc(210mm * -0.23) calc(297mm * -0.23) 10.4mm !important;
                 /* An inline box is never split across sheets. As a block, the page (still 297mm tall in the
                    layout under the transform) was cut at the printable height: a gap in the publications,
                    the rest lost, and a blank second sheet. */
