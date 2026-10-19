@@ -219,10 +219,12 @@
                    so the page takes its scaled size in the layout as well. */
                 /* 0.77 (162 x 229mm): an iPad A4 sheet paginates every ~237mm (read off an iPad PDF where a
                    paragraph was pushed to the break), so 0.86 (255mm) and 0.82 (244mm) each left a blank
-                   second sheet. The 10.4mm left margin centres it in the ~182.6mm the iPad gives across. */
+                   second sheet. Centred by the container's text-align (a fixed left margin came out ~6%
+                   wider on the iPad and pushed the page against the right edge). */
                 transform: scale(0.77) !important;
                 transform-origin: 0 0 !important;
-                margin: 0 calc(210mm * -0.23) calc(297mm * -0.23) 10.4mm !important;
+                margin: 0 calc(210mm * -0.23) calc(297mm * -0.23) 0 !important;
+                text-align: left;
                 /* An inline box is never split across sheets. As a block, the page (still 297mm tall in the
                    layout under the transform) was cut at the printable height: a gap in the publications,
                    the rest lost, and a blank second sheet. */
@@ -233,6 +235,7 @@
                stayed 297mm tall and Safari printed a blank second sheet */
             body.ios-print .resume-container, body.ios-print .cv-container {
                 display: flow-root !important;
+                text-align: center;   /* centres the inline page; the page resets it to left */
             }
             html:has(body.ios-print), body.ios-print {
                 height: auto !important;
