@@ -10,6 +10,7 @@
         },
         "sex": "Male",
         "nationality": "Thai",
+        "headline": "Teaches and researches Computer Vision, Multimodal AI and Data Science, and, through INCORTX, builds real-world AI solutions for public- and private-sector organizations, from healthcare, drug discovery and biometrics to traffic safety, surveillance, energy and industrial inspection.",
         "address": "429/17 Chaloem Phrakiat Rama IX Rd. Prawet Bangkok Thailand 10250",
         "phone": "(+66) 92-693-6354",
         "email": {
@@ -230,9 +231,9 @@
                 "duration": "Apr. 2026 - Present",
                 "location": "Bangkok, Thailand",
                 "responsibilities": [
-                    "Spearhead academic curriculum development and advanced research initiatives within the domain of Artificial Intelligence, with a specialized focus on Computer Vision, Vision-Language Models (VLMs), and Data Science.",
-                    "Advise and mentor graduate researchers and machine learning engineers. bridging the gap between theoretical Al frameworks and industry-ready production pipelines.",
-                    "Provide academic services to various Thai government agencies and departments, including managing public-sector projects and delivering technical consultations on AI and data-driven systems, alongside community knowledge-sharing initiatives and contributions to academic committees."
+                    "Lead AI research in Computer Vision, Multimodal AI and Data Science, and direct curriculum development.",
+                    "Advise and mentor graduate researchers and ML engineers, taking models from research to production.",
+                    "Deliver real-world AI projects for public- and private-sector organizations, from consulting to deployment, and share knowledge with the wider community."
                 ]
             }
         ],
