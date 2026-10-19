@@ -352,14 +352,21 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 .wkp-foot a { color: var(--wkp-accent); font-weight: 600; text-decoration: none; }
 .wkp-foot a:hover { text-decoration: underline; }
 
-/* Research interests sphere: standalone desktop only. The script reads the words from the
+/* Research interests sphere: standalone page only. The script reads the words from the
    Research Interests chips, draws them on a rotating sphere in the hero, and hides that section
-   so the interests appear once. Embedded copies and phones keep the plain chips. */
+   so the interests appear once. Wide screens put it beside the name; narrower ones stack it under
+   the buttons. Embedded copies keep the plain chips. */
 .wkp-ri-stage { display: none; }
-body > .wkp .wkp-hero.wkp-has-sphere { grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; }
-body > .wkp .wkp-hero.wkp-has-sphere .wkp-actions { gap: 8px; }
-body > .wkp .wkp-hero.wkp-has-sphere .wkp-btn { padding: 0 14px; }   /* keeps the four buttons on one row beside the sphere */
-body > .wkp .wkp-hero.wkp-has-sphere .wkp-ri-stage { display: block; width: 300px; height: 300px; align-self: center; }
+body > .wkp .wkp-hero.wkp-has-sphere .wkp-ri-stage { display: block; width: min(300px, 100%); aspect-ratio: 1; justify-self: center; align-self: center; }
+@media (min-width: 861px) {
+    body > .wkp .wkp-hero.wkp-has-sphere { grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; }
+    body > .wkp .wkp-hero.wkp-has-sphere .wkp-actions { gap: 8px; }
+    body > .wkp .wkp-hero.wkp-has-sphere .wkp-btn { padding: 0 14px; }   /* keeps the four buttons on one row beside the sphere */
+}
+@media (max-width: 860px) {
+    body > .wkp .wkp-hero.wkp-has-sphere { grid-template-columns: 1fr; }
+    body > .wkp .wkp-hero.wkp-has-sphere .wkp-ri-stage { aspect-ratio: 6 / 5; margin-top: -8px; }   /* the sphere's height is ~2/3 of the width */
+}
 .wkp-ri-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
 .wkp-ri-stage canvas:active { cursor: grabbing; }
 body > .wkp #research-interests.wkp-in-hero { display: none; }
@@ -682,13 +689,13 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
         el.parentNode.replaceChild(b, el);
     });
 })();
-// research interests sphere (standalone desktop; the plain chips stay for phones and embedded copies)
+// research interests sphere (standalone page; embedded copies keep the plain chips)
 (function(){
     var hero = document.querySelector('body > .wkp .wkp-hero'), sec = document.getElementById('research-interests');
     var stage = hero && hero.querySelector('.wkp-ri-stage'); if (!stage || !sec) return;
     var words = Array.prototype.map.call(sec.querySelectorAll('.wkp-chip'), function (c) { return c.textContent.trim(); });
     var canvas = stage.querySelector('canvas'), ctx = canvas.getContext('2d'), wkp = hero.parentNode;
-    var wide = matchMedia('(min-width: 861px)'), still = matchMedia('(prefers-reduced-motion: reduce)');
+    var still = matchMedia('(prefers-reduced-motion: reduce)');
     var W = 0, H = 0, dpr = 1, yaw = 0.4, pitch = -0.25, drag = null, col = {}, on = false, visible = true, last = 0;
     stage.setAttribute('role', 'img');
     stage.setAttribute('aria-label', 'Research interests: ' + words.join(', '));
@@ -720,14 +727,13 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
         requestAnimationFrame(frame);
     }
     function apply() {
-        on = wide.matches;
-        hero.classList.toggle('wkp-has-sphere', on); sec.classList.toggle('wkp-in-hero', on);
-        if (on) { resize(); readCol(); draw(); }
+        on = true;
+        hero.classList.add('wkp-has-sphere'); sec.classList.add('wkp-in-hero');
+        resize(); readCol(); draw();
     }
     canvas.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY, yaw, pitch]; canvas.setPointerCapture(e.pointerId); });
     canvas.addEventListener('pointermove', function (e) { if (!drag) return; yaw = drag[2] + (e.clientX - drag[0]) * 0.01; pitch = Math.max(-1.2, Math.min(1.2, drag[3] + (e.clientY - drag[1]) * 0.01)); draw(); });
     function end() { drag = null; } canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
-    (wide.addEventListener ? wide.addEventListener('change', apply) : wide.addListener(apply));
     new MutationObserver(function () { readCol(); draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { readCol(); draw(); });
     if (window.IntersectionObserver) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(stage);
