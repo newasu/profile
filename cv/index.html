@@ -220,6 +220,11 @@
                 transform: scale(0.86) !important;
                 transform-origin: 0 0 !important;
                 margin: 0 calc(210mm * -0.14) calc(297mm * -0.14) 0 !important;
+                /* An inline box is never split across sheets. As a block, the page (still 297mm tall in the
+                   layout under the transform) was cut at the printable height: a gap in the publications,
+                   the rest lost, and a blank second sheet. */
+                display: inline-flex !important;
+                vertical-align: top;
             }
             /* keep those negative margins inside the container: collapsed through it, the document
                stayed 297mm tall and Safari printed a blank second sheet */
