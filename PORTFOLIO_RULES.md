@@ -48,9 +48,10 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Refined Theme**: Utilize an ultra-premium **Imperial Navy** (`#1b365d` brand brand-600), **Cool Slate** (`#475569`), and **Platinum Silver** color system.
 
 ### Contact Info & Bio List Styling
-- **Header Address**: The address `Bangkok, Thailand` (TH: `กรุงเทพฯ ประเทศไทย`) must reside at the very end of the inline contact details row, and the whole row must fit on one line in both languages. Icons must precede their respective text labels.
+- **Header Contact Row**: email · phone · LinkedIn · classes.incortx.com · Google Scholar (`ph-google-logo`, links to the Scholar profile). The whole row must fit on one line in both languages. Icons must precede their respective text labels.
+- **Location**: `Bangkok, Thailand` (TH: `กรุงเทพฯ ประเทศไทย`) is the last row of the Personal Bio box (`Location` / `ที่อยู่`), not in the header.
 - **Personal Bio Boxes**: Rendered as ultra-minimal inline tables/lists without background boxes or heavy borders.
-- **Gender & Birthday Alignment**: Render `Sex: Male` inside the Personal Bio box on both views. The order must place **Sex** before **Birthdate**.
+- **Gender & Birthday Alignment**: Render `Sex: Male` inside the Personal Bio box on both views. The order is Nickname, Nationality, **Sex**, **Birthdate**, Location.
 - **No Personal Email**: Only the academic email `wasu.ku@kmitl.ac.th` may be displayed in the headers. Personal emails (e.g. gmail) are suppressed.
 
 ---
