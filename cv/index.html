@@ -85,6 +85,13 @@
             font-display: swap;
         }
 
+        /* iOS Safari "Text Autosizing" enlarges text in a page laid out wider than the screen (the A4 pages
+           are); on iPad prints it grew the text ~10%, lines rewrapped and the fixed-height page cut content off */
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
         /* A4 Page Dimensions Constraints */
         .a4-page {
             width: 210mm;
@@ -211,6 +218,12 @@
             }
             html:has(body.ios-print), body.ios-print {
                 height: auto !important;
+            }
+            /* ...and size everything around it to the zoomed page: at 210mm the body was wider than the
+               printable area, so Safari shrank the whole print again (to ~75%, a small page on the sheet) */
+            html:has(body.ios-print), body.ios-print, body.ios-print main,
+            body.ios-print .resume-container, body.ios-print .cv-container {
+                width: auto !important;
             }
             /* Hide the inactive containers in print */
             body.show-resume .cv-container {
