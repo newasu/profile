@@ -292,8 +292,6 @@ body > .wkp .fade-up { opacity: 1 !important; transform: none !important; }
 .wkp-copy:focus-visible { outline: 2px solid var(--wkp-accent); outline-offset: 2px; }
 
 /* Education */
-.wkp-edu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.wkp-edu .wkp-card h3 { margin-top: 6px; }
 
 /* Publications */
 .wkp-pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -386,7 +384,6 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
-    .wkp-edu { grid-template-columns: 1fr; }
     .wkp-teach { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
@@ -433,25 +430,6 @@ body > .wkp .wkp-theme:focus-visible { outline: 2px solid var(--wkp-accent); out
         </div>
         <div class="wkp-ri-stage"><canvas></canvas></div>
     </header>
-
-    <!-- Education -->
-    <section class="wkp-section fade-up">
-        <div class="wkp-section-head"><h2>Education</h2></div>
-        <div class="wkp-edu">
-            <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2022</span><span>KMITL</span></div>
-                <h3>Ph.D. in Information Technology</h3>
-            </article>
-            <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2017</span><span>KMITL</span></div>
-                <h3>M.Sc. in Information Science</h3>
-            </article>
-            <article class="wkp-card">
-                <div class="wkp-card-meta"><span>2012</span><span>KMITL</span></div>
-                <h3>B.Sc. in Computer Science</h3>
-            </article>
-        </div>
-    </section>
 
     <!-- Teaching -->
     <section class="wkp-section fade-up" id="teaching">

@@ -178,8 +178,8 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 ## 🪪 9. Profile Landing Page (index.html)
 
 ### Content
-- **Always blind**, like the CV's masked mode: masked company names, no work or research dates (current roles show only `Present`). Education years stay.
-- **Section order**: Hero → Education → Teaching → Professional Experience → Research Interests → Research Experience → Selected Publications → footer. No mark in the hero (the WK monogram was removed 2026-10-18); the name carries it.
+- **Always blind**, like the CV's masked mode: masked company names, no work or research dates (current roles show only `Present`). No Education section (removed 2026-10-20 at the user's request; degrees live in the CV).
+- **Section order**: Hero → Teaching → Professional Experience → Research Interests → Research Experience → Selected Publications → footer. No mark in the hero (the WK monogram was removed 2026-10-18); the name carries it.
 - **Research interests sphere**: on the standalone page at every width, a script reads the Research Interests chips, draws them as a rotating, draggable word sphere (`.wkp-ri-stage`, colours from the `--wkp-*` tokens, no auto-rotation under reduced motion, paused off-screen) and hides `#research-interests` so the interests appear once. ≥861px: 300px square on the right of the hero. ≤860px: stacked under the buttons, `min(300px, 100%)` wide at 6:5 (horizontal drag rotates, vertical swipes still scroll via `touch-action: pan-y`). Embedded copies keep the plain chips section. Edit the interests in the chips (and `WK_CV.json`), never in the script.
 - **Hero buttons**: email (copy button), LinkedIn, Google Scholar, INCORTX Classes. ORCID is kept in `WK_CV.json` but not shown.
 - **Teaching** comes from `WK_CV.json` → `teaching` (courses and talks, absolute links to classes.incortx.com). No terms, years or session counts.
