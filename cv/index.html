@@ -158,6 +158,9 @@
         .dark header.cvbar .bg-slate-700 { background: #23272F !important; }
         .dark header.cvbar .bg-slate-950\/90 { background: #0D0F13 !important; border-color: #23272F !important; }
         .dark header.cvbar .toggle-btn.text-slate-400 { color: #9EA3AD !important; }
+        /* WK mark: navy on the white bar; in dark the same light-blue accent as the text, on a faint tint of it */
+        .cv-mark { background: linear-gradient(135deg, #1b365d, #2B4C7E); color: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, .15); }
+        .dark .cv-mark { background: rgba(157, 184, 230, .14); color: #9DB8E6; box-shadow: inset 0 0 0 1px rgba(157, 184, 230, .28); }
 
         /* Screen-only visual enhancements */
         @media screen {
@@ -405,7 +408,7 @@
     <header class="cvbar no-print sticky top-0 z-50 w-full py-2 sm:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-x-2 sm:gap-x-3 gap-y-2">
         <!-- Logo / Title -->
         <div class="flex items-center gap-2.5 flex-shrink-0">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-slate-500 flex items-center justify-center text-white font-bold text-base shadow-sm">WK</div>
+            <div class="cv-mark w-8 h-8 rounded-lg flex items-center justify-center font-bold text-base">WK</div>
             <div>
                 <h1 class="text-white font-semibold text-xs sm:text-sm leading-none font-sans tracking-wide">Wasu Kudisthalert, Ph.D.</h1>
                 <p class="text-slate-400 text-[10px] mt-0.5 font-light hidden sm:block">Academic &amp; Professional Profile</p>
