@@ -405,6 +405,7 @@
     <header class="cvbar no-print sticky top-0 z-50 w-full py-2 sm:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-x-2 sm:gap-x-3 gap-y-2">
         <!-- Logo / Title -->
         <div class="flex items-center gap-2.5 flex-shrink-0">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-slate-500 flex items-center justify-center text-white font-bold text-base shadow-sm">WK</div>
             <div>
                 <h1 class="text-white font-semibold text-xs sm:text-sm leading-none font-sans tracking-wide">Wasu Kudisthalert, Ph.D.</h1>
                 <p class="text-slate-400 text-[10px] mt-0.5 font-light hidden sm:block">Resume &amp; CV</p>
@@ -445,8 +446,8 @@
                 <span id="lang-text" class="text-[10px] font-semibold tracking-wider inline-block w-[15px] text-center">EN</span>
             </button>
 
-            <button onclick="toggleTheme()" id="theme-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Theme: Auto (matches the device)">
-                <i id="theme-icon" class="ph ph-circle-half text-base"></i>
+            <button onclick="toggleTheme()" id="theme-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Switch to dark">
+                <i id="theme-icon" class="ph ph-moon text-base"></i>
             </button>
 
             <span class="w-px h-4 bg-slate-700 mx-0.5 sm:mx-1"></span>
@@ -1247,36 +1248,30 @@
             updateDocumentTitle();
         }
 
-        // Theme: Auto (follows the device) -> Light -> Dark, as on the profile page. The choice is stored under the
-        // same 'theme' key as the profile (same origin), so it carries between the two pages.
-        const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        const THEME_ICON = { auto: 'ph-circle-half', light: 'ph-sun', dark: 'ph-moon' };
-        const THEME_NAME = { auto: 'Auto (matches the device)', light: 'Light', dark: 'Dark' };
+        // Theme: Light (the default) or Dark, nothing else; the device setting is ignored. The choice is stored
+        // under the same 'theme' key as the profile page (same origin), so a chosen Dark carries between the two.
         function storedTheme() {
             try {
-                const t = localStorage.getItem('theme') || localStorage.getItem('cv-theme');   // cv-theme: before 2026-10
-                return t === 'light' || t === 'dark' ? t : 'auto';
-            } catch (e) { return 'auto'; }
+                return (localStorage.getItem('theme') || localStorage.getItem('cv-theme')) === 'dark' ? 'dark' : 'light';   // cv-theme: before 2026-10
+            } catch (e) { return 'light'; }
         }
         function applyTheme(t) {
-            document.body.classList.toggle('dark', t === 'dark' || (t === 'auto' && darkQuery.matches));
+            document.body.classList.toggle('dark', t === 'dark');
             const icon = document.getElementById('theme-icon');
-            if (icon) icon.className = 'ph ' + THEME_ICON[t] + ' text-base';
+            if (icon) icon.className = 'ph ' + (t === 'dark' ? 'ph-sun' : 'ph-moon') + ' text-base';   // what a click switches to
             const btn = document.getElementById('theme-btn');
-            if (btn) btn.title = 'Theme: ' + THEME_NAME[t];
+            if (btn) btn.title = t === 'dark' ? 'Switch to light' : 'Switch to dark';
         }
         function toggleTheme() {
-            const order = ['auto', 'light', 'dark'];
-            const t = order[(order.indexOf(storedTheme()) + 1) % 3];
+            const t = storedTheme() === 'dark' ? 'light' : 'dark';
             try {
                 localStorage.removeItem('cv-theme');
-                if (t === 'auto') localStorage.removeItem('theme'); else localStorage.setItem('theme', t);
+                localStorage.setItem('theme', t);
             } catch (e) {
                 console.warn('Storage access blocked:', e);
             }
             applyTheme(t);
         }
-        darkQuery.addEventListener('change', () => { if (storedTheme() === 'auto') applyTheme('auto'); });
 
         // ===== EN / TH LANGUAGE SWITCH =====
         // Thai text is keyed by the element's English innerHTML (whitespace-collapsed).

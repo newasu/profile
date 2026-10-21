@@ -63,7 +63,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Layout Constraints**:
   * Set header container to `flex flex-row flex-nowrap items-center justify-between gap-3 overflow-x-auto`.
   * Add `flex-shrink-0` to all action buttons and the toggle pill to prevent layout collapsing.
-  * Hide the bar subtitle `Resume & CV` on smaller screens (no WK monogram in the bar) using Tailwind's responsive class: `hidden sm:block`.
+  * Hide the bar subtitle `Resume & CV` on smaller screens (the WK monogram stays in the bar) using Tailwind's responsive class: `hidden sm:block`.
   * Set all action buttons and the toggle pill to a unified height of `h-8` (32px).
 - **Compact Button Sizing**:
   * Export buttons must display concise text: **`SVG`** and **`PNG`** with their respective icons.
@@ -125,7 +125,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 ## 🌗 Theme (2026-10-21)
 
 - **Dark = Deep space**, the profile page's palette: page `#050608`, sheet `#0D0F13`, lines `#1C2027`/`#2A2F38`, text `#F4F5F7`/`#C4C8D0`/`#9EA3AD`, accent `#9DB8E6`. The `.dark .x` overrides near the top of the `<style>` map the Tailwind slate classes onto it.
-- **Theme button** cycles Auto → Light → Dark (icons `ph-circle-half` / `ph-sun` / `ph-moon`). Auto follows `prefers-color-scheme` live. The choice is stored under `theme`, the same key as the profile page (same origin), so it carries between the two; the old `cv-theme` key is read once and removed.
+- **Theme button**: two modes only, Light (the default, whatever the device is set to) and Dark; the icon shows what a click switches to (`ph-moon` / `ph-sun`). The choice is stored under `theme`, the same key as the profile page (same origin); the old `cv-theme` key is read once and removed.
 - **Control bar** (`header.cvbar`) follows the theme: white in light, `#050608` in dark. Its Tailwind classes are the dark look; the `header.cvbar …` rules override them for light.
 
 ## 📐 6. Scalable A4 Vector Exporter (SVG)
