@@ -449,8 +449,8 @@
                 <span id="lang-text" class="text-[10px] font-semibold tracking-wider inline-block w-[15px] text-center">EN</span>
             </button>
 
-            <button onclick="toggleTheme()" id="theme-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Switch to dark">
-                <i id="theme-icon" class="ph ph-moon text-base"></i>
+            <button onclick="toggleTheme()" id="theme-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Theme: Light. Switch to dark">
+                <i id="theme-icon" class="ph ph-sun text-base"></i>
             </button>
 
             <span class="w-px h-4 bg-slate-700 mx-0.5 sm:mx-1"></span>
@@ -1261,9 +1261,9 @@
         function applyTheme(t) {
             document.body.classList.toggle('dark', t === 'dark');
             const icon = document.getElementById('theme-icon');
-            if (icon) icon.className = 'ph ' + (t === 'dark' ? 'ph-sun' : 'ph-moon') + ' text-base';   // what a click switches to
+            if (icon) icon.className = 'ph ' + (t === 'dark' ? 'ph-moon' : 'ph-sun') + ' text-base';   // the current mode, as on the profile and classes pages
             const btn = document.getElementById('theme-btn');
-            if (btn) btn.title = t === 'dark' ? 'Switch to light' : 'Switch to dark';
+            if (btn) btn.title = t === 'dark' ? 'Theme: Dark. Switch to light' : 'Theme: Light. Switch to dark';
         }
         function toggleTheme() {
             const t = storedTheme() === 'dark' ? 'light' : 'dark';

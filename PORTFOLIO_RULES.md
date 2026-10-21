@@ -125,7 +125,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 ## 🌗 Theme (2026-10-21)
 
 - **Dark = Deep space**, the profile page's palette: page `#050608`, sheet `#0D0F13`, lines `#1C2027`/`#2A2F38`, text `#F4F5F7`/`#C4C8D0`/`#9EA3AD`, accent `#9DB8E6`. The `.dark .x` overrides near the top of the `<style>` map the Tailwind slate classes onto it.
-- **Theme button**: two modes only, Light (the default, whatever the device is set to) and Dark; the icon shows what a click switches to (`ph-moon` / `ph-sun`). The choice is stored under `theme`, the same key as the profile page (same origin); the old `cv-theme` key is read once and removed.
+- **Theme button**: two modes only, Light (the default, whatever the device is set to) and Dark; the icon shows the current mode (`ph-sun` in Light, `ph-moon` in Dark), as on the profile and classes pages. The choice is stored under `theme`, the same key as the profile page (same origin); the old `cv-theme` key is read once and removed.
 - **Control bar** (`header.cvbar`) follows the theme: white in light, `#050608` in dark. Its Tailwind classes are the dark look; the `header.cvbar …` rules override them for light.
 
 ## 📐 6. Scalable A4 Vector Exporter (SVG)
