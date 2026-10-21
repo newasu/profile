@@ -63,7 +63,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Layout Constraints**:
   * Set header container to `flex flex-row flex-nowrap items-center justify-between gap-3 overflow-x-auto`.
   * Add `flex-shrink-0` to all action buttons and the toggle pill to prevent layout collapsing.
-  * Hide the logo subtitle `Academic & Professional Portfolio` on smaller screens using Tailwind's responsive class: `hidden sm:block`.
+  * Hide the bar subtitle `Resume & CV` on smaller screens (no WK monogram in the bar) using Tailwind's responsive class: `hidden sm:block`.
   * Set all action buttons and the toggle pill to a unified height of `h-8` (32px).
 - **Compact Button Sizing**:
   * Export buttons must display concise text: **`SVG`** and **`PNG`** with their respective icons.
@@ -115,12 +115,18 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
   * `.cv-container .a4-page:last-child` (CV View)
 
 ### Theme Preservation & Suppression
-- **Dark Mode Printing**: Decouple theme color print overrides so that if dark mode is active on screen, the PDF is printed with pristine navy backgrounds. Apply `-webkit-print-color-adjust: exact !important` and `print-color-adjust: exact !important`.
+- **Dark Mode Printing**: Decouple theme color print overrides so that if dark mode is active on screen, the PDF is printed with the Deep space sheet `#0D0F13`. Apply `-webkit-print-color-adjust: exact !important` and `print-color-adjust: exact !important`.
 - **Suppress File Paths**: Uncheck "Headers and Footers" in Chrome/Safari print settings to hide default browser-injected URLs (`file:///...`).
 - **Whitespace Protection**: All publication years and quartile rankings (e.g. `CORE A*`, `Q1`) must be wrapped in standard inline `<span class="whitespace-nowrap">` wrappers and utilize the unified, stable `.pub-badge` class strictly on a single code line (no source carriage returns or tab spaces inside spans) to prevent vertical alignment overlap and bounding box offset bugs inside `html2canvas` and print engines.
 - **Clickable Links**: All email addresses and LinkedIn tags must be wrapped in active anchor `<a>` tags to preserve interactive clickability inside exported PDF files.
 
 ---
+
+## 🌗 Theme (2026-10-21)
+
+- **Dark = Deep space**, the profile page's palette: page `#050608`, sheet `#0D0F13`, lines `#1C2027`/`#2A2F38`, text `#F4F5F7`/`#C4C8D0`/`#9EA3AD`, accent `#9DB8E6`. The `.dark .x` overrides near the top of the `<style>` map the Tailwind slate classes onto it.
+- **Theme button** cycles Auto → Light → Dark (icons `ph-circle-half` / `ph-sun` / `ph-moon`). Auto follows `prefers-color-scheme` live. The choice is stored under `theme`, the same key as the profile page (same origin), so it carries between the two; the old `cv-theme` key is read once and removed.
+- **Control bar** (`header.cvbar`) follows the theme: white in light, `#050608` in dark. Its Tailwind classes are the dark look; the `header.cvbar …` rules override them for light.
 
 ## 📐 6. Scalable A4 Vector Exporter (SVG)
 
@@ -155,7 +161,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
 - **Phone Scale**: Clear the inline `adjustScale()` transform on every page before rendering, export pages one at a time, and call `adjustScale()` once at the end; otherwise phones export a 45%-size, low-resolution image.
 - **Crisp Pixel Scale**: Use `scale: 3` to achieve ultra-sharp high-resolution density exports.
 - **Cross-Origin Handling**: Set `useCORS: true` to guarantee Google Fonts and Phosphor Icon CDNs fetch cleanly.
-- **Active State Binding**: Exporter background color must adapt dynamically based on `body.classList.contains('dark')` (`#0f172a` for dark, `#ffffff` for light).
+- **Active State Binding**: Exporter background color must adapt dynamically based on `body.classList.contains('dark')` (`#0D0F13` for dark, `#ffffff` for light).
 
 
 

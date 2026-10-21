@@ -117,23 +117,47 @@
             justify-content: space-between;
         }
 
-        /* Dark Mode Colors (Shared for both digital preview and print modes) */
+        /* Dark Mode Colors (Shared for both digital preview and print modes): Deep space, the same palette as
+           the profile page and classes.incortx.com (page #050608, sheet #0D0F13, accent #9DB8E6) */
         .dark .a4-page {
-            background-color: #0f172a !important;
-            color: #f8fafc !important;
+            background-color: #0D0F13 !important;
+            color: #F4F5F7 !important;
         }
-        .dark .border-slate-200 { border-color: #334155 !important; }
-        .dark .border-slate-100 { border-color: #1e293b !important; }
-        .dark .text-slate-800 { color: #f1f5f9 !important; }
-        .dark .text-slate-700 { color: #cbd5e1 !important; }
-        .dark .text-slate-650 { color: #cbd5e1 !important; }
-        .dark .text-slate-600 { color: #94a3b8 !important; }
-        .dark .text-slate-500 { color: #64748b !important; }
-        .dark .bg-slate-50 { background-color: #1e293b/40 !important; }
-        .dark .bg-slate-100 { background-color: #1e293b !important; }
-        .dark .text-brand-600 { color: #93c5fd !important; }
-        .dark .border-brand-600 { border-color: #60a5fa !important; }
+        .dark .border-slate-200 { border-color: #2A2F38 !important; }
+        .dark .border-slate-100 { border-color: #1C2027 !important; }
+        .dark .text-slate-800 { color: #EEF0F3 !important; }
+        .dark .text-slate-700 { color: #C4C8D0 !important; }
+        .dark .text-slate-650 { color: #C4C8D0 !important; }
+        .dark .text-slate-600 { color: #9EA3AD !important; }
+        .dark .text-slate-500 { color: #7C828D !important; }
+        .dark .bg-slate-50 { background-color: #15181E !important; }
+        .dark .bg-slate-100 { background-color: #15181E !important; }
+        .dark .text-brand-600 { color: #9DB8E6 !important; }
+        .dark .border-brand-600 { border-color: #9DB8E6 !important; }
         .dark .text-slate-900 { color: #ffffff !important; }
+
+        /* Control bar follows the theme, as on the profile page: white in light, Deep space in dark.
+           Its Tailwind classes are the dark look; light mode overrides them here. */
+        header.cvbar { background: rgba(255, 255, 255, .94) !important; border-color: #DDE1E7 !important; }
+        header.cvbar h1 { color: #0B0D12 !important; }
+        header.cvbar h1 + p { color: #4B505A !important; }
+        header.cvbar .bg-slate-800 { background: #fff !important; border-color: #DDE1E7 !important; color: #4B505A !important; box-shadow: none !important; }
+        header.cvbar .bg-slate-800:hover { background: #F4F5F7 !important; color: #0B0D12 !important; }
+        header.cvbar .bg-slate-800 .text-slate-400 { color: #4B505A !important; }
+        header.cvbar .bg-slate-800 .text-blue-400 { color: #1b365d !important; }
+        header.cvbar .bg-slate-700 { background: #DDE1E7 !important; }
+        header.cvbar .bg-slate-950\/90 { background: #F4F5F7 !important; border-color: #DDE1E7 !important; }
+        header.cvbar .toggle-btn.text-slate-400 { color: #4B505A !important; }
+        .dark header.cvbar { background: rgba(5, 6, 8, .94) !important; border-color: #1C2027 !important; }
+        .dark header.cvbar h1 { color: #F4F5F7 !important; }
+        .dark header.cvbar h1 + p { color: #9EA3AD !important; }
+        .dark header.cvbar .bg-slate-800 { background: #0D0F13 !important; border-color: #23272F !important; color: #C4C8D0 !important; }
+        .dark header.cvbar .bg-slate-800:hover { background: #15181E !important; color: #fff !important; }
+        .dark header.cvbar .bg-slate-800 .text-slate-400 { color: #9EA3AD !important; }
+        .dark header.cvbar .bg-slate-800 .text-blue-400 { color: #9DB8E6 !important; }
+        .dark header.cvbar .bg-slate-700 { background: #23272F !important; }
+        .dark header.cvbar .bg-slate-950\/90 { background: #0D0F13 !important; border-color: #23272F !important; }
+        .dark header.cvbar .toggle-btn.text-slate-400 { color: #9EA3AD !important; }
 
         /* Screen-only visual enhancements */
         @media screen {
@@ -142,7 +166,7 @@
                 transition: background-color 0.3s ease;
             }
             body.dark, .dark {
-                background-color: #090b11;
+                background-color: #050608;
             }
             .dark .a4-page {
                 box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
@@ -175,7 +199,7 @@
                 color: black !important;
             }
             body.dark, .dark {
-                background-color: #0f172a !important;
+                background-color: #0D0F13 !important;
                 color: #f8fafc !important;
             }
             .no-print {
@@ -217,7 +241,7 @@
                 color: #0f172a !important;
             }
             body.dark .a4-page, .dark .a4-page {
-                background: #0f172a !important;
+                background: #0D0F13 !important;
                 color: #f8fafc !important;
             }
             /* iOS Safari ignores @page { margin: 0 } and prints inside its own margins, so a full
@@ -378,13 +402,12 @@
 <body class="show-resume antialiased h-full text-slate-800 public-mode overflow-x-hidden">
 
     <!-- INTERACTIVE CONTROL BAR (no-print) -->
-    <header class="no-print sticky top-0 z-50 w-full py-2 sm:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-x-2 sm:gap-x-3 gap-y-2">
+    <header class="cvbar no-print sticky top-0 z-50 w-full py-2 sm:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-x-2 sm:gap-x-3 gap-y-2">
         <!-- Logo / Title -->
         <div class="flex items-center gap-2.5 flex-shrink-0">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-slate-500 flex items-center justify-center text-white font-bold text-base shadow-sm">WK</div>
             <div>
                 <h1 class="text-white font-semibold text-xs sm:text-sm leading-none font-sans tracking-wide">Wasu Kudisthalert, Ph.D.</h1>
-                <p class="text-slate-400 text-[10px] mt-0.5 font-light hidden sm:block">Academic & Professional Portfolio</p>
+                <p class="text-slate-400 text-[10px] mt-0.5 font-light hidden sm:block">Resume &amp; CV</p>
             </div>
         </div>
 
@@ -422,8 +445,8 @@
                 <span id="lang-text" class="text-[10px] font-semibold tracking-wider inline-block w-[15px] text-center">EN</span>
             </button>
 
-            <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Toggle Theme">
-                <i id="theme-icon" class="ph ph-moon text-base"></i>
+            <button onclick="toggleTheme()" id="theme-btn" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-all border border-slate-700 shadow-sm" title="Theme: Auto (matches the device)">
+                <i id="theme-icon" class="ph ph-circle-half text-base"></i>
             </button>
 
             <span class="w-px h-4 bg-slate-700 mx-0.5 sm:mx-1"></span>
@@ -1224,22 +1247,36 @@
             updateDocumentTitle();
         }
 
-        // Toggle Dark/Light Mode for digital preview securely
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            
-            body.classList.toggle('dark');
-            const isDark = body.classList.contains('dark');
-            
-            icon.className = isDark ? 'ph ph-sun text-lg' : 'ph ph-moon text-lg';
-            
+        // Theme: Auto (follows the device) -> Light -> Dark, as on the profile page. The choice is stored under the
+        // same 'theme' key as the profile (same origin), so it carries between the two pages.
+        const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const THEME_ICON = { auto: 'ph-circle-half', light: 'ph-sun', dark: 'ph-moon' };
+        const THEME_NAME = { auto: 'Auto (matches the device)', light: 'Light', dark: 'Dark' };
+        function storedTheme() {
             try {
-                localStorage.setItem('cv-theme', isDark ? 'dark' : 'light');
+                const t = localStorage.getItem('theme') || localStorage.getItem('cv-theme');   // cv-theme: before 2026-10
+                return t === 'light' || t === 'dark' ? t : 'auto';
+            } catch (e) { return 'auto'; }
+        }
+        function applyTheme(t) {
+            document.body.classList.toggle('dark', t === 'dark' || (t === 'auto' && darkQuery.matches));
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.className = 'ph ' + THEME_ICON[t] + ' text-base';
+            const btn = document.getElementById('theme-btn');
+            if (btn) btn.title = 'Theme: ' + THEME_NAME[t];
+        }
+        function toggleTheme() {
+            const order = ['auto', 'light', 'dark'];
+            const t = order[(order.indexOf(storedTheme()) + 1) % 3];
+            try {
+                localStorage.removeItem('cv-theme');
+                if (t === 'auto') localStorage.removeItem('theme'); else localStorage.setItem('theme', t);
             } catch (e) {
                 console.warn('Storage access blocked:', e);
             }
+            applyTheme(t);
         }
+        darkQuery.addEventListener('change', () => { if (storedTheme() === 'auto') applyTheme('auto'); });
 
         // ===== EN / TH LANGUAGE SWITCH =====
         // Thai text is keyed by the element's English innerHTML (whitespace-collapsed).
@@ -1459,16 +1496,7 @@
 
         // Apply saved theme preferences on startup securely
         document.addEventListener('DOMContentLoaded', () => {
-            try {
-                const savedTheme = localStorage.getItem('cv-theme');
-                if (savedTheme === 'dark') {
-                    document.body.classList.add('dark');
-                    const icon = document.getElementById('theme-icon');
-                    if (icon) icon.className = 'ph ph-sun text-lg';
-                }
-            } catch (e) {
-                console.warn('Storage access blocked:', e);
-            }
+            applyTheme(storedTheme());
             updateDocumentTitle();
         });
 
@@ -1712,7 +1740,7 @@
                 scale: 3, // 3x density for clean, high-resolution rendering
                 useCORS: true, // Handle web fonts/icons
                 allowTaint: false,
-                backgroundColor: document.body.classList.contains('dark') ? '#0f172a' : '#ffffff',
+                backgroundColor: document.body.classList.contains('dark') ? '#0D0F13' : '#ffffff',
                 logging: false
             };
             
