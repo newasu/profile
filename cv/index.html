@@ -405,7 +405,7 @@
 <body class="show-resume antialiased h-full text-slate-800 public-mode overflow-x-hidden">
 
     <!-- INTERACTIVE CONTROL BAR (no-print) -->
-    <header class="cvbar no-print sticky top-0 z-50 w-full py-2 sm:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-x-2 sm:gap-x-3 gap-y-2">
+    <header class="cvbar no-print sticky top-0 z-50 w-full py-2 lg:py-3 bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-3 sm:px-4 md:px-6 flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-between gap-x-2 lg:gap-x-3 gap-y-2">
         <!-- Logo / Title -->
         <div class="flex items-center gap-2.5 flex-shrink-0">
             <div class="cv-mark w-8 h-8 rounded-lg flex items-center justify-center font-bold text-base">WK</div>
@@ -416,7 +416,7 @@
         </div>
 
         <!-- Mode Toggle Pill -->
-        <div class="relative bg-slate-950/90 border border-slate-800 p-1 rounded-full flex w-[240px] flex-shrink-0 order-3 sm:order-2">
+        <div class="relative bg-slate-950/90 border border-slate-800 p-1 rounded-full flex w-[240px] flex-shrink-0 order-3 lg:order-2">
             <!-- Sliding Background block -->
             <div id="toggleSlider" class="toggle-slider bg-brand-600 w-[116px] left-[4px]"></div>
             
@@ -429,23 +429,23 @@
         </div>
 
         <!-- Quick actions: Navigation | Toggles | Exports -->
-        <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0 order-2 sm:order-3">
+        <div class="flex items-center gap-1 xl:gap-1.5 flex-shrink-0 order-2 lg:order-3">
 
             <!-- Group 1: Navigation -->
-            <a href="../index.html" target="_blank" class="w-8 h-8 sm:w-auto sm:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center sm:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="View Instructor Profile">
-                <i class="ph ph-user-circle text-sm text-slate-400"></i><span class="hidden sm:inline">Profile</span>
+            <a href="../index.html" target="_blank" class="w-8 h-8 xl:w-auto xl:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center xl:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="View Instructor Profile">
+                <i class="ph ph-user-circle text-sm text-slate-400"></i><span class="hidden xl:inline">Profile</span>
             </a>
 
-            <span class="w-px h-4 bg-slate-700 mx-0.5 sm:mx-1"></span>
+            <span class="w-px h-4 bg-slate-700 mx-0.5 xl:mx-1"></span>
 
             <!-- Group 2: View Toggles -->
-            <button onclick="togglePublicMode()" class="w-8 h-8 sm:w-auto sm:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center sm:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none" title="Toggle Company Anonymization">
+            <button onclick="togglePublicMode()" class="w-8 h-8 xl:w-auto xl:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center xl:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none" title="Toggle Company Anonymization">
                 <i id="anonymize-icon" class="ph ph-eye-slash text-base text-blue-400"></i>
-                <span id="anonymize-text" class="text-[10px] font-semibold text-blue-400 hidden sm:inline">Masked</span>
+                <span id="anonymize-text" class="text-[10px] font-semibold text-blue-400 hidden xl:inline">Masked</span>
             </button>
 
             <button onclick="toggleLanguage()" class="h-8 px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none flex-shrink-0" title="Switch Language (EN / TH)">
-                <i class="ph ph-translate text-base text-slate-400 hidden sm:inline"></i>
+                <i class="ph ph-translate text-base text-slate-400 hidden xl:inline"></i>
                 <span id="lang-text" class="text-[10px] font-semibold tracking-wider inline-block w-[15px] text-center">EN</span>
             </button>
 
@@ -453,19 +453,19 @@
                 <i id="theme-icon" class="ph ph-sun text-base"></i>
             </button>
 
-            <span class="w-px h-4 bg-slate-700 mx-0.5 sm:mx-1"></span>
+            <span class="w-px h-4 bg-slate-700 mx-0.5 xl:mx-1"></span>
 
             <!-- Group 3: Export -->
-            <button onclick="exportActivePagesToSVG()" class="w-8 h-8 sm:w-auto sm:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center sm:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="Export as A4 Vector SVG Image">
-                <i class="ph ph-bezier-curve text-sm text-slate-400"></i><span class="hidden sm:inline">SVG</span>
+            <button onclick="exportActivePagesToSVG()" class="w-8 h-8 xl:w-auto xl:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center xl:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="Export as A4 Vector SVG Image">
+                <i class="ph ph-bezier-curve text-sm text-slate-400"></i><span class="hidden xl:inline">SVG</span>
             </button>
 
-            <button onclick="exportActivePagesToPNG()" class="w-8 h-8 sm:w-auto sm:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center sm:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="Export as A4 PNG Image">
-                <i class="ph ph-image text-sm text-slate-400"></i><span class="hidden sm:inline">PNG</span>
+            <button onclick="exportActivePagesToPNG()" class="w-8 h-8 xl:w-auto xl:px-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[10px] tracking-wider flex items-center justify-center xl:gap-1 transition-all border border-slate-700 shadow-sm hover:border-slate-600 select-none hover:text-white" title="Export as A4 PNG Image">
+                <i class="ph ph-image text-sm text-slate-400"></i><span class="hidden xl:inline">PNG</span>
             </button>
 
-            <button onclick="window.print()" class="w-8 h-8 sm:w-auto sm:px-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold text-[10px] tracking-wide flex items-center justify-center sm:gap-1.5 shadow-sm transition-all border border-brand-600/30" title="Print as PDF">
-                <i class="ph ph-printer text-sm"></i><span class="hidden sm:inline">Print PDF</span>
+            <button onclick="window.print()" class="w-8 h-8 xl:w-auto xl:px-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold text-[10px] tracking-wide flex items-center justify-center xl:gap-1.5 shadow-sm transition-all border border-brand-600/30" title="Print as PDF">
+                <i class="ph ph-printer text-sm"></i><span class="hidden xl:inline">Print PDF</span>
             </button>
         </div>
     </header>

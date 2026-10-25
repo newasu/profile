@@ -64,6 +64,7 @@ These are the CV page's (`cv/index.html`) design rules. The profile page has its
   * Set header container to `flex flex-row flex-nowrap items-center justify-between gap-3 overflow-x-auto`.
   * Add `flex-shrink-0` to all action buttons and the toggle pill to prevent layout collapsing.
   * Hide the bar subtitle `Academic & Professional Profile` on smaller screens (the WK monogram stays in the bar) using Tailwind's responsive class: `hidden sm:block`.
+  * Bar breakpoints: buttons are icon-only below `xl` (1280px) and show their labels from `xl`; the bar wraps (toggle under the buttons) below `lg` (1024px) and is one row from `lg`. With `sm:` (640px) the labelled one-row bar needed ~1030px and was cut off on landscape phones, iPads and dual-screen phones.
   * Set all action buttons and the toggle pill to a unified height of `h-8` (32px).
 - **Compact Button Sizing**:
   * Export buttons must display concise text: **`SVG`** and **`PNG`** with their respective icons.
