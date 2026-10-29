@@ -1,28 +1,15 @@
-# Mac OS
+# Allowlist: this repo is PUBLIC (serves profile.wkneil.com).
+# Everything is ignored by default so personal documents dropped in this folder
+# (letters, salary requests, certifications) can never be committed by accident.
+# To publish a new file, add a `!` line for it here.
+/*
+!/.gitignore
+!/CNAME
+!/index.html
+!/og-image.png
+!/WK_CV.json
+!/PORTFOLIO_RULES.md
+!/cv/
+
+# Junk inside allowed folders
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# IDEs and Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-.claude/
-
-# Python / Data Science
-__pycache__/
-*.py[cod]
-*$py.class
-.ipynb_checkpoints/
-venv/
-env/
-.env
-
-# Personal documents (not for the repo)
-Coauthorship_Certification_Kudisthalert.pdf
-Coauthorship_Certification_Kudisthalert.html
-KMITL_Salary_Experience_Request.pdf
-KMITL_Salary_Experience_Request.html
-KMITL_Salary_Experience_Request_WITH_NOTES.pdf
-KMITL_Salary_Experience_Request_WITH_NOTES.html
